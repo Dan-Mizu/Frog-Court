@@ -1,0 +1,7 @@
+{
+	"pickup": ["res://assets/sounds/pickup_1.ogg", "res://assets/sounds/pickup_2.ogg"],
+	"drink_start": "res://assets/sounds/drink_start.ogg",
+	"drink": "res://assets/sounds/drink.ogg",
+	"smoke_start": "res://assets/sounds/smoke_start.ogg",
+	"smoke": "res://assets/sounds/smoke.ogg"
+}

@@ -1,0 +1,6 @@
+{
+	"open": "res://assets/sounds/inventory_open.ogg",
+	"close": "res://assets/sounds/inventory_close.ogg",
+	"switch": "res://assets/sounds/inventory_switch.ogg",
+	"deny": "res://assets/sounds/inventory_deny.ogg"
+}

@@ -1,0 +1,16 @@
+{
+	"fiji_water": {
+		"sfx": {
+			"start": "drink_start",
+			"loop": "drink"
+		},
+		"time": 3.5
+	},
+	"weed": {
+		"sfx": {
+			"start": "smoke_start",
+			"loop": "smoke"
+		},
+		"time": 2
+	}
+}

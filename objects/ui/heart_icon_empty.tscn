@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b82l10numq21q"]
+
+[ext_resource type="Texture2D" uid="uid://dtoeoq5pw63k3" path="res://assets/textures/ui/heart.png" id="1_shjjn"]
+
+[node name="Empty Heart" type="TextureProgressBar"]
+size_flags_horizontal = 0
+max_value = 4.0
+value = 4.0
+fill_mode = 5
+texture_progress = ExtResource("1_shjjn")
+tint_progress = Color(0.266667, 0.266667, 0.266667, 1)

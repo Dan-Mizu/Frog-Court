@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcnxqq4asb8ls"]
+
+[ext_resource type="Texture2D" uid="uid://dtoeoq5pw63k3" path="res://assets/textures/ui/heart.png" id="1_0vk1c"]
+
+[node name="Heart" type="TextureProgressBar"]
+size_flags_horizontal = 0
+max_value = 4.0
+value = 4.0
+fill_mode = 5
+texture_progress = ExtResource("1_0vk1c")

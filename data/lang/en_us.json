@@ -1,0 +1,12 @@
+{
+	"item": {
+		"fiji_water": {
+			"name": "Fiji Water",
+			"description": "Heals a small amount of health."
+		},
+		"weed": {
+			"name": "Weed",
+			"description": "Applies a small amount of shield."
+		},
+	},
+}
