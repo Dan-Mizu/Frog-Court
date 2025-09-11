@@ -22,6 +22,8 @@ const INVENTORY_ITEM_ROTATION_SPEED := 7.0
 @onready var inventory_item_amount: Label = %InventoryItemAmount
 @onready var inventory_item_name: Label = %InventoryItemName
 @onready var inventory_item_description: Label = %InventoryItemDescription
+@onready var twitch: TwitchService = %TwitchService
+@onready var twitch_name_label: Label = %"Twitch Name"
 @export_group("SFX")
 @export var open_sfx: AudioStream
 @export var close_sfx: AudioStream
@@ -41,6 +43,28 @@ func _ready() -> void:
 
 	# update max hearts initially
 	update_max_hearts()
+
+	# Start the setup process (handles authentication)
+	# Returns true on success, false on failure (e.g., login run in timeout)
+	var setup_successful: bool = await twitch.setup()
+
+	if setup_successful:
+		print("Twitch Service successfully set up and authenticated!")
+		# Now you can proceed with other Twitch interactions
+		await get_self_info()
+	else:
+		printerr("Twitch Service setup failed. Check authentication.")
+
+# Example function called after successful setup
+func get_self_info():
+	var current_user: TwitchUser = await twitch.get_current_user()
+	if current_user:
+		print("Authenticated as: %s (ID: %s)" % [current_user.display_name, current_user.id])
+	else:
+		printerr("Could not get current user info.")
+
+	# set twitch user
+	twitch_name_label.text = current_user.display_name
 
 func _physics_process(delta: float) -> void:
 	# update inventory item positions

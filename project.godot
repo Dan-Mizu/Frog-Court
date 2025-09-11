@@ -27,7 +27,7 @@ Registry="*res://components/internal/registry.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/sound_manager/plugin.cfg", "res://addons/zylann.translation_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/sound_manager/plugin.cfg", "res://addons/twitcher/plugin.cfg", "res://addons/zylann.translation_editor/plugin.cfg")
 
 [file_customization]
 
@@ -137,3 +137,11 @@ locale/translations=PackedStringArray("res://data/lang/text.en.translation")
 [physics]
 
 3d/physics_engine="Jolt Physics"
+
+[twitcher]
+
+editor/game_oauth_token="res://data/twitch/default_oauth_token.tres"
+editor/game_oauth_setting="res://data/twitch/twitch_oauth_setting.tres"
+editor/default_scopes="res://data/twitch/twitch_scopes.tres"
+editor/show_setup_on_startup=false
+editor/project_preset=&"Game"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c323s5f3calyp"]
+[gd_scene load_steps=41 format=3 uid="uid://c323s5f3calyp"]
 
 [ext_resource type="Script" uid="uid://b76wnnuuf1kee" path="res://components/ui/hud.gd" id="1_2kwb5"]
 [ext_resource type="PackedScene" uid="uid://bcnxqq4asb8ls" path="res://components/ui/heart_icon.tscn" id="2_ny352"]
@@ -25,6 +25,12 @@
 [ext_resource type="PackedScene" uid="uid://cvipuatms0jqk" path="res://components/pickups/weed.tscn" id="17_eul2y"]
 [ext_resource type="Texture2D" uid="uid://ber6ocfbsasuu" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_f_outline.svg" id="17_n30vj"]
 [ext_resource type="Texture2D" uid="uid://cg8uk4vqqxqvw" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_f.svg" id="22_ocvxm"]
+[ext_resource type="Script" uid="uid://i8st3lv0lidh" path="res://addons/twitcher/twitch_service.gd" id="24_emcl8"]
+[ext_resource type="Resource" uid="uid://bdwtgeb8hpgeq" path="res://data/twitch/twitch_oauth_setting.tres" id="25_ewx3o"]
+[ext_resource type="Resource" uid="uid://b41e5gx6h0qjc" path="res://data/twitch/twitch_scopes.tres" id="26_7tf4y"]
+[ext_resource type="Resource" uid="uid://beogb7g8tmlot" path="res://data/twitch/default_oauth_token.tres" id="27_ahy3b"]
+[ext_resource type="Script" uid="uid://iv0mgv0lu8b0" path="res://addons/twitcher/auth/twitch_auth.gd" id="28_8r5l3"]
+[ext_resource type="Script" uid="uid://cw30cwveway65" path="res://addons/twitcher/generated/twitch_api.gd" id="29_7t75m"]
 
 [sub_resource type="Gradient" id="Gradient_la4ci"]
 interpolation_mode = 1
@@ -142,6 +148,58 @@ open_sfx = ExtResource("4_20epu")
 close_sfx = ExtResource("5_501dw")
 deny_sfx = ExtResource("6_ocvxm")
 switch_sfx = ExtResource("7_npisw")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Health Bar" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="MaxHearts" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Health Bar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="CurrentHearts" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Health Bar"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Twitch Name" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("11_501dw")
+text = "Connecting...."
+
+[node name="TwitchService" type="Node" parent="MarginContainer/VBoxContainer/Twitch Name"]
+unique_name_in_owner = true
+script = ExtResource("24_emcl8")
+oauth_setting = ExtResource("25_ewx3o")
+scopes = ExtResource("26_7tf4y")
+token = ExtResource("27_ahy3b")
+metadata/_custom_type_script = "uid://i8st3lv0lidh"
+
+[node name="TwitchAuth" type="Node" parent="MarginContainer/VBoxContainer/Twitch Name/TwitchService"]
+script = ExtResource("28_8r5l3")
+oauth_setting = ExtResource("25_ewx3o")
+token = ExtResource("27_ahy3b")
+scopes = ExtResource("26_7tf4y")
+metadata/_custom_type_script = "uid://iv0mgv0lu8b0"
+
+[node name="TwitchAPI" type="Node" parent="MarginContainer/VBoxContainer/Twitch Name/TwitchService"]
+script = ExtResource("29_7t75m")
+token = ExtResource("27_ahy3b")
+oauth_setting = ExtResource("25_ewx3o")
+metadata/_custom_type_script = "uid://cw30cwveway65"
 
 [node name="InputHints" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -301,24 +359,6 @@ theme = ExtResource("11_501dw")
 text = "ui.input_hint.consume"
 vertical_alignment = 1
 autowrap_mode = 2
-
-[node name="MaxHearts" type="HBoxContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 8.0
-offset_right = 488.0
-offset_bottom = 480.0
-scale = Vector2(0.1, 0.1)
-theme_override_constants/separation = 5
-
-[node name="CurrentHearts" type="HBoxContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 8.0
-offset_right = 488.0
-offset_bottom = 480.0
-scale = Vector2(0.1, 0.1)
-theme_override_constants/separation = 5
 
 [node name="Inventory" type="Control" parent="."]
 unique_name_in_owner = true
