@@ -287,29 +287,20 @@ func on_pickup(item_id: String, amount: int = 1) -> void:
 # called when player consumes an item
 func consume_start(item_id: String) -> bool:
 	# currently committed
-	if committed:
-		return false
+	if committed: return false
 
 	# currently consuming item
-	if not consume_item_id == "":
-		return false
+	if not consume_item_id == "": return false
 
 	# does not have enough
-	if inventory[item_id] <= 0:
-		return false
+	if not inventory.has(item_id) or inventory[item_id] <= 0: return false
 
 	# get consumable item data
 	if not Registry.items.has(item_id): return false
 	var item_data: ConsumableItemData = Registry.items[item_id]
 	if item_data is not ConsumableItemData: return false
 
-	# remove one from inventory
-	inventory[item_id] -= 1
-
-	# signal that player inventory has been changed
-	inventory_updated.emit()
-
-	# set current action
+	# set item currently being consumed
 	consume_item_id = item_id
 
 	# play consume anim
@@ -330,25 +321,39 @@ func consume_start(item_id: String) -> bool:
 	return true
 
 # called when player finishes consuming an item
-func consume_end(_premature: bool = false) -> void:
-	# no consume sound
-	if not consume_sound:
-		return
-
-	# end consume anim
+func consume_end(premature: bool = false) -> void:
+	# end consume animation
 	animation_controller.set_action("Consume", false)
 
-	# hide consumable
-	consumables.get_node(consume_item_id).visible = false
-
 	# end drink sound
-	SoundManager.sound_effects.fade_volume(consume_sound, consume_sound.volume_db, -80.0, 0.5)
+	if consume_sound:
+		SoundManager.sound_effects.fade_volume(consume_sound, consume_sound.volume_db, -80.0, 0.5)
+		consume_sound = null
 
-	# reset consume sound
-	consume_sound = null
+	# nothing being consumed
+	if consume_item_id == "": return
 
-	# reset action
+	# reset action~
+	var item_id: String = consume_item_id
 	consume_item_id = ""
+
+	# hide consumable
+	consumables.get_node(item_id).visible = false
+
+	# does not have enough
+	if not inventory.has(item_id) or inventory[item_id] <= 0: return
+
+	# didnt complete consume
+	if premature: return
+
+	# deplete item from inventory
+	inventory[item_id] -= 1
+	if inventory[item_id] <= 0:
+		inventory.erase(item_id)
+	inventory_updated.emit()
+
+	# TODO: apply item’s actual gameplay effect here
+	# e.g. heal player, restore stamina, etc.
 
 # called when player is attacking during attack animation
 func _on_start_hitbox(type: String) -> void:

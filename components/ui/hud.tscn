@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c323s5f3calyp"]
+[gd_scene load_steps=43 format=3 uid="uid://c323s5f3calyp"]
 
 [ext_resource type="Script" uid="uid://b76wnnuuf1kee" path="res://components/ui/hud.gd" id="1_2kwb5"]
 [ext_resource type="PackedScene" uid="uid://bcnxqq4asb8ls" path="res://components/ui/heart_icon.tscn" id="2_ny352"]
@@ -18,8 +18,10 @@
 [ext_resource type="Texture2D" uid="uid://cqvwnqxjqtwvq" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/mouse_right_outline.svg" id="11_apuvg"]
 [ext_resource type="Texture2D" uid="uid://dpft24cc82hxn" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_e_outline.svg" id="12_emyww"]
 [ext_resource type="Texture2D" uid="uid://bq2oxaojw1ve0" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_e.svg" id="13_dgrga"]
+[ext_resource type="Script" uid="uid://bf0wi70haua35" path="res://addons/twitcher/lib/oOuch/oauth.gd" id="14_7tf4y"]
 [ext_resource type="Texture2D" uid="uid://njkj22cnrnuh" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_q_outline.svg" id="14_uyr8t"]
 [ext_resource type="Texture2D" uid="uid://ct1tt3s7c5r01" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_q.svg" id="15_3vybm"]
+[ext_resource type="Script" uid="uid://blnbogtrshw4r" path="res://addons/twitcher/auth/twitch_token_handler.gd" id="15_ahy3b"]
 [ext_resource type="Texture2D" uid="uid://4l500a3rpc1k" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/mouse_scroll_vertical_outline.svg" id="16_4ei58"]
 [ext_resource type="PackedScene" uid="uid://cfvxsm1rtbwwq" path="res://components/pickups/fiji_water.tscn" id="16_mbmdi"]
 [ext_resource type="PackedScene" uid="uid://cvipuatms0jqk" path="res://components/pickups/weed.tscn" id="17_eul2y"]
@@ -194,6 +196,17 @@ oauth_setting = ExtResource("25_ewx3o")
 token = ExtResource("27_ahy3b")
 scopes = ExtResource("26_7tf4y")
 metadata/_custom_type_script = "uid://iv0mgv0lu8b0"
+
+[node name="OAuth" type="Node" parent="MarginContainer/VBoxContainer/Twitch Name/TwitchService/TwitchAuth" node_paths=PackedStringArray("token_handler")]
+script = ExtResource("14_7tf4y")
+oauth_setting = ExtResource("25_ewx3o")
+scopes = ExtResource("26_7tf4y")
+token_handler = NodePath("../TokenHandler")
+
+[node name="TokenHandler" type="Node" parent="MarginContainer/VBoxContainer/Twitch Name/TwitchService/TwitchAuth"]
+script = ExtResource("15_ahy3b")
+oauth_setting = ExtResource("25_ewx3o")
+token = ExtResource("27_ahy3b")
 
 [node name="TwitchAPI" type="Node" parent="MarginContainer/VBoxContainer/Twitch Name/TwitchService"]
 script = ExtResource("29_7t75m")

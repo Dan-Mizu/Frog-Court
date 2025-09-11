@@ -704,7 +704,6 @@ filter_enabled = true
 filters = ["%GeneralSkeleton:Chest", "%GeneralSkeleton:Head", "%GeneralSkeleton:Hips", "%GeneralSkeleton:LeftHand", "%GeneralSkeleton:LeftLowerArm", "%GeneralSkeleton:LeftMiddleIntermediate", "%GeneralSkeleton:LeftMiddleProximal", "%GeneralSkeleton:LeftShoulder", "%GeneralSkeleton:LeftThumbMetacarpal", "%GeneralSkeleton:LeftThumbProximal", "%GeneralSkeleton:LeftUpperArm", "%GeneralSkeleton:Neck", "%GeneralSkeleton:Spine", "%GeneralSkeleton:UpperChest"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_pvyvd"]
-graph_offset = Vector2(-527.829, 150.971)
 nodes/Action/node = SubResource("AnimationNodeTransition_ok58s")
 nodes/Action/position = Vector2(-140, 320)
 "nodes/Attack Jump/node" = SubResource("AnimationNodeAnimation_qfr7q")
