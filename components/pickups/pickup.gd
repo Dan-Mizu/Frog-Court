@@ -9,6 +9,8 @@ extends Node3D
 # properties
 @export_category("Properties")
 @export var item_id: String
+@export_group("SFX")
+@export var pickup_sfx: AudioStream
 
 # options
 @export_category("Options")
@@ -28,6 +30,9 @@ func _ready() -> void:
 func _on_collision(body: Node3D) -> void:
 	# player interacted for the first time
 	if body is Player and picked_up == false:
+		# get player
+		var player: Player = body
+
 		# marked as picked up
 		picked_up = true
 
@@ -35,10 +40,10 @@ func _on_collision(body: Node3D) -> void:
 		animation_player.play("pickup_anims/Pickup")
 
 		# play pickup sound
-		SoundManager.play_sound(load(Cache.one_from(Cache.sfx["interact"]["pickup"])))
+		SoundManager.play_sound(pickup_sfx.duplicate()) # duplicate to prevent sound getting cut-off
 
 		# give player item
-		body.on_pickup(item_id)
+		player.on_pickup(item_id)
 
 func _on_pickup_anim_end() -> void:
 	# delete node after pickup

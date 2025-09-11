@@ -22,6 +22,11 @@ const INVENTORY_ITEM_ROTATION_SPEED := 7.0
 @onready var inventory_item_amount: Label = %InventoryItemAmount
 @onready var inventory_item_name: Label = %InventoryItemName
 @onready var inventory_item_description: Label = %InventoryItemDescription
+@export_group("SFX")
+@export var open_sfx: AudioStream
+@export var close_sfx: AudioStream
+@export var deny_sfx: AudioStream
+@export var switch_sfx: AudioStream
 
 # internal
 var inventory_item_distance: float
@@ -86,7 +91,7 @@ func _input(event: InputEvent) -> void:
 		# failed to consume
 		else:
 			# play error sound
-			SoundManager.play_sound(load(Cache.one_from(Cache.sfx["inventory"]["deny"])))
+			SoundManager.play_sound(deny_sfx.duplicate())
 
 func _close_inventory(quietly: bool = false) -> void:
 	if quietly:
@@ -94,7 +99,7 @@ func _close_inventory(quietly: bool = false) -> void:
 
 	else:
 		# play sound
-		SoundManager.play_sound(load(Cache.one_from(Cache.sfx["inventory"]["close"])))
+		SoundManager.play_sound(close_sfx.duplicate())
 
 		# close anim
 		inventory_animation_player.play("Close")
@@ -109,7 +114,7 @@ func _open_inventory(quietly: bool = false) -> void:
 
 	else:
 		# play sound
-		SoundManager.play_sound(load(Cache.one_from(Cache.sfx["inventory"]["open"])))
+		SoundManager.play_sound(open_sfx.duplicate())
 
 		# open anim
 		inventory_animation_player.play("Open")
@@ -221,7 +226,7 @@ func switch_inventory_item(item_change: int) -> void:
 		inventory_item_selected_index = wrap(inventory_item_selected_index + item_change, 0, inventory_items_origin.get_child_count())
 
 		# play sound
-		SoundManager.play_sound(load(Cache.one_from(Cache.sfx["inventory"]["switch"])))
+		SoundManager.play_sound(switch_sfx.duplicate())
 
 		# update item labels
 		update_selected_item_info()
@@ -234,10 +239,10 @@ func update_selected_item_info() -> void:
 	inventory_item_amount.text = str(player.inventory[item_id])
 
 	# name
-	inventory_item_name.text = str(Cache.lang["en_us"]["item"][item_id]["name"])
+	inventory_item_name.text = tr(".".join(["item", item_id, "name"]))
 
 	# description
-	inventory_item_description.text = str(Cache.lang["en_us"]["item"][item_id]["description"])
+	inventory_item_description.text = tr(".".join(["item", item_id, "description"]))
 
 func clear_selected_item_info() -> void:
 	# amount

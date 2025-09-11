@@ -1,0 +1,98 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0st35cmmg5c0"]
+
+[ext_resource type="Script" uid="uid://durpqd5yt3jon" path="res://addons/zylann.translation_editor/tools/extractor_dialog.gd" id="1"]
+
+[node name="ExtractorDialog" type="AcceptDialog"]
+position = Vector2i(0, 36)
+size = Vector2i(277, 226)
+visible = true
+script = ExtResource("1")
+
+[node name="VB" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 269.0
+offset_bottom = 177.0
+
+[node name="HB" type="HBoxContainer" parent="VB"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VB/HB"]
+layout_mode = 2
+text = "Root"
+
+[node name="RootPathEdit" type="LineEdit" parent="VB/HB"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "res://"
+
+[node name="HB2" type="HBoxContainer" parent="VB"]
+layout_mode = 2
+
+[node name="ExcludedDirsLabel" type="Label" parent="VB/HB2"]
+layout_mode = 2
+text = "Ignored directories"
+
+[node name="ExcludedDirsEdit" type="LineEdit" parent="VB/HB2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "addons"
+
+[node name="HB3" type="HBoxContainer" parent="VB"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VB/HB3"]
+layout_mode = 2
+text = "Prefix"
+
+[node name="PrefixLineEdit" type="LineEdit" parent="VB/HB3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatusBar" type="Control" parent="VB"]
+layout_mode = 2
+
+[node name="SummaryLabel" type="Label" parent="VB/StatusBar"]
+layout_mode = 0
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="VB/StatusBar"]
+visible = false
+layout_mode = 0
+step = 1.0
+
+[node name="Results" type="Tree" parent="VB"]
+layout_mode = 2
+size_flags_vertical = 3
+hide_root = true
+select_mode = 1
+
+[node name="Spacer" type="Control" parent="VB"]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="VB"]
+layout_mode = 2
+alignment = 1
+
+[node name="ExtractButton" type="Button" parent="VB/Buttons"]
+layout_mode = 2
+text = "Extract"
+
+[node name="ImportButton" type="Button" parent="VB/Buttons"]
+layout_mode = 2
+disabled = true
+text = "Import selected"
+
+[node name="CancelButton" type="Button" parent="VB/Buttons"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Spacer2" type="Control" parent="VB"]
+layout_mode = 2
+
+[connection signal="pressed" from="VB/Buttons/ExtractButton" to="." method="_on_ExtractButton_pressed"]
+[connection signal="pressed" from="VB/Buttons/ImportButton" to="." method="_on_ImportButton_pressed"]
+[connection signal="pressed" from="VB/Buttons/CancelButton" to="." method="_on_CancelButton_pressed"]

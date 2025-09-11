@@ -1,12 +1,16 @@
-[gd_scene load_steps=29 format=3 uid="uid://c323s5f3calyp"]
+[gd_scene load_steps=33 format=3 uid="uid://c323s5f3calyp"]
 
 [ext_resource type="Script" uid="uid://b76wnnuuf1kee" path="res://components/ui/hud.gd" id="1_2kwb5"]
 [ext_resource type="PackedScene" uid="uid://bcnxqq4asb8ls" path="res://components/ui/heart_icon.tscn" id="2_ny352"]
 [ext_resource type="PackedScene" uid="uid://b82l10numq21q" path="res://components/ui/heart_icon_empty.tscn" id="3_6mmjb"]
 [ext_resource type="FontFile" uid="uid://dr1vaa70et4rd" path="res://assets/fonts/Bitstream-Vera-Sans/Vera-Bold.ttf" id="4_4huet"]
+[ext_resource type="AudioStream" uid="uid://dsxpw2smutyh8" path="res://assets/sounds/inventory_open.ogg" id="4_20epu"]
 [ext_resource type="Texture2D" uid="uid://d1qtqslkxnoe5" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_shift_outline.svg" id="5_5jjjg"]
+[ext_resource type="AudioStream" uid="uid://cp2shv2uk4yhj" path="res://assets/sounds/inventory_close.ogg" id="5_501dw"]
+[ext_resource type="AudioStream" uid="uid://dmme6it4xs6he" path="res://assets/sounds/inventory_deny.ogg" id="6_ocvxm"]
 [ext_resource type="Script" uid="uid://bsfd7eorvqrgf" path="res://components/ui/input_hint.gd" id="6_r4gcw"]
 [ext_resource type="Texture2D" uid="uid://db01uu0pap6v6" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_shift.svg" id="7_2rwci"]
+[ext_resource type="AudioStream" uid="uid://c1ppsbwk1wer7" path="res://assets/sounds/inventory_switch.ogg" id="7_npisw"]
 [ext_resource type="Texture2D" uid="uid://cx5xq8ud4idhp" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_space_outline.svg" id="8_m05qx"]
 [ext_resource type="Texture2D" uid="uid://cwdggpwcri67n" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_space.svg" id="9_8fd3e"]
 [ext_resource type="Texture2D" uid="uid://cnmfmabe2au5h" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/mouse_left_outline.svg" id="10_5d6xw"]
@@ -132,6 +136,10 @@ grow_vertical = 2
 script = ExtResource("1_2kwb5")
 heart_icon = ExtResource("2_ny352")
 heart_empty_icon = ExtResource("3_6mmjb")
+open_sfx = ExtResource("4_20epu")
+close_sfx = ExtResource("5_501dw")
+deny_sfx = ExtResource("6_ocvxm")
+switch_sfx = ExtResource("7_npisw")
 
 [node name="InputHints" type="Control" parent="."]
 layout_mode = 1
@@ -287,7 +295,6 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.35, 0.35)
 
 [node name="Inventory Item Background" type="Sprite2D" parent="Inventory"]
 position = Vector2(0, -118)

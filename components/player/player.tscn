@@ -1010,7 +1010,7 @@ skin = SubResource("Skin_ad44o")
 
 [node name="Consumables" type="BoneAttachment3D" parent="Character/metarig/GeneralSkeleton"]
 unique_name_in_owner = true
-transform = Transform3D(0.772806, 0.235441, -0.589355, -0.363823, -0.59654, -0.715383, -0.520004, 0.767273, -0.375351, 1.15974, 3.22111, 1.15789)
+transform = Transform3D(-2.23976e-08, 1, 8.9407e-08, 1.19209e-07, 8.9407e-08, -1, -1, -2.23975e-08, -1.19209e-07, 3.32747, 5.53315, -0.00720296)
 bone_name = "LeftHand"
 bone_idx = 10
 

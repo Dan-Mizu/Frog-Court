@@ -86,6 +86,7 @@ func handle_camera(delta: float) -> void:
 				var distance = enemy.global_position.distance_to(self.global_position)
 
 				# set first enemy or closer enemy
+				@warning_ignore("unassigned_variable")
 				if (distance <= TARGET_MAX_DISTANCE) and (not closest_enemy or distance < closest_enemy_distance):
 					closest_enemy = enemy
 					closest_enemy_distance = distance
@@ -297,6 +298,11 @@ func consume_start(item_id: String) -> bool:
 	if inventory[item_id] <= 0:
 		return false
 
+	# get consumable item data
+	if not Registry.items.has(item_id): return false
+	var item_data: ConsumableItemData = Registry.items[item_id]
+	if item_data is not ConsumableItemData: return false
+
 	# remove one from inventory
 	inventory[item_id] -= 1
 
@@ -313,13 +319,12 @@ func consume_start(item_id: String) -> bool:
 	consumables.get_node(item_id).visible = true
 
 	# start consume timer
-	consume_timer.wait_time = Cache.game["items"][item_id]["time"]
+	consume_timer.wait_time = item_data.consume_time
 	consume_timer.start()
 
 	# play sound effects
-	SoundManager.play_sound(load(Cache.one_from(Cache.sfx["interact"][Cache.game["items"][item_id]["sfx"]["start"]])))
-	consume_sound = SoundManager.play_sound(load(Cache.one_from(Cache.sfx["interact"][Cache.game["items"][item_id]["sfx"]["loop"]])))
-	Cache.reset_sound(consume_sound)
+	SoundManager.play_sound(item_data.consume_start_sfx.duplicate())
+	consume_sound = SoundManager.play_sound(item_data.consume_loop_sfx.duplicate())
 
 	# successfully started consuming
 	return true
@@ -337,7 +342,7 @@ func consume_end(_premature: bool = false) -> void:
 	consumables.get_node(consume_item_id).visible = false
 
 	# end drink sound
-	Cache.fade_out_sound(consume_sound)
+	SoundManager.sound_effects.fade_volume(consume_sound, consume_sound.volume_db, -80.0, 0.5)
 
 	# reset consume sound
 	consume_sound = null

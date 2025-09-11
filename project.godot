@@ -22,12 +22,12 @@ manager/sound/pool_3D_size=10
 
 [autoload]
 
-Cache="*res://components/internal/cache.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
+Registry="*res://components/internal/registry.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/sound_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/sound_manager/plugin.cfg", "res://addons/zylann.translation_editor/plugin.cfg")
 
 [file_customization]
 
@@ -129,6 +129,10 @@ interact={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":70,"key_label":0,"unicode":102,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://data/lang/text.en.translation")
 
 [physics]
 

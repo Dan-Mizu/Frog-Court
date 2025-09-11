@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=4 uid="uid://cvipuatms0jqk"]
+[gd_scene load_steps=10 format=4 uid="uid://cvipuatms0jqk"]
 
 [ext_resource type="Script" uid="uid://c6xvrnd53rl0e" path="res://components/pickups/pickup.gd" id="1_d4b5p"]
+[ext_resource type="AudioStream" uid="uid://dgjwd6mx4ep57" path="res://data/sfx/pickup.tres" id="2_8es0l"]
 [ext_resource type="AnimationLibrary" uid="uid://cihar4dnqp3wq" path="res://assets/animations/pickup_anims.res" id="2_e4lty"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nl2rx"]
@@ -58,6 +59,7 @@ fill_to = Vector2(0.5, 0)
 [node name="Weed" type="Node3D"]
 script = ExtResource("1_d4b5p")
 item_id = "weed"
+pickup_sfx = ExtResource("2_8es0l")
 
 [node name="Origin" type="Node3D" parent="."]
 
@@ -84,7 +86,7 @@ texture_albedo = SubResource("GradientTexture2D_qqrly")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"pickup_anims": ExtResource("2_e4lty")
+&"pickup_anims": ExtResource("2_e4lty")
 }
 
 [connection signal="body_entered" from="Pickup Zone" to="." method="_on_collision"]
