@@ -1,15 +1,15 @@
 [gd_scene load_steps=7 format=3 uid="uid://cxn7ypxt877hx"]
 
-[ext_resource type="PackedScene" uid="uid://bmofdg6b4fvyo" path="res://objects/entities/player.tscn" id="1_nfl6y"]
-[ext_resource type="PackedScene" uid="uid://bo53ah4v3nc0e" path="res://internal/world.tscn" id="2_txc7o"]
-[ext_resource type="PackedScene" uid="uid://c323s5f3calyp" path="res://internal/hud.tscn" id="3_ik6sl"]
-[ext_resource type="PackedScene" uid="uid://dkq2dc1ca6ya1" path="res://objects/entities/dummy.tscn" id="14_qb73y"]
-[ext_resource type="PackedScene" uid="uid://cfvxsm1rtbwwq" path="res://objects/pickups/fiji_water.tscn" id="18_tebc0"]
-[ext_resource type="PackedScene" uid="uid://cvipuatms0jqk" path="res://objects/pickups/weed.tscn" id="19_a8o3n"]
+[ext_resource type="PackedScene" uid="uid://bmofdg6b4fvyo" path="res://components/player/player.tscn" id="1_nfl6y"]
+[ext_resource type="PackedScene" uid="uid://bo53ah4v3nc0e" path="res://components/internal/environment.tscn" id="2_txc7o"]
+[ext_resource type="PackedScene" uid="uid://c323s5f3calyp" path="res://components/ui/hud.tscn" id="3_ik6sl"]
+[ext_resource type="PackedScene" uid="uid://dkq2dc1ca6ya1" path="res://components/entities/dummy.tscn" id="14_qb73y"]
+[ext_resource type="PackedScene" uid="uid://cfvxsm1rtbwwq" path="res://components/pickups/fiji_water.tscn" id="18_tebc0"]
+[ext_resource type="PackedScene" uid="uid://cvipuatms0jqk" path="res://components/pickups/weed.tscn" id="19_a8o3n"]
 
 [node name="Playground" type="Node3D"]
 
-[node name="World" parent="." instance=ExtResource("2_txc7o")]
+[node name="Environment" parent="." instance=ExtResource("2_txc7o")]
 
 [node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_ik6sl")]
 unique_name_in_owner = true

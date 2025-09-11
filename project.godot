@@ -22,12 +22,22 @@ manager/sound/pool_3D_size=10
 
 [autoload]
 
-Cache="*res://scripts/cache.gd"
+Cache="*res://components/internal/cache.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/sound_manager/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "purple",
+"res://assets/": "red",
+"res://components/": "blue",
+"res://data/": "green",
+"res://scenes/": "yellow"
+}
 
 [filesystem]
 
