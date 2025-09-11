@@ -12,8 +12,8 @@ const INVENTORY_ITEM_ROTATION_SPEED := 7.0
 @export var heart_empty_icon: PackedScene
 @onready var current_hearts: HBoxContainer = %CurrentHearts
 @onready var max_hearts: HBoxContainer = %MaxHearts
-@onready var input_hints_general: Label = %GeneralHints
-@onready var input_hints_inventory: Label = %InventoryHints
+@onready var input_hints_general: VBoxContainer = %GeneralHints
+@onready var input_hints_inventory: VBoxContainer = %InventoryHints
 @onready var inventory_view: Control = %Inventory
 @onready var inventory_animation_player: AnimationPlayer = %InventoryAnimationPlayer
 @onready var inventory_items: Node = %InventoryItems
@@ -35,6 +35,10 @@ var ignore_macos_scroll: bool = false
 @onready var new_inventory_items_origin_rotation: float = inventory_items_origin.global_position.z
 
 func _ready() -> void:
+	# set up input hints
+	input_hints_general.visible = true
+	input_hints_inventory.visible = false
+
 	# update max hearts initially
 	update_max_hearts()
 

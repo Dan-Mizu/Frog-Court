@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c323s5f3calyp"]
+[gd_scene load_steps=35 format=3 uid="uid://c323s5f3calyp"]
 
 [ext_resource type="Script" uid="uid://b76wnnuuf1kee" path="res://components/ui/hud.gd" id="1_2kwb5"]
 [ext_resource type="PackedScene" uid="uid://bcnxqq4asb8ls" path="res://components/ui/heart_icon.tscn" id="2_ny352"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cx5xq8ud4idhp" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_space_outline.svg" id="8_m05qx"]
 [ext_resource type="Texture2D" uid="uid://cwdggpwcri67n" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_space.svg" id="9_8fd3e"]
 [ext_resource type="Texture2D" uid="uid://cnmfmabe2au5h" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/mouse_left_outline.svg" id="10_5d6xw"]
+[ext_resource type="Theme" uid="uid://ddypxadvkjvr0" path="res://data/theme/input_hint.tres" id="11_501dw"]
 [ext_resource type="Texture2D" uid="uid://cqvwnqxjqtwvq" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/mouse_right_outline.svg" id="11_apuvg"]
 [ext_resource type="Texture2D" uid="uid://dpft24cc82hxn" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_e_outline.svg" id="12_emyww"]
 [ext_resource type="Texture2D" uid="uid://bq2oxaojw1ve0" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_e.svg" id="13_dgrga"]
@@ -23,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://cfvxsm1rtbwwq" path="res://components/pickups/fiji_water.tscn" id="16_mbmdi"]
 [ext_resource type="PackedScene" uid="uid://cvipuatms0jqk" path="res://components/pickups/weed.tscn" id="17_eul2y"]
 [ext_resource type="Texture2D" uid="uid://ber6ocfbsasuu" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_f_outline.svg" id="17_n30vj"]
+[ext_resource type="Texture2D" uid="uid://cg8uk4vqqxqvw" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_f.svg" id="22_ocvxm"]
 
 [sub_resource type="Gradient" id="Gradient_la4ci"]
 interpolation_mode = 1
@@ -141,131 +143,164 @@ close_sfx = ExtResource("5_501dw")
 deny_sfx = ExtResource("6_ocvxm")
 switch_sfx = ExtResource("7_npisw")
 
-[node name="InputHints" type="Control" parent="."]
+[node name="InputHints" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="GeneralHints" type="Label" parent="InputHints"]
+[node name="GeneralHints" type="VBoxContainer" parent="InputHints"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -117.0
-offset_top = -279.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.34902)
-theme_override_constants/line_spacing = 0
-theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_4huet")
-theme_override_font_sizes/font_size = 20
-text = "Sprint
+layout_mode = 2
+alignment = 2
 
-Dodge
+[node name="Sprint" type="HBoxContainer" parent="InputHints/GeneralHints"]
+layout_mode = 2
+alignment = 2
 
-Attack
-
-Target
-
-Rotate
-Camera"
-
-[node name="Input Icons" type="CanvasGroup" parent="InputHints/GeneralHints"]
-
-[node name="Sprint" type="Sprite2D" parent="InputHints/GeneralHints/Input Icons"]
+[node name="Sprint" type="TextureRect" parent="InputHints/GeneralHints/Sprint"]
 modulate = Color(0, 0, 0, 0.34902)
-position = Vector2(-33, 13)
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 texture = ExtResource("5_5jjjg")
 script = ExtResource("6_r4gcw")
 action_name = "boost"
 pressed_texture = ExtResource("7_2rwci")
 
-[node name="Dodge" type="Sprite2D" parent="InputHints/GeneralHints/Input Icons"]
+[node name="Label" type="Label" parent="InputHints/GeneralHints/Sprint"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("11_501dw")
+text = "ui.input_hint.sprint"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Dodge" type="HBoxContainer" parent="InputHints/GeneralHints"]
+layout_mode = 2
+alignment = 2
+
+[node name="Dodge" type="TextureRect" parent="InputHints/GeneralHints/Dodge"]
 modulate = Color(0, 0, 0, 0.34902)
-position = Vector2(-33, 61)
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 texture = ExtResource("8_m05qx")
 script = ExtResource("6_r4gcw")
 action_name = "dodge"
 pressed_texture = ExtResource("9_8fd3e")
 
-[node name="Attack" type="Sprite2D" parent="InputHints/GeneralHints/Input Icons"]
+[node name="Label" type="Label" parent="InputHints/GeneralHints/Dodge"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("11_501dw")
+text = "ui.input_hint.dodge"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Attack" type="HBoxContainer" parent="InputHints/GeneralHints"]
+layout_mode = 2
+alignment = 2
+
+[node name="Attack" type="TextureRect" parent="InputHints/GeneralHints/Attack"]
 modulate = Color(0, 0, 0, 0.34902)
-position = Vector2(-33, 108)
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 texture = ExtResource("10_5d6xw")
 
-[node name="Target" type="Sprite2D" parent="InputHints/GeneralHints/Input Icons"]
+[node name="Label" type="Label" parent="InputHints/GeneralHints/Attack"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("11_501dw")
+text = "ui.input_hint.attack"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Target" type="HBoxContainer" parent="InputHints/GeneralHints"]
+layout_mode = 2
+alignment = 2
+
+[node name="Target" type="TextureRect" parent="InputHints/GeneralHints/Target"]
 modulate = Color(0, 0, 0, 0.34902)
-position = Vector2(-33, 157)
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 texture = ExtResource("11_apuvg")
 
-[node name="Rotate Right" type="Sprite2D" parent="InputHints/GeneralHints/Input Icons"]
+[node name="Label" type="Label" parent="InputHints/GeneralHints/Target"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("11_501dw")
+text = "ui.input_hint.target"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Rotate Camera" type="HBoxContainer" parent="InputHints/GeneralHints"]
+layout_mode = 2
+alignment = 2
+
+[node name="Rotate Right" type="TextureRect" parent="InputHints/GeneralHints/Rotate Camera"]
 modulate = Color(0, 0, 0, 0.34902)
-position = Vector2(-33, 215.6)
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 texture = ExtResource("12_emyww")
 script = ExtResource("6_r4gcw")
 action_name = "ui_page_right"
 pressed_texture = ExtResource("13_dgrga")
 
-[node name="Rotate Left" type="Sprite2D" parent="InputHints/GeneralHints/Input Icons"]
+[node name="Rotate Left" type="TextureRect" parent="InputHints/GeneralHints/Rotate Camera"]
 modulate = Color(0, 0, 0, 0.34902)
-position = Vector2(-74, 216)
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 texture = ExtResource("14_uyr8t")
 script = ExtResource("6_r4gcw")
 action_name = "ui_page_left"
 pressed_texture = ExtResource("15_3vybm")
 
-[node name="InventoryHints" type="Label" parent="InputHints"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -117.0
-offset_top = -87.0
-offset_bottom = -24.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.34902)
-theme_override_constants/line_spacing = 0
-theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("4_4huet")
-theme_override_font_sizes/font_size = 20
-text = "Consume
-
-Switch Item"
+[node name="Label" type="Label" parent="InputHints/GeneralHints/Rotate Camera"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("11_501dw")
+text = "ui.input_hint.rotate_camera"
+vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Input Icons" type="CanvasGroup" parent="InputHints/InventoryHints"]
+[node name="InventoryHints" type="VBoxContainer" parent="InputHints"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 2
 
-[node name="Switch Item" type="Sprite2D" parent="InputHints/InventoryHints/Input Icons"]
+[node name="Switch Item" type="HBoxContainer" parent="InputHints/InventoryHints"]
+layout_mode = 2
+alignment = 2
+
+[node name="Switch Item" type="TextureRect" parent="InputHints/InventoryHints/Switch Item"]
 modulate = Color(0, 0, 0, 0.34902)
-position = Vector2(-33, 67.6)
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 texture = ExtResource("16_4ei58")
 
-[node name="Consume Item" type="Sprite2D" parent="InputHints/InventoryHints/Input Icons"]
+[node name="Label" type="Label" parent="InputHints/InventoryHints/Switch Item"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("11_501dw")
+text = "ui.input_hint.switch_item"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Consume Item" type="HBoxContainer" parent="InputHints/InventoryHints"]
+layout_mode = 2
+alignment = 2
+
+[node name="Consume Item" type="TextureRect" parent="InputHints/InventoryHints/Consume Item"]
 modulate = Color(0, 0, 0, 0.34902)
-position = Vector2(-33, 11.6)
-scale = Vector2(0.8, 0.8)
+layout_mode = 2
 texture = ExtResource("17_n30vj")
+script = ExtResource("6_r4gcw")
+action_name = "interact"
+pressed_texture = ExtResource("22_ocvxm")
+
+[node name="Label" type="Label" parent="InputHints/InventoryHints/Consume Item"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("11_501dw")
+text = "ui.input_hint.consume"
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="MaxHearts" type="HBoxContainer" parent="."]
 unique_name_in_owner = true

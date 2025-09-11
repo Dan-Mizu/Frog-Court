@@ -1,4 +1,4 @@
-extends Sprite2D
+extends TextureRect
 
 # references
 @export_category("References")

@@ -3,3 +3,10 @@ item.fiji_water.description,Heals a small amount of health.
 item.fiji_water.name,Fiji Water
 item.weed.description,Applies a small amount of shield.
 item.weed.name,Weed
+ui.input_hint.attack,Attack
+ui.input_hint.consume,Consume
+ui.input_hint.dodge,Dodge
+ui.input_hint.rotate_camera,Rotate Camera
+ui.input_hint.sprint,Sprint
+ui.input_hint.switch_item,Switch Item
+ui.input_hint.target,Target
