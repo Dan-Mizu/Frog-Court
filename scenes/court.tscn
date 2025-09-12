@@ -1,14 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://cl37lpm48ih7m"]
+[gd_scene load_steps=7 format=3 uid="uid://cl37lpm48ih7m"]
 
 [ext_resource type="PackedScene" uid="uid://bo53ah4v3nc0e" path="res://components/internal/environment.tscn" id="1_i1kge"]
 [ext_resource type="PackedScene" uid="uid://c7yj8uxhe805g" path="res://components/interiors/courtroom.tscn" id="1_lpavh"]
 [ext_resource type="PackedScene" uid="uid://dqyaa4cxy5wxo" path="res://components/entities/judge_frog.tscn" id="3_ogvvj"]
+[ext_resource type="Shader" uid="uid://dt8n3jwli55n" path="res://assets/shaders/outline.gdshader" id="4_ogvvj"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_i1kge"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ufgy"]
+render_priority = 0
+shader = ExtResource("4_ogvvj")
+shader_parameter/sensitivity = 0.95
+shader_parameter/outline_thickness = 1.3
+shader_parameter/step_threshold = 0.2
+shader_parameter/outline_color = Color(0, 0, 0, 1)
 
 [node name="Court" type="Node3D"]
 
 [node name="Environment" parent="." instance=ExtResource("1_i1kge")]
 
 [node name="Courtroom" parent="." instance=ExtResource("1_lpavh")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0377091, 0, 1.8343)
 
 [node name="Judge Frog" parent="." instance=ExtResource("3_ogvvj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.53771, 6.56033, -18.9657)
+transform = Transform3D(-0.977257, 0, -0.212058, 0, 1, 0, 0.212058, 0, -0.977257, -2.26184, 6.56033, 20.3607)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, -1.51808e-08, 8.60946e-08, 0, 0.984808, 0.173648, -8.74228e-08, 0.173648, -0.984808, -2, 16, 3)
+fov = 55.0
+
+[node name="Outline FX" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.055)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_i1kge")
+surface_material_override/0 = SubResource("ShaderMaterial_3ufgy")

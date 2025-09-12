@@ -138,6 +138,10 @@ locale/translations=PackedStringArray("res://data/lang/text.en.translation")
 
 3d/physics_engine="Jolt Physics"
 
+[rendering]
+
+lights_and_shadows/directional_shadow/size=8192
+
 [twitcher]
 
 editor/game_oauth_token="res://data/twitch/default_oauth_token.tres"

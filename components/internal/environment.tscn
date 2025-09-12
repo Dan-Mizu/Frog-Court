@@ -1,10 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://bo53ah4v3nc0e"]
 
 [sub_resource type="Environment" id="Environment_l5m1y"]
-background_mode = 1
-background_color = Color(0.552941, 0.933333, 0.933333, 1)
 ambient_light_source = 2
-ambient_light_color = Color(0.858824, 0.858824, 0.858824, 1)
+ambient_light_color = Color(1, 1, 1, 1)
+tonemap_exposure = 0.75
+ssil_enabled = true
+glow_enabled = true
+glow_bloom = 0.5
+adjustment_enabled = true
+adjustment_saturation = 1.2
 
 [node name="Environment" type="Node"]
 
@@ -12,5 +16,7 @@ ambient_light_color = Color(0.858824, 0.858824, 0.858824, 1)
 environment = SubResource("Environment_l5m1y")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.70183, 0.599325, 0.385026, 0, -0.540505, 0.841341, 0.712345, -0.590478, -0.379342, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -0.573576, 0.819152, 0, -0.819152, -0.573576, 0, 0, 0)
+light_energy = 0.75
 shadow_enabled = true
+shadow_opacity = 0.5
