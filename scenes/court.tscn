@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl37lpm48ih7m"]
+
+[ext_resource type="PackedScene" uid="uid://bo53ah4v3nc0e" path="res://components/internal/environment.tscn" id="1_i1kge"]
+[ext_resource type="PackedScene" uid="uid://c7yj8uxhe805g" path="res://components/interiors/courtroom.tscn" id="1_lpavh"]
+[ext_resource type="PackedScene" uid="uid://dqyaa4cxy5wxo" path="res://components/entities/judge_frog.tscn" id="3_ogvvj"]
+
+[node name="Court" type="Node3D"]
+
+[node name="Environment" parent="." instance=ExtResource("1_i1kge")]
+
+[node name="Courtroom" parent="." instance=ExtResource("1_lpavh")]
+
+[node name="Judge Frog" parent="." instance=ExtResource("3_ogvvj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.53771, 6.56033, -18.9657)

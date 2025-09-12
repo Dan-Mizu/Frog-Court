@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqyaa4cxy5wxo"]
+
+[ext_resource type="PackedScene" uid="uid://dxdd04a6dlo8g" path="res://assets/models/characters/happy_idle_rinrin.glb" id="1_hap7m"]
+
+[node name="Judge Frog" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_hap7m")]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
