@@ -108,7 +108,36 @@ func _on_child_exiting(node: Node) -> void:
 ## It boots everything up this Lib supports.
 func setup() -> bool:
 	if is_instance_valid(auth): 
-		if not await auth.authorize(): return false
+		if not await auth.authorize():
+			return false
+
+		# After successful authorize, refresh token + user info
+		_log.i("Authorization succeeded, refreshing token + user info")
+		if token:
+			# Get concrete values safely
+			var access_token: String = await token.get_access_token()
+			var refresh_token: String = token.get_refresh_token()
+			var expire_ts: int = token.get_expiration()
+			var expire_in: int = 0
+			if expire_ts > 0:
+				expire_in = max(0, expire_ts - Time.get_unix_time_from_system())
+
+			# Convert PackedStringArray (or whatever) to plain Array[String]
+			var scopes_arr: Array[String] = []
+			for s in token.get_scopes():
+				scopes_arr.append(s)
+
+			# Persist these values to the token resource (this will also emit authorized)
+			token.update_values(access_token, refresh_token, expire_in, scopes_arr)
+
+			# Force refresh current user info now that token is updated
+			_current_user = null
+			_current_user = await get_current_user()
+
+			if _current_user:
+				_log.i("Logged in as %s" % _current_user.display_name)
+			else:
+				_log.e("Still could not get current user info after reauth")
 	else:
 		push_error("Authorization Node got removed, can't setup twitch service")
 		return false
@@ -151,7 +180,24 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _on_unauthenticated() -> void:
-	auth.authorize()
+	# Try to re-authorize; if successful refresh token values and user info
+	if await auth.authorize():
+		if token:
+			var access_token: String = await token.get_access_token()
+			var refresh_token: String = token.get_refresh_token()
+			var expire_ts: int = token.get_expiration()
+			var expire_in: int = 0
+			if expire_ts > 0:
+				expire_in = max(0, expire_ts - Time.get_unix_time_from_system())
+
+			var scopes_arr: Array[String] = []
+			for s in token.get_scopes():
+				scopes_arr.append(s)
+
+			token.update_values(access_token, refresh_token, expire_in, scopes_arr)
+
+		_current_user = null
+		_current_user = await get_current_user()
 
 #
 # Convinient Proxy Methods
@@ -198,12 +244,20 @@ func get_user(username: String) -> TwitchUser:
 func get_current_user() -> TwitchUser:
 	if _current_user != null:
 		return _current_user
-		
+
 	if api == null:
 		_log.e("Please setup a TwitchAPI Node into TwitchService.")
 		return null
-		
+
 	var user_data : TwitchGetUsers.Response = await api.get_users(null)
+
+	if user_data == null or user_data.data.is_empty():
+		_log.e("Invalid or revoked token, clearing saved tokens...")
+		if token:
+			token.remove_tokens() # or token.invalidate()
+		await auth.authorize()
+		return null
+
 	_current_user = user_data.data[0]
 	return _current_user
 

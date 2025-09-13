@@ -10,7 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Frog Jam"
+config/name="Frog Court"
+config/name_localized={
+"en": "Frog Court"
+}
+config/version="0.1"
 run/main_scene="res://scenes/playground.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
@@ -24,10 +28,16 @@ manager/sound/pool_3D_size=10
 
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 Registry="*res://components/internal/registry.gd"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_width"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/sound_manager/plugin.cfg", "res://addons/twitcher/plugin.cfg", "res://addons/zylann.translation_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/twitcher/plugin.cfg", "res://addons/zylann.translation_editor/plugin.cfg")
 
 [file_customization]
 

@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cx5xq8ud4idhp" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_space_outline.svg" id="8_m05qx"]
 [ext_resource type="Texture2D" uid="uid://cwdggpwcri67n" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_space.svg" id="9_8fd3e"]
 [ext_resource type="Texture2D" uid="uid://cnmfmabe2au5h" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/mouse_left_outline.svg" id="10_5d6xw"]
-[ext_resource type="Theme" uid="uid://ddypxadvkjvr0" path="res://data/theme/input_hint.tres" id="11_501dw"]
+[ext_resource type="Theme" uid="uid://ddypxadvkjvr0" path="res://data/theme/label/input_hint.tres" id="11_501dw"]
 [ext_resource type="Texture2D" uid="uid://cqvwnqxjqtwvq" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/mouse_right_outline.svg" id="11_apuvg"]
 [ext_resource type="Texture2D" uid="uid://dpft24cc82hxn" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_e_outline.svg" id="12_emyww"]
 [ext_resource type="Texture2D" uid="uid://bq2oxaojw1ve0" path="res://assets/fonts/inputs/kenny_input-prompts/Keyboard & Mouse/Vector/keyboard_e.svg" id="13_dgrga"]

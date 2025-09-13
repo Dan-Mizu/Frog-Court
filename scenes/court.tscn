@@ -1,9 +1,478 @@
-[gd_scene load_steps=7 format=3 uid="uid://cl37lpm48ih7m"]
+[gd_scene load_steps=49 format=3 uid="uid://cl37lpm48ih7m"]
 
 [ext_resource type="PackedScene" uid="uid://bo53ah4v3nc0e" path="res://components/internal/environment.tscn" id="1_i1kge"]
+[ext_resource type="Script" uid="uid://cipmlhte8rka1" path="res://scenes/court.gd" id="1_l8syn"]
 [ext_resource type="PackedScene" uid="uid://c7yj8uxhe805g" path="res://components/interiors/courtroom.tscn" id="1_lpavh"]
+[ext_resource type="Script" uid="uid://i8st3lv0lidh" path="res://addons/twitcher/twitch_service.gd" id="1_t2k2p"]
+[ext_resource type="Resource" uid="uid://bdwtgeb8hpgeq" path="res://data/twitch/twitch_oauth_setting.tres" id="2_l8syn"]
+[ext_resource type="Resource" uid="uid://b41e5gx6h0qjc" path="res://data/twitch/twitch_scopes.tres" id="3_7awlx"]
 [ext_resource type="PackedScene" uid="uid://dqyaa4cxy5wxo" path="res://components/entities/judge_frog.tscn" id="3_ogvvj"]
 [ext_resource type="Shader" uid="uid://dt8n3jwli55n" path="res://assets/shaders/outline.gdshader" id="4_ogvvj"]
+[ext_resource type="Resource" uid="uid://beogb7g8tmlot" path="res://data/twitch/default_oauth_token.tres" id="4_v012p"]
+[ext_resource type="Script" uid="uid://iv0mgv0lu8b0" path="res://addons/twitcher/auth/twitch_auth.gd" id="5_erabv"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_qqgq3"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="6_qyj8n"]
+[ext_resource type="Script" uid="uid://bf0wi70haua35" path="res://addons/twitcher/lib/oOuch/oauth.gd" id="6_xjkrd"]
+[ext_resource type="Script" uid="uid://blnbogtrshw4r" path="res://addons/twitcher/auth/twitch_token_handler.gd" id="7_33ers"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_15585"]
+[ext_resource type="Script" uid="uid://cw30cwveway65" path="res://addons/twitcher/generated/twitch_api.gd" id="8_clopl"]
+[ext_resource type="Shader" uid="uid://bwc015kkee3m2" path="res://assets/shaders/styled_blur.gdshader" id="8_qyj8n"]
+[ext_resource type="PackedScene" uid="uid://bamiew5u14hbm" path="res://components/ui/styles/dropshadow.tscn" id="10_h0b8m"]
+[ext_resource type="Texture2D" uid="uid://bncc28i1n0fwe" path="res://assets/textures/icons/twitch_wordmark_extruded_white.png" id="11_c7axm"]
+[ext_resource type="FontFile" uid="uid://dve7mgsjik4dg" path="res://addons/phantom_camera/fonts/Nunito-Regular.ttf" id="11_i5cvy"]
+[ext_resource type="StyleBox" uid="uid://d34m7f0kpcp7s" path="res://data/theme/buttons/button_disabled_corner_radius_20.tres" id="11_rnrgf"]
+[ext_resource type="StyleBox" uid="uid://coput1kun0q23" path="res://data/theme/buttons/button_pressed__corner_radius_20.tres" id="13_c6ra0"]
+[ext_resource type="StyleBox" uid="uid://dkqrdu6u33vcv" path="res://data/theme/buttons/button_normal__corner_radius_20.tres" id="14_d0d5a"]
+[ext_resource type="Script" uid="uid://dqiho7uj8ent3" path="res://components/ui/styles/shrink_pressed_button_module.gd" id="16_c6ra0"]
+[ext_resource type="Script" uid="uid://b72enqojpkky8" path="res://components/ui/styles/expand_hovered_control_module.gd" id="17_d0d5a"]
+
+[sub_resource type="Animation" id="Animation_15585"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/mix_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/r_displacement")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/g_displacement")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:material:shader_parameter/b_displacement")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../MarginContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%TwitchConnectButton:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("%LoadingSpinner:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("..:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_h0b8m"]
+resource_name = "blur"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/mix_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.15, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/r_displacement")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-3, -3), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/g_displacement")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3, -3), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:material:shader_parameter/b_displacement")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-3, 3), Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../MarginContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("..:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qyj8n"]
+resource_name = "blur"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/mix_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/r_displacement")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-3, -3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/g_displacement")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(3, -3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:material:shader_parameter/b_displacement")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-3, 3)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../MarginContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%TwitchConnectButton:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("%LoadingSpinner:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("..:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h0b8m"]
+_data = {
+&"RESET": SubResource("Animation_15585"),
+&"hide": SubResource("Animation_h0b8m"),
+&"show": SubResource("Animation_qyj8n")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qyj8n"]
+shader = ExtResource("8_qyj8n")
+shader_parameter/blur_amount = 0.0
+shader_parameter/mix_amount = 0.0
+shader_parameter/color_over = Color(0, 0, 0, 1)
+shader_parameter/r_displacement = Vector2(0, 0)
+shader_parameter/g_displacement = Vector2(0, 0)
+shader_parameter/b_displacement = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0b8m"]
+bg_color = Color(0.392157, 0.254902, 0.647059, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Theme" id="Theme_4enwl"]
+default_font = ExtResource("11_i5cvy")
+default_font_size = 20
+Button/colors/font_color = Color(0.392157, 0.254902, 0.647059, 1)
+Button/colors/font_focus_color = Color(0.392157, 0.254902, 0.647059, 1)
+Button/colors/font_hover_color = Color(0.392157, 0.254902, 0.647059, 1)
+Button/colors/font_pressed_color = Color(0.392157, 0.254902, 0.647059, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d0d5a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6ra0"]
+content_margin_left = 25.0
+content_margin_top = 3.0
+content_margin_right = 25.0
+content_margin_bottom = 3.0
+bg_color = Color(0.93408, 0.93408, 0.93408, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Gradient" id="Gradient_l8syn"]
+offsets = PackedFloat32Array(0.781818, 0.789091, 0.996364, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7awlx"]
+gradient = SubResource("Gradient_l8syn")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.175, 0.175)
+
+[sub_resource type="Animation" id="Animation_erabv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:radial_initial_angle")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_v012p"]
+resource_name = "spin"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:radial_initial_angle")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 360.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xjkrd"]
+_data = {
+&"RESET": SubResource("Animation_erabv"),
+&"spin": SubResource("Animation_v012p")
+}
+
+[sub_resource type="Animation" id="Animation_clopl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:radial_fill_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [75.0]
+}
+
+[sub_resource type="Animation" id="Animation_33ers"]
+resource_name = "stretch"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:radial_fill_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [75.0, 250.0, 75.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8gn2p"]
+_data = {
+&"RESET": SubResource("Animation_clopl"),
+&"stretch": SubResource("Animation_33ers")
+}
 
 [sub_resource type="QuadMesh" id="QuadMesh_i1kge"]
 flip_faces = true
@@ -17,7 +486,177 @@ shader_parameter/outline_thickness = 1.3
 shader_parameter/step_threshold = 0.2
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Resource" id="Resource_h0b8m"]
+script = ExtResource("7_15585")
+duration = 0.5
+transition = 1
+ease = 2
+
+[sub_resource type="Resource" id="Resource_qqgq3"]
+script = ExtResource("7_15585")
+duration = 0.8
+transition = 1
+ease = 2
+
+[sub_resource type="Resource" id="Resource_qyj8n"]
+script = ExtResource("7_15585")
+duration = 1.0
+transition = 1
+ease = 2
+
+[sub_resource type="Resource" id="Resource_15585"]
+script = ExtResource("7_15585")
+duration = 1.0
+transition = 1
+ease = 2
+
 [node name="Court" type="Node3D"]
+script = ExtResource("1_l8syn")
+
+[node name="TwitchService" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_t2k2p")
+oauth_setting = ExtResource("2_l8syn")
+scopes = ExtResource("3_7awlx")
+token = ExtResource("4_v012p")
+metadata/_custom_type_script = "uid://i8st3lv0lidh"
+
+[node name="TwitchAuth" type="Node" parent="TwitchService"]
+script = ExtResource("5_erabv")
+oauth_setting = ExtResource("2_l8syn")
+token = ExtResource("4_v012p")
+scopes = ExtResource("3_7awlx")
+metadata/_custom_type_script = "uid://iv0mgv0lu8b0"
+
+[node name="OAuth" type="Node" parent="TwitchService/TwitchAuth" node_paths=PackedStringArray("token_handler")]
+script = ExtResource("6_xjkrd")
+oauth_setting = ExtResource("2_l8syn")
+scopes = ExtResource("3_7awlx")
+token_handler = NodePath("../TokenHandler")
+
+[node name="TokenHandler" type="Node" parent="TwitchService/TwitchAuth"]
+script = ExtResource("7_33ers")
+oauth_setting = ExtResource("2_l8syn")
+token = ExtResource("4_v012p")
+
+[node name="TwitchAPI" type="Node" parent="TwitchService"]
+script = ExtResource("8_clopl")
+token = ExtResource("4_v012p")
+oauth_setting = ExtResource("2_l8syn")
+metadata/_custom_type_script = "uid://cw30cwveway65"
+
+[node name="TwitchModal" type="CanvasLayer" parent="."]
+
+[node name="TwitchModalAnimationPlayer" type="AnimationPlayer" parent="TwitchModal"]
+unique_name_in_owner = true
+root_node = NodePath("../BackgroundBlur")
+libraries = {
+&"": SubResource("AnimationLibrary_h0b8m")
+}
+autoplay = "show"
+
+[node name="BackgroundBlur" type="ColorRect" parent="TwitchModal"]
+material = SubResource("ShaderMaterial_qyj8n")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TwitchModal"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="TwitchModal/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="TwitchModal/MarginContainer/CenterContainer"]
+custom_minimum_size = Vector2(250, 165)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0b8m")
+
+[node name="Dropshadow" parent="TwitchModal/MarginContainer/CenterContainer/Panel" instance=ExtResource("10_h0b8m")]
+layout_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TwitchModal/MarginContainer/CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Twitch Logo" type="TextureRect" parent="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+texture = ExtResource("11_c7axm")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="TwitchConnectButton" type="Button" parent="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_4enwl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d0d5a")
+theme_override_styles/disabled = ExtResource("11_rnrgf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c6ra0")
+theme_override_styles/pressed = ExtResource("13_c6ra0")
+theme_override_styles/normal = ExtResource("14_d0d5a")
+text = "CONNECT"
+
+[node name="Dropshadow" parent="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton" instance=ExtResource("10_h0b8m")]
+layout_mode = 1
+
+[node name="ShrinkPressedButton" type="Node" parent="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton"]
+script = ExtResource("16_c6ra0")
+metadata/_custom_type_script = "uid://dqiho7uj8ent3"
+
+[node name="ExpandHoveredControl" type="Node" parent="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton"]
+script = ExtResource("17_d0d5a")
+expand_scale = Vector2(1.1, 1.1)
+return_duration = 0.1
+tween_type = 1
+tween_ease = 2
+metadata/_custom_type_script = "uid://b72enqojpkky8"
+
+[node name="LoadingSpinner" type="TextureProgressBar" parent="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+fill_mode = 4
+radial_fill_degrees = 75.0
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_7awlx")
+
+[node name="Spin" type="AnimationPlayer" parent="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/LoadingSpinner"]
+libraries = {
+&"": SubResource("AnimationLibrary_xjkrd")
+}
+autoplay = "spin"
+
+[node name="Stretch" type="AnimationPlayer" parent="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/LoadingSpinner"]
+libraries = {
+&"": SubResource("AnimationLibrary_8gn2p")
+}
+autoplay = "stretch"
 
 [node name="Environment" parent="." instance=ExtResource("1_i1kge")]
 
@@ -28,11 +667,59 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0377
 transform = Transform3D(-0.977257, 0, -0.212058, 0, 1, 0, 0.212058, 0, -0.977257, -2.26184, 6.56033, 20.3607)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, -1.51808e-08, 8.60946e-08, 0, 0.984808, 0.173648, -8.74228e-08, 0.173648, -0.984808, -2, 16, 3)
+transform = Transform3D(-1, -1.51808e-08, 8.60946e-08, 0, 0.984808, 0.173648, -8.74228e-08, 0.173648, -0.984808, -2, 15, 1.5)
 fov = 55.0
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_qqgq3")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Outline FX" type="MeshInstance3D" parent="Camera3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.055)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_i1kge")
 surface_material_override/0 = SubResource("ShaderMaterial_3ufgy")
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="Judge Cam" type="Node3D" parent="Cameras"]
+unique_name_in_owner = true
+transform = Transform3D(-1, -1.51808e-08, 8.60946e-08, 0, 0.984808, 0.173648, -8.74228e-08, 0.173648, -0.984808, -2, 15, 1.5)
+script = ExtResource("6_qyj8n")
+tween_resource = SubResource("Resource_h0b8m")
+tween_on_load = false
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Claimant Cam" type="Node3D" parent="Cameras"]
+unique_name_in_owner = true
+transform = Transform3D(-1, 1.51808e-08, -8.60946e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, 12, 10, 6)
+script = ExtResource("6_qyj8n")
+tween_resource = SubResource("Resource_qqgq3")
+tween_on_load = false
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Defendant Cam" type="Node3D" parent="Cameras"]
+unique_name_in_owner = true
+transform = Transform3D(-1, 1.51808e-08, -8.60946e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, -16, 10, 6)
+script = ExtResource("6_qyj8n")
+tween_resource = SubResource("Resource_qqgq3")
+tween_on_load = false
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Panel Cam" type="Node3D" parent="Cameras"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0.75, 22, 12.5)
+script = ExtResource("6_qyj8n")
+tween_resource = SubResource("Resource_qyj8n")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Jury Cam" type="Node3D" parent="Cameras"]
+unique_name_in_owner = true
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 18, 13, -7.5)
+script = ExtResource("6_qyj8n")
+tween_resource = SubResource("Resource_15585")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[connection signal="pressed" from="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton" to="." method="_on_connect_to_twitch_pressed"]

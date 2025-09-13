@@ -157,7 +157,7 @@ shadow_mesh = SubResource("ArrayMesh_dxdud")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxuoj"]
 diffuse_mode = 3
 specular_mode = 2
-albedo_color = Color(4.09111e-07, 0, 0.36317, 1)
+albedo_color = Color(7.82125e-08, 4.81308e-08, 0.184122, 1)
 roughness = 0.0
 rim_enabled = true
 
