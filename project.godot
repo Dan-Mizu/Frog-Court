@@ -28,6 +28,7 @@ manager/sound/pool_3D_size=10
 
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+Twitch="*res://addons/twitcher/twitch_service.tscn"
 
 [display]
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dcrliedgr6eol" path="res://addons/twitcher/lib/oOuch/crypto_key_provider.gd" id="1_hppps"]
 [ext_resource type="Script" uid="uid://00xbijwpi8xa" path="res://addons/twitcher/lib/oOuch/oauth_setting.gd" id="2_e00tb"]
 
-[sub_resource type="Resource" id="Resource_r1svh"]
+[sub_resource type="Resource" id="Resource_hppps"]
 script = ExtResource("1_hppps")
 encrpytion_secret_location = "user://encryption_key.cfg"
 
@@ -17,5 +17,5 @@ device_authorization_url = "https://id.twitch.tv/oauth2/device"
 cache_file = "user://auth.conf"
 client_id = "s2s4nvhbw4pg666kl7st7f74ka6nb3"
 authorization_flow = 2
-_encryption_key_provider = SubResource("Resource_r1svh")
-client_secret = "MRITE3cKgFTA6lKOgT89iQ=="
+_encryption_key_provider = SubResource("Resource_hppps")
+client_secret = ""

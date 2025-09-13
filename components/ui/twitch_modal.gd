@@ -1,10 +1,9 @@
-extends Node3D
+extends CanvasLayer
 
 # references
-@onready var twitch: TwitchService = %TwitchService
 @onready var twitch_connect_button: Button = %TwitchConnectButton
 @onready var loading_spinner: TextureProgressBar = %LoadingSpinner
-@onready var twitch_modal_animation_player: AnimationPlayer = %TwitchModalAnimationPlayer
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 func _on_connect_to_twitch_pressed() -> void:
 	# hide button
@@ -15,7 +14,7 @@ func _on_connect_to_twitch_pressed() -> void:
 
 	# Start the setup process (handles authentication)
 	# Returns true on success, false on failure (e.g., login run in timeout)
-	var setup_successful: bool = await twitch.setup()
+	var setup_successful: bool = await Twitch.setup()
 
 	if setup_successful:
 		# DEBUG
@@ -30,14 +29,14 @@ func _on_connect_to_twitch_pressed() -> void:
 
 func get_self_info():
 	# get connected twitch user
-	var current_user: TwitchUser = await twitch.get_current_user()
+	var current_user: TwitchUser = await Twitch.get_current_user()
 
 	if current_user:
 		# DEBUG
 		print("Authenticated as: %s (ID: %s)" % [current_user.display_name, current_user.id])
 
 		# hide twitch modal
-		twitch_modal_animation_player.play("hide")
+		animation_player.play("hide")
 
 	else:
 		# DEBUG

@@ -1,0 +1,576 @@
+[gd_scene load_steps=28 format=3 uid="uid://c87qa76hw2ccl"]
+
+[ext_resource type="Script" uid="uid://bmm2idnn4yleo" path="res://components/ui/twitch_modal.gd" id="1_eedwr"]
+[ext_resource type="Shader" uid="uid://bwc015kkee3m2" path="res://assets/shaders/styled_blur.gdshader" id="1_vlgm7"]
+[ext_resource type="PackedScene" uid="uid://bamiew5u14hbm" path="res://components/ui/dropshadow.tscn" id="2_eedwr"]
+[ext_resource type="Texture2D" uid="uid://bncc28i1n0fwe" path="res://assets/textures/icons/twitch_wordmark_extruded_white.png" id="3_do3vn"]
+[ext_resource type="FontFile" uid="uid://dve7mgsjik4dg" path="res://addons/phantom_camera/fonts/Nunito-Regular.ttf" id="4_il165"]
+[ext_resource type="StyleBox" uid="uid://d34m7f0kpcp7s" path="res://data/theme/buttons/button_disabled_corner_radius_20.tres" id="5_0xxvp"]
+[ext_resource type="StyleBox" uid="uid://coput1kun0q23" path="res://data/theme/buttons/button_pressed__corner_radius_20.tres" id="6_qbvkx"]
+[ext_resource type="StyleBox" uid="uid://dkqrdu6u33vcv" path="res://data/theme/buttons/button_normal__corner_radius_20.tres" id="7_t8635"]
+[ext_resource type="Script" uid="uid://dqiho7uj8ent3" path="res://components/ui/behaviours/shrink_pressed_button_module.gd" id="8_udnp4"]
+[ext_resource type="Script" uid="uid://b72enqojpkky8" path="res://components/ui/behaviours/expand_hovered_control_module.gd" id="9_fb4si"]
+
+[sub_resource type="Animation" id="Animation_15585"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/mix_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/r_displacement")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/g_displacement")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:material:shader_parameter/b_displacement")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../MarginContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%TwitchConnectButton:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("%LoadingSpinner:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("..:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_h0b8m"]
+resource_name = "blur"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/mix_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.15, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/r_displacement")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-3, -3), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/g_displacement")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3, -3), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:material:shader_parameter/b_displacement")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-3, 3), Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../MarginContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("..:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qyj8n"]
+resource_name = "blur"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/mix_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/r_displacement")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-3, -3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/g_displacement")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(3, -3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:material:shader_parameter/b_displacement")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-3, 3)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../MarginContainer:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("%TwitchConnectButton:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("%LoadingSpinner:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("..:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h0b8m"]
+_data = {
+&"RESET": SubResource("Animation_15585"),
+&"hide": SubResource("Animation_h0b8m"),
+&"show": SubResource("Animation_qyj8n")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qyj8n"]
+shader = ExtResource("1_vlgm7")
+shader_parameter/blur_amount = 0.0
+shader_parameter/mix_amount = 0.0
+shader_parameter/color_over = Color(0, 0, 0, 1)
+shader_parameter/r_displacement = Vector2(0, 0)
+shader_parameter/g_displacement = Vector2(0, 0)
+shader_parameter/b_displacement = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0b8m"]
+bg_color = Color(0.392157, 0.254902, 0.647059, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Theme" id="Theme_4enwl"]
+default_font = ExtResource("4_il165")
+default_font_size = 20
+Button/colors/font_color = Color(0.392157, 0.254902, 0.647059, 1)
+Button/colors/font_focus_color = Color(0.392157, 0.254902, 0.647059, 1)
+Button/colors/font_hover_color = Color(0.392157, 0.254902, 0.647059, 1)
+Button/colors/font_pressed_color = Color(0.392157, 0.254902, 0.647059, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d0d5a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6ra0"]
+content_margin_left = 25.0
+content_margin_top = 3.0
+content_margin_right = 25.0
+content_margin_bottom = 3.0
+bg_color = Color(0.93408, 0.93408, 0.93408, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Gradient" id="Gradient_l8syn"]
+offsets = PackedFloat32Array(0.781818, 0.789091, 0.996364, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7awlx"]
+gradient = SubResource("Gradient_l8syn")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.175, 0.175)
+
+[sub_resource type="Animation" id="Animation_erabv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:radial_initial_angle")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_v012p"]
+resource_name = "spin"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:radial_initial_angle")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 360.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xjkrd"]
+_data = {
+&"RESET": SubResource("Animation_erabv"),
+&"spin": SubResource("Animation_v012p")
+}
+
+[sub_resource type="Animation" id="Animation_clopl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:radial_fill_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [75.0]
+}
+
+[sub_resource type="Animation" id="Animation_33ers"]
+resource_name = "stretch"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:radial_fill_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [75.0, 250.0, 75.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8gn2p"]
+_data = {
+&"RESET": SubResource("Animation_clopl"),
+&"stretch": SubResource("Animation_33ers")
+}
+
+[node name="TwitchModal" type="CanvasLayer"]
+script = ExtResource("1_eedwr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../BackgroundBlur")
+libraries = {
+&"": SubResource("AnimationLibrary_h0b8m")
+}
+autoplay = "show"
+
+[node name="BackgroundBlur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_qyj8n")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/CenterContainer"]
+custom_minimum_size = Vector2(250, 165)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0b8m")
+
+[node name="Dropshadow" parent="MarginContainer/CenterContainer/Panel" instance=ExtResource("2_eedwr")]
+layout_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Twitch Logo" type="TextureRect" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+texture = ExtResource("3_do3vn")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="TwitchConnectButton" type="Button" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_4enwl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d0d5a")
+theme_override_styles/disabled = ExtResource("5_0xxvp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c6ra0")
+theme_override_styles/pressed = ExtResource("6_qbvkx")
+theme_override_styles/normal = ExtResource("7_t8635")
+text = "ui.twitch_modal.connect_button"
+
+[node name="Dropshadow" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton" instance=ExtResource("2_eedwr")]
+layout_mode = 1
+
+[node name="ShrinkPressedButton" type="Node" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton"]
+script = ExtResource("8_udnp4")
+metadata/_custom_type_script = "uid://dqiho7uj8ent3"
+
+[node name="ExpandHoveredControl" type="Node" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton"]
+script = ExtResource("9_fb4si")
+expand_scale = Vector2(1.1, 1.1)
+return_duration = 0.1
+tween_type = 1
+tween_ease = 2
+metadata/_custom_type_script = "uid://b72enqojpkky8"
+
+[node name="LoadingSpinner" type="TextureProgressBar" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+fill_mode = 4
+radial_fill_degrees = 75.0
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_7awlx")
+
+[node name="Spin" type="AnimationPlayer" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/LoadingSpinner"]
+libraries = {
+&"": SubResource("AnimationLibrary_xjkrd")
+}
+autoplay = "spin"
+
+[node name="Stretch" type="AnimationPlayer" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/LoadingSpinner"]
+libraries = {
+&"": SubResource("AnimationLibrary_8gn2p")
+}
+autoplay = "stretch"
+
+[connection signal="pressed" from="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton" to="." method="_on_connect_to_twitch_pressed"]
