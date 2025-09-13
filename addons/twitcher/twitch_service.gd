@@ -286,7 +286,7 @@ func wait_for_eventsub_connection() -> void:
 	if eventsub == null:
 		_log.e("TwitchEventsub Node is missing")
 		return
-	await eventsub.wait_for_connection()
+	await eventsub.wait_setup()
 
 
 ## Returns all of the eventsub subscriptions (variable is a copy so you can freely modify it)
