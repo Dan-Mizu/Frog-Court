@@ -17,14 +17,14 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_15585"]
 [ext_resource type="Script" uid="uid://cw30cwveway65" path="res://addons/twitcher/generated/twitch_api.gd" id="8_clopl"]
 [ext_resource type="Shader" uid="uid://bwc015kkee3m2" path="res://assets/shaders/styled_blur.gdshader" id="8_qyj8n"]
-[ext_resource type="PackedScene" uid="uid://bamiew5u14hbm" path="res://components/ui/styles/dropshadow.tscn" id="10_h0b8m"]
+[ext_resource type="PackedScene" uid="uid://bamiew5u14hbm" path="res://components/ui/dropshadow.tscn" id="10_h0b8m"]
 [ext_resource type="Texture2D" uid="uid://bncc28i1n0fwe" path="res://assets/textures/icons/twitch_wordmark_extruded_white.png" id="11_c7axm"]
 [ext_resource type="FontFile" uid="uid://dve7mgsjik4dg" path="res://addons/phantom_camera/fonts/Nunito-Regular.ttf" id="11_i5cvy"]
 [ext_resource type="StyleBox" uid="uid://d34m7f0kpcp7s" path="res://data/theme/buttons/button_disabled_corner_radius_20.tres" id="11_rnrgf"]
 [ext_resource type="StyleBox" uid="uid://coput1kun0q23" path="res://data/theme/buttons/button_pressed__corner_radius_20.tres" id="13_c6ra0"]
 [ext_resource type="StyleBox" uid="uid://dkqrdu6u33vcv" path="res://data/theme/buttons/button_normal__corner_radius_20.tres" id="14_d0d5a"]
-[ext_resource type="Script" uid="uid://dqiho7uj8ent3" path="res://components/ui/styles/shrink_pressed_button_module.gd" id="16_c6ra0"]
-[ext_resource type="Script" uid="uid://b72enqojpkky8" path="res://components/ui/styles/expand_hovered_control_module.gd" id="17_d0d5a"]
+[ext_resource type="Script" uid="uid://dqiho7uj8ent3" path="res://components/ui/behaviours/shrink_pressed_button_module.gd" id="16_c6ra0"]
+[ext_resource type="Script" uid="uid://b72enqojpkky8" path="res://components/ui/behaviours/expand_hovered_control_module.gd" id="17_d0d5a"]
 
 [sub_resource type="Animation" id="Animation_15585"]
 length = 0.001
@@ -616,7 +616,7 @@ theme_override_styles/disabled = ExtResource("11_rnrgf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_c6ra0")
 theme_override_styles/pressed = ExtResource("13_c6ra0")
 theme_override_styles/normal = ExtResource("14_d0d5a")
-text = "CONNECT"
+text = "ui.twitch_modal.connect_button"
 
 [node name="Dropshadow" parent="TwitchModal/MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton" instance=ExtResource("10_h0b8m")]
 layout_mode = 1
