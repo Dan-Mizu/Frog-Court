@@ -13,10 +13,10 @@ dest_files=["res://.godot/imported/Vera-Bold.ttf-507ceb498ba8c6b4fc19ebe98ec9a70
 [params]
 
 Rendering=null
-antialiasing=1
+antialiasing=0
 generate_mipmaps=false
 disable_embedded_bitmaps=true
-multichannel_signed_distance_field=false
+multichannel_signed_distance_field=true
 msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true

@@ -17,6 +17,10 @@ config/name_localized={
 config/version="0.1"
 run/main_scene="uid://cl37lpm48ih7m"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [audio]

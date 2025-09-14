@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://cl37lpm48ih7m"]
+[gd_scene load_steps=16 format=3 uid="uid://cl37lpm48ih7m"]
 
+[ext_resource type="PackedScene" uid="uid://srsw82t30cm3" path="res://components/ui/splashscreen.tscn" id="1_15585"]
 [ext_resource type="PackedScene" uid="uid://bo53ah4v3nc0e" path="res://components/internal/environment.tscn" id="1_i1kge"]
 [ext_resource type="PackedScene" uid="uid://c7yj8uxhe805g" path="res://components/interiors/courtroom.tscn" id="1_lpavh"]
 [ext_resource type="PackedScene" uid="uid://dqyaa4cxy5wxo" path="res://components/entities/judge_frog.tscn" id="3_ogvvj"]
@@ -46,6 +47,8 @@ transition = 1
 ease = 2
 
 [node name="Court" type="Node3D"]
+
+[node name="Splashscreen" parent="." instance=ExtResource("1_15585")]
 
 [node name="TwitchModal" parent="." instance=ExtResource("10_d0d5a")]
 
