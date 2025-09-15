@@ -51,10 +51,17 @@ duration = 1.0
 transition = 1
 ease = 2
 
-[node name="Court" type="Node3D"]
+[node name="Court" type="Node3D" node_paths=PackedStringArray("cam_markers")]
 script = ExtResource("1_h0b8m")
 message_balloon = ExtResource("2_5mv5b")
 intro_dialogue = ExtResource("3_2768l")
+cam_markers = {
+0: NodePath("Cameras/Judge Cam"),
+1: NodePath("Cameras/Claimant Cam"),
+2: NodePath("Cameras/Defendant Cam"),
+3: NodePath("Cameras/Panel Cam"),
+4: NodePath("Cameras/Jury Cam")
+}
 crowd_murmur_sfx = ExtResource("2_c7axm")
 gavel_sfx = ExtResource("5_rnrgf")
 
@@ -71,7 +78,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0377
 transform = Transform3D(-0.977257, 0, -0.212058, 0, 1, 0, 0.212058, 0, -0.977257, -2.26184, 6.56033, 20.3607)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, -1.51808e-08, 8.60946e-08, 0, 0.984808, 0.173648, -8.74228e-08, 0.173648, -0.984808, -2, 15, 1.5)
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 18, 13, -7.5)
 fov = 55.0
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
@@ -93,7 +100,6 @@ unique_name_in_owner = true
 transform = Transform3D(-1, -1.51808e-08, 8.60946e-08, 0, 0.984808, 0.173648, -8.74228e-08, 0.173648, -0.984808, -2, 15, 1.5)
 script = ExtResource("6_qyj8n")
 tween_resource = SubResource("Resource_h0b8m")
-tween_on_load = false
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="Claimant Cam" type="Node3D" parent="Cameras"]
@@ -123,6 +129,7 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 unique_name_in_owner = true
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 18, 13, -7.5)
 script = ExtResource("6_qyj8n")
+priority = 1
 tween_resource = SubResource("Resource_15585")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
