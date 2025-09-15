@@ -488,36 +488,33 @@ grow_vertical = 2
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/CenterContainer"]
-custom_minimum_size = Vector2(250, 165)
+[node name="Panel" type="PanelContainer" parent="MarginContainer/CenterContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h0b8m")
 
 [node name="Dropshadow" parent="MarginContainer/CenterContainer/Panel" instance=ExtResource("2_eedwr")]
-layout_mode = 1
+layout_mode = 2
+theme_override_constants/margin_left = -3
+theme_override_constants/margin_right = -3
+theme_override_constants/margin_bottom = -2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/Panel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 40
 alignment = 1
 
 [node name="Twitch Logo" type="TextureRect" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(150, 50)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 texture = ExtResource("3_do3vn")
-expand_mode = 2
+expand_mode = 3
 stretch_mode = 5
 
 [node name="TwitchConnectButton" type="Button" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer"]
@@ -535,6 +532,9 @@ text = "ui.twitch_modal.connect_button"
 
 [node name="Dropshadow" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton" instance=ExtResource("2_eedwr")]
 layout_mode = 1
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
 
 [node name="ShrinkPressedButton" type="Node" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton"]
 script = ExtResource("8_udnp4")
@@ -573,4 +573,5 @@ libraries = {
 }
 autoplay = "stretch"
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton" to="." method="_on_connect_to_twitch_pressed"]

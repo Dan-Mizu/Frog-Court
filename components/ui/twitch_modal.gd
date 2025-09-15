@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal modal_finished
+
 # references
 @onready var twitch_connect_button: Button = %TwitchConnectButton
 @onready var loading_spinner: TextureProgressBar = %LoadingSpinner
@@ -19,3 +21,7 @@ func _on_connect_to_twitch_pressed() -> void:
 	if setup_successful and State.broadcaster_user:
 		# hide twitch modal
 		animation_player.play("hide")
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	# finished hiding
+	if anim_name == "hide": modal_finished.emit()

@@ -1,0 +1,4 @@
+~ start
+Judge {{State.broadcaster_user.display_name}}: Order![do play_sound(gavel_sfx)][wait=.35] [wave amp=25 freq=5]Order![/wave][do fade_out_sound(crowd_murmur_sfx_player, 2.5)]
+Judge {{State.broadcaster_user.display_name}}: We're gathered here today to put chat on trial.
+=> END
