@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://c87qa76hw2ccl"]
+[gd_scene load_steps=29 format=3 uid="uid://c87qa76hw2ccl"]
 
 [ext_resource type="Script" uid="uid://bmm2idnn4yleo" path="res://components/ui/twitch_modal.gd" id="1_eedwr"]
 [ext_resource type="Shader" uid="uid://bwc015kkee3m2" path="res://assets/shaders/styled_blur.gdshader" id="1_vlgm7"]
+[ext_resource type="AudioStream" uid="uid://c1ppsbwk1wer7" path="res://assets/sounds/next.ogg" id="2_do3vn"]
 [ext_resource type="PackedScene" uid="uid://bamiew5u14hbm" path="res://components/ui/dropshadow.tscn" id="2_eedwr"]
 [ext_resource type="Texture2D" uid="uid://bncc28i1n0fwe" path="res://assets/textures/icons/twitch_wordmark_extruded_white.png" id="3_do3vn"]
 [ext_resource type="FontFile" uid="uid://dve7mgsjik4dg" path="res://addons/phantom_camera/fonts/Nunito-Regular.ttf" id="4_il165"]
@@ -461,6 +462,7 @@ _data = {
 
 [node name="TwitchModal" type="CanvasLayer"]
 script = ExtResource("1_eedwr")
+click_sfx = ExtResource("2_do3vn")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

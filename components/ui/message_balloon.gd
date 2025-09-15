@@ -1,9 +1,4 @@
 extends CanvasLayer
-
-@export_category("References")
-@onready var next_indicator: TextureRect = %"Next Indicator"
-@export var letter_sfx: Dictionary[String, AudioStream]
-
 ## A basic dialogue balloon for use with Dialogue Manager.
 
 ## The action to use for advancing the dialogue
@@ -11,6 +6,20 @@ extends CanvasLayer
 
 ## The action to use to skip typing the dialogue
 @export var skip_action: StringName = &"ui_cancel"
+
+# references
+@onready var next_indicator: TextureRect = %"Next Indicator"
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
+
+@export_group("SFX")
+@export var letter_sfx: Dictionary[String, AudioStream]
+@export var next_sfx: AudioStream
+@export var show_balloon_sfx: AudioStream
+func _on_show() -> void:
+	SoundManager.play_sound(show_balloon_sfx.duplicate(), "UI")
+@export var hide_balloon_sfx: AudioStream
+func _on_hide() -> void:
+	SoundManager.play_sound(hide_balloon_sfx.duplicate(), "UI")
 
 ## The dialogue resource
 var resource: DialogueResource
@@ -36,11 +45,17 @@ var _locale: String = TranslationServer.get_locale()
 var dialogue_line: DialogueLine:
 	set(value):
 		if value:
+			# play next ui sound after first line
+			if dialogue_line != null: SoundManager.play_sound(next_sfx.duplicate(), "UI")
+
+			# store new line
 			dialogue_line = value
+
+			# apply the line to the balloon
 			apply_dialogue_line()
 		else:
 			# The dialogue has finished so close the balloon
-			queue_free()
+			animation_player.play("hide")
 	get:
 		return dialogue_line
 
@@ -188,6 +203,6 @@ func _on_dialogue_label_spoke(letter: String, _letter_index: int, _speed: float)
 		var pitch: float = randf_range(1.5, 2.0)
 
 		# play sound
-		SoundManager.play_sound_with_pitch(letter_sfx.get(letter), pitch, "Voices")
+		SoundManager.play_sound_with_pitch(letter_sfx.get(letter).duplicate(), pitch, "Voices")
 
 #endregion

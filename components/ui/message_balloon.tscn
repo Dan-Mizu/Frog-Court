@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://b8c18s5qldsu8"]
+[gd_scene load_steps=51 format=3 uid="uid://b8c18s5qldsu8"]
 
 [ext_resource type="Script" uid="uid://cd4d6u84ny4fk" path="res://components/ui/message_balloon.gd" id="1_ac8ox"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_i6jns"]
@@ -33,6 +33,9 @@
 [ext_resource type="AudioStream" uid="uid://e6wj4bbtle2n" path="res://assets/sounds/alphabet/X.wav" id="25_gi4q2"]
 [ext_resource type="AudioStream" uid="uid://svwhbyuvay84" path="res://assets/sounds/alphabet/Y.wav" id="26_qa66v"]
 [ext_resource type="AudioStream" uid="uid://dbg8gmgyiyqba" path="res://assets/sounds/alphabet/Z.wav" id="27_jorvh"]
+[ext_resource type="AudioStream" uid="uid://c1ppsbwk1wer7" path="res://assets/sounds/next.ogg" id="28_0c0jh"]
+[ext_resource type="AudioStream" uid="uid://dsxpw2smutyh8" path="res://assets/sounds/show.ogg" id="29_te54j"]
+[ext_resource type="AudioStream" uid="uid://cp2shv2uk4yhj" path="res://assets/sounds/hide.ogg" id="30_te54j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -142,6 +145,121 @@ _data = {
 &"bounce": SubResource("Animation_u3o8c")
 }
 
+[sub_resource type="Animation" id="Animation_0c0jh"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_wij7i"]
+resource_name = "popup"
+length = 0.3
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0, 0.8, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0, 0.8, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Balloon/..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_on_hide"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_te54j"]
+resource_name = "popup"
+length = 0.3
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.8, -0.15, 0, 0.15, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.8, -0.15, 0, 0.15, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%Balloon/..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_show"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kahde"]
+_data = {
+&"RESET": SubResource("Animation_0c0jh"),
+&"hide": SubResource("Animation_wij7i"),
+&"show": SubResource("Animation_te54j")
+}
+
 [node name="MessageBalloon" type="CanvasLayer"]
 layer = 100
 script = ExtResource("1_ac8ox")
@@ -173,6 +291,9 @@ letter_sfx = Dictionary[String, AudioStream]({
 "y": ExtResource("26_qa66v"),
 "z": ExtResource("27_jorvh")
 })
+next_sfx = ExtResource("28_0c0jh")
+show_balloon_sfx = ExtResource("29_te54j")
+hide_balloon_sfx = ExtResource("30_te54j")
 
 [node name="Balloon" type="Control" parent="."]
 unique_name_in_owner = true
@@ -193,6 +314,7 @@ anchor_bottom = 1.0
 offset_top = -241.0
 grow_horizontal = 2
 grow_vertical = 0
+pivot_offset = Vector2(576, 120.5)
 theme_override_constants/margin_left = 180
 theme_override_constants/margin_right = 180
 theme_override_constants/margin_bottom = 35
@@ -299,6 +421,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_8rvno")
 }
 autoplay = "bounce"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Balloon/MarginContainer"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_kahde")
+}
+autoplay = "show"
 
 [node name="ResponsesMenu" type="VBoxContainer" parent="Balloon" node_paths=PackedStringArray("response_template")]
 unique_name_in_owner = true

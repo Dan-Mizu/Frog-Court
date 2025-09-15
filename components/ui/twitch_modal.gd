@@ -6,8 +6,12 @@ signal modal_finished
 @onready var twitch_connect_button: Button = %TwitchConnectButton
 @onready var loading_spinner: TextureProgressBar = %LoadingSpinner
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@export var click_sfx: AudioStream
 
 func _on_connect_to_twitch_pressed() -> void:
+	# click SFX
+	SoundManager.play_sound(click_sfx, "UI")
+
 	# hide button
 	twitch_connect_button.visible = false
 
