@@ -12,7 +12,7 @@ var crowd_murmur_sfx_player: AudioStreamPlayer
 
 func _ready() -> void:
 	# play crowd murmur SFX
-	crowd_murmur_sfx_player = SoundManager.play_ambient_sound(crowd_murmur_sfx.duplicate(), 3.0)
+	crowd_murmur_sfx_player = SoundManager.play_ambient_sound(crowd_murmur_sfx.duplicate(), 3.0, "Ambience")
 
 func _start_game() -> void:
 	DialogueManager.show_dialogue_balloon(intro_dialogue, "start")
@@ -25,7 +25,7 @@ func play_and_wait_sound(sound: AudioStream) -> void:
 	await play_sound(sound).finished
 
 func play_sound(sound: AudioStream) -> AudioStreamPlayer:
-	return SoundManager.play_sound(sound)
+	return SoundManager.play_sound(sound, "Ambience")
 
 func fade_out_sound(player: AudioStreamPlayer, duration: float = 1.0) -> void:
 	SoundManager.sound_effects.fade_volume(player, player.volume_db, -80.0, duration)

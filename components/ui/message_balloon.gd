@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @export_category("References")
 @onready var next_indicator: TextureRect = %"Next Indicator"
+@export var letter_sfx: Dictionary[String, AudioStream]
 
 ## A basic dialogue balloon for use with Dialogue Manager.
 
@@ -180,5 +181,13 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 	next(response.next_id)
 
+func _on_dialogue_label_spoke(letter: String, _letter_index: int, _speed: float) -> void:
+	# letter has a sound
+	if letter_sfx.has(letter): 
+		# vary pitch
+		var pitch: float = randf_range(1.5, 2.0)
+
+		# play sound
+		SoundManager.play_sound_with_pitch(letter_sfx.get(letter), pitch, "Voices")
 
 #endregion

@@ -1,12 +1,38 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8c18s5qldsu8"]
+[gd_scene load_steps=44 format=3 uid="uid://b8c18s5qldsu8"]
 
 [ext_resource type="Script" uid="uid://cd4d6u84ny4fk" path="res://components/ui/message_balloon.gd" id="1_ac8ox"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_i6jns"]
+[ext_resource type="AudioStream" uid="uid://d8pg1ut2k8xo" path="res://assets/sounds/alphabet/A.wav" id="2_k7db3"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="3_2jst7"]
 [ext_resource type="FontFile" uid="uid://yx4o1tu8icbs" path="res://assets/fonts/cute dino/Cute Dino.otf" id="3_5l8qi"]
+[ext_resource type="AudioStream" uid="uid://cmd1khqasobrg" path="res://assets/sounds/alphabet/B.wav" id="3_qmlbi"]
+[ext_resource type="AudioStream" uid="uid://4xfc08lqbysj" path="res://assets/sounds/alphabet/C.wav" id="4_0c0jh"]
 [ext_resource type="FontFile" uid="uid://cvh0pvj1prwpo" path="res://assets/fonts/super trend/Super Trend.ttf" id="4_tbmjp"]
 [ext_resource type="PackedScene" uid="uid://bamiew5u14hbm" path="res://components/ui/dropshadow.tscn" id="5_5l8qi"]
+[ext_resource type="AudioStream" uid="uid://dshf460ifoj3b" path="res://assets/sounds/alphabet/D.wav" id="5_te54j"]
 [ext_resource type="Texture2D" uid="uid://oeyhhm60xkkv" path="res://assets/textures/icons/next_indicator.png" id="6_tbmjp"]
+[ext_resource type="AudioStream" uid="uid://b4cl6yyyyinhi" path="res://assets/sounds/alphabet/E.wav" id="6_wij7i"]
+[ext_resource type="AudioStream" uid="uid://2r5lbwbcyu6e" path="res://assets/sounds/alphabet/F.wav" id="7_kahde"]
+[ext_resource type="AudioStream" uid="uid://bln26d7b5fgg1" path="res://assets/sounds/alphabet/G.wav" id="8_b7qg1"]
+[ext_resource type="AudioStream" uid="uid://byosoq8xx0jga" path="res://assets/sounds/alphabet/H.wav" id="9_th665"]
+[ext_resource type="AudioStream" uid="uid://bxghmhmppl3s5" path="res://assets/sounds/alphabet/I.wav" id="10_2idqb"]
+[ext_resource type="AudioStream" uid="uid://4k3hsfov7cdf" path="res://assets/sounds/alphabet/J.wav" id="11_ymqjg"]
+[ext_resource type="AudioStream" uid="uid://cpw3w4wc4gcd6" path="res://assets/sounds/alphabet/K.wav" id="12_m1ahn"]
+[ext_resource type="AudioStream" uid="uid://ds51f7ebk7kvn" path="res://assets/sounds/alphabet/L.wav" id="13_wjljf"]
+[ext_resource type="AudioStream" uid="uid://ca86b3tb6hkkv" path="res://assets/sounds/alphabet/M.wav" id="14_ybep6"]
+[ext_resource type="AudioStream" uid="uid://dvbluh4tarhky" path="res://assets/sounds/alphabet/N.wav" id="15_8a32y"]
+[ext_resource type="AudioStream" uid="uid://ceixc4yqrodk6" path="res://assets/sounds/alphabet/O.wav" id="16_k0j3i"]
+[ext_resource type="AudioStream" uid="uid://858thhffvdvb" path="res://assets/sounds/alphabet/P.wav" id="17_30weo"]
+[ext_resource type="AudioStream" uid="uid://b2i3sv2hqkphi" path="res://assets/sounds/alphabet/Q.wav" id="18_y5sd7"]
+[ext_resource type="AudioStream" uid="uid://clbovrh3cp8nh" path="res://assets/sounds/alphabet/R.wav" id="19_8yfk4"]
+[ext_resource type="AudioStream" uid="uid://b23n61ghfvc2d" path="res://assets/sounds/alphabet/S.wav" id="20_qcwy8"]
+[ext_resource type="AudioStream" uid="uid://7l04hyy0ntj" path="res://assets/sounds/alphabet/T.wav" id="21_rbgoo"]
+[ext_resource type="AudioStream" uid="uid://cbdgbqafxwdxn" path="res://assets/sounds/alphabet/U.wav" id="22_i1iav"]
+[ext_resource type="AudioStream" uid="uid://njtine0a00kn" path="res://assets/sounds/alphabet/V.wav" id="23_j4r4i"]
+[ext_resource type="AudioStream" uid="uid://c57ov0ncmf76f" path="res://assets/sounds/alphabet/W.wav" id="24_8btgp"]
+[ext_resource type="AudioStream" uid="uid://e6wj4bbtle2n" path="res://assets/sounds/alphabet/X.wav" id="25_gi4q2"]
+[ext_resource type="AudioStream" uid="uid://svwhbyuvay84" path="res://assets/sounds/alphabet/Y.wav" id="26_qa66v"]
+[ext_resource type="AudioStream" uid="uid://dbg8gmgyiyqba" path="res://assets/sounds/alphabet/Z.wav" id="27_jorvh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -81,6 +107,20 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
+[sub_resource type="Animation" id="Animation_4xl4o"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(170, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="Animation" id="Animation_u3o8c"]
 resource_name = "bounce"
 loop_mode = 1
@@ -96,20 +136,6 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5, 1)
 }
 
-[sub_resource type="Animation" id="Animation_4xl4o"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(170, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8rvno"]
 _data = {
 &"RESET": SubResource("Animation_4xl4o"),
@@ -119,6 +145,34 @@ _data = {
 [node name="MessageBalloon" type="CanvasLayer"]
 layer = 100
 script = ExtResource("1_ac8ox")
+letter_sfx = Dictionary[String, AudioStream]({
+"a": ExtResource("2_k7db3"),
+"b": ExtResource("3_qmlbi"),
+"c": ExtResource("4_0c0jh"),
+"d": ExtResource("5_te54j"),
+"e": ExtResource("6_wij7i"),
+"f": ExtResource("7_kahde"),
+"g": ExtResource("8_b7qg1"),
+"h": ExtResource("9_th665"),
+"i": ExtResource("10_2idqb"),
+"j": ExtResource("11_ymqjg"),
+"k": ExtResource("12_m1ahn"),
+"l": ExtResource("13_wjljf"),
+"m": ExtResource("14_ybep6"),
+"n": ExtResource("15_8a32y"),
+"o": ExtResource("16_k0j3i"),
+"p": ExtResource("17_30weo"),
+"q": ExtResource("18_y5sd7"),
+"r": ExtResource("19_8yfk4"),
+"s": ExtResource("20_qcwy8"),
+"t": ExtResource("21_rbgoo"),
+"u": ExtResource("22_i1iav"),
+"v": ExtResource("23_j4r4i"),
+"w": ExtResource("24_8btgp"),
+"x": ExtResource("25_gi4q2"),
+"y": ExtResource("26_qa66v"),
+"z": ExtResource("27_jorvh")
+})
 
 [node name="Balloon" type="Control" parent="."]
 unique_name_in_owner = true
@@ -205,6 +259,7 @@ layout_mode = 2
 
 [node name="DialogueLabel" parent="Balloon/MarginContainer/Control/Message/MarginContainer/VBoxContainer" instance=ExtResource("2_i6jns")]
 unique_name_in_owner = true
+clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/default_color = Color(0.262932, 0.262932, 0.262932, 1)
@@ -271,4 +326,5 @@ layout_mode = 2
 text = "Response example"
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
+[connection signal="spoke" from="Balloon/MarginContainer/Control/Message/MarginContainer/VBoxContainer/DialogueLabel" to="." method="_on_dialogue_label_spoke"]
 [connection signal="response_selected" from="Balloon/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]
