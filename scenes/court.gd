@@ -1,8 +1,9 @@
 extends Node3D
 
 @export_category("References")
-@export var message_balloon: PackedScene
-@export var intro_dialogue: DialogueResource
+@export var speaking_balloon: PackedScene
+@export var speaking_dialogue: DialogueResource
+@export var phase_panel_scene: PackedScene
 enum Cams {
 	JUDGE,
 	CLAIMANT,
@@ -28,7 +29,20 @@ func _start_game() -> void:
 	_set_cam(Cams.JUDGE)
 
 	# start intro dialogue
-	DialogueManager.show_dialogue_balloon(intro_dialogue, "start")
+	var intro_dialogue: DialogueBalloon = DialogueManager.show_dialogue_balloon_scene(speaking_balloon, speaking_dialogue, "intro") as DialogueBalloon
+	intro_dialogue.finished.connect(_start_claim_phase)
+
+func _start_claim_phase() -> void:
+	# go to judge cam
+	_set_cam(Cams.JUDGE)
+
+	# start claim phase
+	var phase_panel: PhasePanel = phase_panel_scene.instantiate()
+	self.add_child(phase_panel)
+
+	## start claim dialogue
+	#var claim_dialogue: DialogueBalloon = DialogueManager.show_dialogue_balloon_scene(speaking_balloon, speaking_dialogue, "intro") as DialogueBalloon
+	#claim_dialogue.finished.connect(_start_claim_phase)
 
 func _set_cam(cam: Cams) -> void:
 	# loop through all registered camera markers

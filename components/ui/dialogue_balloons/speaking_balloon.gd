@@ -1,5 +1,8 @@
 extends CanvasLayer
+class_name DialogueBalloon
 ## A basic dialogue balloon for use with Dialogue Manager.
+
+signal finished
 
 ## The action to use for advancing the dialogue
 @export var next_action: StringName = &"ui_accept"
@@ -204,5 +207,9 @@ func _on_dialogue_label_spoke(letter: String, _letter_index: int, _speed: float)
 
 		# play sound
 		SoundManager.play_sound_with_pitch(letter_sfx.get(letter).duplicate(), pitch, "Voices")
+
+func _on_finished() -> void:
+	finished.emit()
+	queue_free()
 
 #endregion

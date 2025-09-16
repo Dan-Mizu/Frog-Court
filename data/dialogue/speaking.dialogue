@@ -1,0 +1,6 @@
+~ intro
+Judge {{State.broadcaster_user.display_name}}: [do play_sound(gavel_sfx)]Order![wait=.35] [wave amp=25 freq=15]Order![/wave][do fade_out_sound(crowd_murmur_sfx_player, 2.5)]
+Judge {{State.broadcaster_user.display_name}}: We're gathered here today to put chat on trial.
+Judge {{State.broadcaster_user.display_name}}: You will all file your complaints. Of course, as the Judge, I reserve the right to dismiss any claims.[wait=0.8] So don't be lame.
+Judge {{State.broadcaster_user.display_name}}: Now let us hear from our first plaintiff!
+=> END

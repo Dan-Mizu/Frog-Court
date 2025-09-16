@@ -30,7 +30,12 @@ class_name ShrinkPressedButton
 ## Controls whether the transition eases in, out, or both.
 @export var tween_ease: Tween.EaseType = Tween.EASE_OUT
 
+## Optional control to animate instead of the button itself.
+## If not set, the parent button will be animated.
+@export var target_control: Control
+
 var parent_button: BaseButton
+var active_control: Control
 var original_scale: Vector2
 var original_min_size: Vector2
 var original_size: Vector2
@@ -45,10 +50,17 @@ func _ready() -> void:
 		return
 	
 	parent_button = parent as BaseButton
-	original_scale = parent_button.scale
-	if parent_button is Control:
-		original_min_size = (parent_button as Control).custom_minimum_size
-		original_size = (parent_button as Control).size
+	
+	# Determine which control to animate
+	if target_control and target_control is Control:
+		active_control = target_control
+	else:
+		active_control = parent_button
+	
+	original_scale = active_control.scale
+	if active_control is Control:
+		original_min_size = (active_control as Control).custom_minimum_size
+		original_size = (active_control as Control).size
 	
 	# Set initial pivot offset to center
 	_update_pivot_offset()
@@ -58,8 +70,8 @@ func _ready() -> void:
 	parent_button.button_up.connect(_on_button_up)
 	
 	# Connect to size changes to update pivot
-	if parent_button is Control:
-		var control: Control = parent_button as Control
+	if active_control is Control:
+		var control: Control = active_control as Control
 		control.resized.connect(_update_pivot_offset)
 
 func _on_button_down() -> void:
@@ -71,8 +83,8 @@ func _on_button_down() -> void:
 	tween = create_tween()
 	tween.set_trans(tween_type)
 	tween.set_ease(tween_ease)
-	if use_minimum_size and parent_button is Control:
-		var control: Control = parent_button as Control
+	if use_minimum_size and active_control is Control:
+		var control: Control = active_control as Control
 		var current_size: Vector2 = control.size
 		var target_size: Vector2 = current_size * shrink_scale
 		var target_min_size: Vector2 = control.custom_minimum_size * shrink_scale
@@ -80,7 +92,7 @@ func _on_button_down() -> void:
 		tween.tween_property(control, "custom_minimum_size", target_min_size, shrink_duration)
 		tween.parallel().tween_property(control, "size", target_size, shrink_duration)
 	else:
-		tween.tween_property(parent_button, "scale", shrink_scale, shrink_duration)
+		tween.tween_property(active_control, "scale", shrink_scale, shrink_duration)
 
 func _on_button_up() -> void:
 	# Cancel any existing tween
@@ -91,18 +103,18 @@ func _on_button_up() -> void:
 	tween = create_tween()
 	tween.set_trans(tween_type)
 	tween.set_ease(tween_ease)
-	if use_minimum_size and parent_button is Control:
-		var control: Control = parent_button as Control
+	if use_minimum_size and active_control is Control:
+		var control: Control = active_control as Control
 		# Tween both minimum size and actual size back to original
 		tween.tween_property(control, "custom_minimum_size", original_min_size, return_duration)
 		tween.parallel().tween_property(control, "size", original_size, return_duration)
 	else:
-		tween.tween_property(parent_button, "scale", original_scale, return_duration)
+		tween.tween_property(active_control, "scale", original_scale, return_duration)
 
 func _update_pivot_offset() -> void:
 	# Update pivot offset to center of the button
-	if parent_button is Control:
-		var control: Control = parent_button as Control
+	if active_control is Control:
+		var control: Control = active_control as Control
 		control.pivot_offset = control.size / 2.0
 
 func _exit_tree() -> void:
@@ -113,8 +125,7 @@ func _exit_tree() -> void:
 		if parent_button.button_up.is_connected(_on_button_up):
 			parent_button.button_up.disconnect(_on_button_up)
 		
-		# Disconnect resized signal if connected
-		if parent_button is Control:
-			var control: Control = parent_button as Control
-			if control.resized.is_connected(_update_pivot_offset):
-				control.resized.disconnect(_update_pivot_offset)
+	# Disconnect resized signal if connected
+	if active_control and not active_control.is_queued_for_deletion():
+		if active_control.resized.is_connected(_update_pivot_offset):
+			active_control.resized.disconnect(_update_pivot_offset)
