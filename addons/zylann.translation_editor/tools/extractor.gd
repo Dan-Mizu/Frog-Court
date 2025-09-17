@@ -1,5 +1,5 @@
 
-const Logger = preload("./util/logger.gd")
+const TranslationLogger = preload("./util/logger.gd")
 
 const STATE_SEARCHING = 0
 const STATE_READING_TEXT = 1
@@ -15,7 +15,7 @@ var _thread : Thread = null
 var _time_before := 0.0
 var _ignored_paths := {}
 var _paths := []
-var _logger = Logger.get_for(self)
+var _logger = TranslationLogger.get_for(self)
 var _prefix := ""
 const _prefix_exclusive := true
 

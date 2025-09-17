@@ -32,25 +32,19 @@ shader_parameter/outline_color = Color(0, 0, 0, 1)
 script = ExtResource("7_15585")
 duration = 0.5
 transition = 1
-ease = 2
 
 [sub_resource type="Resource" id="Resource_qqgq3"]
 script = ExtResource("7_15585")
 duration = 0.8
 transition = 1
-ease = 2
 
 [sub_resource type="Resource" id="Resource_qyj8n"]
 script = ExtResource("7_15585")
-duration = 1.0
 transition = 1
-ease = 2
 
 [sub_resource type="Resource" id="Resource_15585"]
 script = ExtResource("7_15585")
-duration = 1.0
 transition = 1
-ease = 2
 
 [node name="Court" type="Node3D" node_paths=PackedStringArray("cam_markers")]
 script = ExtResource("1_h0b8m")

@@ -2,7 +2,7 @@
 extends AcceptDialog
 
 const Extractor = preload("./extractor.gd")
-const Logger = preload("./util/logger.gd")
+const TranslationLogger = preload("./util/logger.gd")
 
 signal import_selected(strings)
 
@@ -19,7 +19,7 @@ var _extractor : Extractor = null
 # { string => { fpath => line number } }
 var _results := {}
 var _registered_string_filter : Callable
-var _logger = Logger.get_for(self)
+var _logger = TranslationLogger.get_for(self)
 
 var deferred_notif = false
 

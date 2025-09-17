@@ -373,4 +373,3 @@ static func get_all_locale_ids() -> Array:
 	for i in len(_locales):
 		ids[i] = _locales[i][0]
 	return ids
-

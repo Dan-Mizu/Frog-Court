@@ -8,7 +8,7 @@ const StringEditionDialog = preload("./string_edition_dialog.gd")
 const LanguageSelectionDialog = preload("./language_selection_dialog.gd")
 const ExtractorDialog = preload("./extractor_dialog.gd")
 const Util = preload("./util/util.gd")
-const Logger = preload("./util/logger.gd")
+const TranslationLogger = preload("./util/logger.gd")
 
 const StringEditionDialogScene = preload("./string_edition_dialog.tscn")
 const LanguageSelectionDialogScene = preload("./language_selection_dialog.tscn")
@@ -50,7 +50,7 @@ var _save_folder_dialog : FileDialog = null
 var _base_control : Control = null
 var _translation_edits := {}
 var _dialogs_to_free_on_exit := []
-var _logger = Logger.get_for(self)
+var _logger = TranslationLogger.get_for(self)
 
 # {stringID => {language => text}}
 var _data := {}
@@ -239,11 +239,11 @@ func load_file(filepath: String):
 	if ext == "po":
 		var valid_locales := Locales.get_all_locale_ids()
 		_current_path = filepath.get_base_dir()
-		_data = PoLoader.load_po_translation(_current_path, valid_locales, Logger.get_for(PoLoader))
+		_data = PoLoader.load_po_translation(_current_path, valid_locales, TranslationLogger.get_for(PoLoader))
 		_current_format = FORMAT_GETTEXT
 		
 	elif ext == "csv":
-		_data = CsvLoader.load_csv_translation(filepath, Logger.get_for(CsvLoader))
+		_data = CsvLoader.load_csv_translation(filepath, TranslationLogger.get_for(CsvLoader))
 		_current_path = filepath
 		_current_format = FORMAT_CSV
 		
@@ -367,10 +367,10 @@ func save_file(path: String, format: int):
 		else:
 			languages_to_save = _modified_languages.keys()
 		saved_languages = PoLoader.save_po_translations(
-			path, _data, languages_to_save, Logger.get_for(PoLoader))
+			path, _data, languages_to_save, TranslationLogger.get_for(PoLoader))
 		
 	elif format == FORMAT_CSV:
-		saved_languages = CsvLoader.save_csv_translation(path, _data, Logger.get_for(CsvLoader))
+		saved_languages = CsvLoader.save_csv_translation(path, _data, TranslationLogger.get_for(CsvLoader))
 		
 	else:
 		_logger.error("Unknown file format, cannot save {0}".format([path]))

@@ -3,7 +3,7 @@ extends EditorPlugin
 
 const TranslationEditor = preload("./translation_editor.gd")
 const TranslationEditorScene = preload("./translation_editor.tscn")
-const Logger = preload("./util/logger.gd")
+const TranslationLogger = preload("./util/logger.gd")
 
 const _default_settings = {
 	"translation_editor/string_prefix": "",
@@ -12,7 +12,7 @@ const _default_settings = {
 }
 
 var _main_control : TranslationEditor = null
-var _logger = Logger.get_for(self)
+var _logger = TranslationLogger.get_for(self)
 
 
 func _enter_tree():
