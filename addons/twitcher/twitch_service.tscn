@@ -15,7 +15,6 @@
 
 [sub_resource type="Resource" id="Resource_nmcm3"]
 script = ExtResource("12_uvps8")
-fallback_texture = ExtResource("11_j0p3d")
 
 [node name="TwitchService" type="Node"]
 script = ExtResource("1_6jm7q")

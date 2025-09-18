@@ -56,6 +56,11 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	## CHANGED CODE
+	if ProjectSettings.has_setting("twitcher/editor/game_oauth_setting"): oauth_setting = load(ProjectSettings.get_setting("twitcher/editor/game_oauth_setting"))
+	if ProjectSettings.has_setting("twitcher/editor/game_oauth_token"): token = load(ProjectSettings.get_setting("twitcher/editor/game_oauth_token"))
+	if ProjectSettings.has_setting("twitcher/editor/default_scopes"): scopes = load(ProjectSettings.get_setting("twitcher/editor/default_scopes"))
+	##
 	_log.d("is ready")
 	if not is_instance_valid(token): token = TwitchEditorSettings.game_oauth_token
 	if not is_instance_valid(oauth_setting): oauth_setting = TwitchEditorSettings.game_oauth_setting
@@ -108,9 +113,9 @@ func _on_child_exiting(node: Node) -> void:
 ## It boots everything up this Lib supports.
 func setup() -> bool:
 	if is_instance_valid(auth): 
-		if not await auth.authorize():
-			return false
+		if not await auth.authorize(): return false
 
+		## CHANGED CODE
 		# After successful authorize, refresh token + user info
 		_log.i("Authorization succeeded, refreshing token + user info")
 		if token:
@@ -128,7 +133,7 @@ func setup() -> bool:
 				scopes_arr.append(s)
 
 			# Persist these values to the token resource (this will also emit authorized)
-			token.update_values(access_token, refresh_token, expire_in, scopes_arr)
+			token.update_values(access_token, refresh_token, expire_in, scopes_arr, token.type)
 
 			# Force refresh current user info now that token is updated
 			_current_user = null
@@ -138,7 +143,9 @@ func setup() -> bool:
 				_log.i("Logged in as %s" % _current_user.display_name)
 			else:
 				_log.e("Still could not get current user info after reauth")
-	else:
+		## CHANGED CODE
+
+	elif not token.is_token_valid():
 		push_error("Authorization Node got removed, can't setup twitch service")
 		return false
 	await propagate_call(&"do_setup")
@@ -180,6 +187,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _on_unauthenticated() -> void:
+	## CHANGED CODE
+	#auth.authorize()
+
 	# Try to re-authorize; if successful refresh token values and user info
 	if await auth.authorize():
 		if token:
@@ -194,10 +204,11 @@ func _on_unauthenticated() -> void:
 			for s in token.get_scopes():
 				scopes_arr.append(s)
 
-			token.update_values(access_token, refresh_token, expire_in, scopes_arr)
+			token.update_values(access_token, refresh_token, expire_in, scopes_arr, token.type)
 
 		_current_user = null
 		_current_user = await get_current_user()
+	## CHANGED CODE
 
 #
 # Convinient Proxy Methods
@@ -244,20 +255,20 @@ func get_user(username: String) -> TwitchUser:
 func get_current_user() -> TwitchUser:
 	if _current_user != null:
 		return _current_user
-
+		
 	if api == null:
 		_log.e("Please setup a TwitchAPI Node into TwitchService.")
 		return null
-
+		
 	var user_data : TwitchGetUsers.Response = await api.get_users(null)
-
+	## CHANGED CODE
 	if user_data == null or user_data.data.is_empty():
 		_log.e("Invalid or revoked token, clearing saved tokens...")
 		if token:
 			token.remove_tokens() # or token.invalidate()
 		await auth.authorize()
 		return null
-
+	## CHANGED CODE
 	_current_user = user_data.data[0]
 	return _current_user
 
@@ -349,7 +360,8 @@ func announcment(message: String, color: TwitchAnnouncementColor = TwitchAnnounc
 ## args_max == -1 => no upper limit for arguments
 func add_command(command: String, callback: Callable, args_min: int = 0, args_max: int = -1,
 	permission_level : TwitchCommand.PermissionFlag = TwitchCommand.PermissionFlag.EVERYONE,
-	where : TwitchCommand.WhereFlag = TwitchCommand.WhereFlag.CHAT) -> TwitchCommand:
+	where : TwitchCommand.WhereFlag = TwitchCommand.WhereFlag.CHAT, user_cooldown: float = 0, 
+	global_cooldown: float = 0) -> TwitchCommand:
 	var command_node = TwitchCommand.new()
 	command_node.command = command
 	command_node.command_received.connect(callback) 
@@ -357,6 +369,8 @@ func add_command(command: String, callback: Callable, args_min: int = 0, args_ma
 	command_node.args_max = args_max
 	command_node.permission_level = permission_level
 	command_node.where = where
+	command_node.user_cooldown = user_cooldown
+	command_node.global_cooldown = global_cooldown
 	add_child(command_node)
 	_log.i("Register command %s" % command)
 	return command_node

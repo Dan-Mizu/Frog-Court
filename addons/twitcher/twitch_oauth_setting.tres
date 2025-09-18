@@ -12,6 +12,4 @@ token_url = "https://id.twitch.tv/oauth2/token"
 authorization_url = "https://id.twitch.tv/oauth2/authorize"
 device_authorization_url = "https://id.twitch.tv/oauth2/device"
 cache_file = "user://auth.conf"
-client_id = "s2s4nvhbw4pg666kl7st7f74ka6nb3"
-authorization_flow = 2
 _encryption_key_provider = SubResource("Resource_ss7yp")

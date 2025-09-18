@@ -33,9 +33,9 @@ manager/sound/pool_3D_size=10
 
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
-Twitch="*res://addons/twitcher/twitch_service.tscn"
 State="*res://components/globals/state.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+Twitch="*res://addons/twitcher/twitch_service.tscn"
 
 [dialogue_manager]
 
@@ -135,8 +135,8 @@ lights_and_shadows/directional_shadow/size=8192
 
 [twitcher]
 
-editor/game_oauth_token="res://data/twitch/twitch_oauth_token.tres"
-editor/game_oauth_setting="res://data/twitch/twitch_oauth_setting.tres"
+editor/game_oauth_token="uid://beogb7g8tmlot"
+editor/game_oauth_setting="uid://bdwtgeb8hpgeq"
 editor/default_scopes="res://data/twitch/twitch_scopes.tres"
 editor/show_setup_on_startup=false
 editor/project_preset=&"Game"
