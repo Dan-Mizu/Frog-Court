@@ -49,7 +49,7 @@ window/stretch/aspect="keep_width"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/twitcher/plugin.cfg", "res://addons/zylann.translation_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/twitcher/plugin.cfg", "res://addons/zylann.translation_editor/plugin.cfg")
 
 [file_customization]
 
