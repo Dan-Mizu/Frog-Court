@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cl37lpm48ih7m"]
+[gd_scene load_steps=27 format=3 uid="uid://cl37lpm48ih7m"]
 
 [ext_resource type="PackedScene" uid="uid://srsw82t30cm3" path="res://components/ui/splashscreen.tscn" id="1_15585"]
 [ext_resource type="Script" uid="uid://bi6hy400giofx" path="res://scenes/court.gd" id="1_h0b8m"]
@@ -15,6 +15,11 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_15585"]
 [ext_resource type="PackedScene" uid="uid://dg3blyov6hyfp" path="res://components/ui/phase_panel.tscn" id="8_i5cvy"]
 [ext_resource type="PackedScene" uid="uid://c87qa76hw2ccl" path="res://components/ui/twitch_modal.tscn" id="10_d0d5a"]
+[ext_resource type="PackedScene" uid="uid://dp4ryhn48y62p" path="res://components/entities/chatters/elephant.tscn" id="16_c6ra0"]
+[ext_resource type="PackedScene" uid="uid://codxo4wyg8jko" path="res://components/entities/chatters/panda.tscn" id="17_revm4"]
+[ext_resource type="PackedScene" uid="uid://die18x7otjea6" path="res://components/entities/chatters/chicken.tscn" id="18_cn0p0"]
+[ext_resource type="PackedScene" uid="uid://ducn7r00ertsd" path="res://components/entities/chatters/bunny.tscn" id="19_b3dk5"]
+[ext_resource type="PackedScene" uid="uid://w6ylo7rff0kc" path="res://components/entities/chatters/cow.tscn" id="20_g8kxy"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_i1kge"]
 flip_faces = true
@@ -129,5 +134,20 @@ script = ExtResource("6_qyj8n")
 priority = 1
 tween_resource = SubResource("Resource_15585")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Elephant" parent="." instance=ExtResource("16_c6ra0")]
+transform = Transform3D(-0.7972259, 0, 0.6036811, 0, 1, 0, -0.6036811, 0, -0.7972259, -16.261448, 3.6980867, 16.916775)
+
+[node name="Panda" parent="." instance=ExtResource("17_revm4")]
+transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, -11.7914, 2.5412579, -11.091156)
+
+[node name="Chicken" parent="." instance=ExtResource("18_cn0p0")]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -31.435204, 3.446959, 4.799917)
+
+[node name="Bunny" parent="." instance=ExtResource("19_b3dk5")]
+transform = Transform3D(-0.8194923, 0, -0.57309026, 0, 1, 0, 0.57309026, 0, -0.8194923, 11.771343, 3.2692766, 16.42095)
+
+[node name="Cow" parent="." instance=ExtResource("20_g8kxy")]
+transform = Transform3D(0.9758482, 0, -0.21844983, 0, 1, 0, 0.21844983, 0, 0.9758482, 25.422249, 2.5366387, -15.023085)
 
 [connection signal="modal_finished" from="TwitchModal" to="." method="_on_twitch_modal_finished"]
