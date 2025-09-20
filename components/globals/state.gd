@@ -2,6 +2,7 @@ extends Node
 
 # state
 var broadcaster_user: TwitchUser
+var phase: PhaseResponse.Phase = PhaseResponse.Phase.NONE
 
 func connect_to_twitch() -> bool:
 	# Start the setup process (handles authentication)
