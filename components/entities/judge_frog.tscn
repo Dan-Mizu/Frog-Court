@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=4 uid="uid://dqyaa4cxy5wxo"]
 
-[ext_resource type="PackedScene" uid="uid://dxdd04a6dlo8g" path="res://assets/models/characters/happy_idle_rinrin.glb" id="1_hap7m"]
+[ext_resource type="PackedScene" uid="uid://dxdd04a6dlo8g" path="res://assets/models/characters/frog_judge/happy_idle_rinrin.glb" id="1_hap7m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hap7m"]
 resource_name = "IRIS.001"

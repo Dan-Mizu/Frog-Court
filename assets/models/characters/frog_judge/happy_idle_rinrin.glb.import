@@ -4,20 +4,22 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dxdd04a6dlo8g"
-path="res://.godot/imported/happy_idle_rinrin.glb-2f585796c0f2a7e255a41b6f87aebdff.scn"
+path="res://.godot/imported/happy_idle_rinrin.glb-883997e37781c7650bb1662d81856db2.scn"
 
 [deps]
 
-source_file="res://assets/models/characters/happy_idle_rinrin.glb"
-dest_files=["res://.godot/imported/happy_idle_rinrin.glb-2f585796c0f2a7e255a41b6f87aebdff.scn"]
+source_file="res://assets/models/characters/frog_judge/happy_idle_rinrin.glb"
+dest_files=["res://.godot/imported/happy_idle_rinrin.glb-883997e37781c7650bb1662d81856db2.scn"]
 
 [params]
 
 nodes/root_type=""
 nodes/root_name=""
+nodes/root_script=null
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
@@ -32,6 +34,9 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
 _subresources={
 "nodes": {
 "PATH:Sketchfab_model/b5826597aacc4b5fa176a93649f30981_fbx/Object_2/RootNode/Object_4/Skeleton3D": {
