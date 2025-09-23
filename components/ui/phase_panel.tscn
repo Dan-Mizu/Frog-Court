@@ -259,13 +259,18 @@ text = "EXAMPLES"
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_d0d5a")
 
-[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/Examples/Example"]
+[node name="ExampleLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/Examples/Example"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_2xywi")
 theme_override_font_sizes/font_size = 28
 text = "!claim Red is better than blue."
 vertical_alignment = 1
+
+[node name="ExampleTimer" type="Timer" parent="Control/MarginContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/Examples/Example"]
+unique_name_in_owner = true
+wait_time = 5.0
 
 [node name="Info" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -377,4 +382,5 @@ libraries = {
 }
 autoplay = "show"
 
+[connection signal="timeout" from="Control/MarginContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/Examples/Example/ExampleTimer" to="." method="_cycle_example"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Buttons/Button" to="." method="_on_end_button_pressed"]

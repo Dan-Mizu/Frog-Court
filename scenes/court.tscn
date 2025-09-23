@@ -122,7 +122,7 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="Panel Cam" type="Node3D" parent="Cameras"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0.75, 22, 12.5)
+transform = Transform3D(1, 0, 0, 0, 0.9680209, 0.2508697, 0, -0.2508697, 0.9680209, 0.75, 18.75, 12.5)
 script = ExtResource("6_qyj8n")
 tween_resource = SubResource("Resource_qyj8n")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"

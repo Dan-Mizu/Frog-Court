@@ -34,7 +34,7 @@ func _start_game() -> void:
 
 func _start_claim_phase() -> void:
 	# go to judge cam
-	_set_cam(Cams.JUDGE)
+	_set_cam(Cams.PANEL)
 
 	# start claim phase
 	State.round_data.phase = State.Phase.ACCUSATION
