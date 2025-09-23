@@ -37,7 +37,8 @@ func _start_claim_phase() -> void:
 	_set_cam(Cams.JUDGE)
 
 	# start claim phase
-	var phase_panel: PhasePanel = phase_panel_scene.instantiate()
+	State.round_data.phase = State.Phase.ACCUSATION
+	var phase_panel: PhasePanel = phase_panel_scene.instantiate().init(500)
 	self.add_child(phase_panel)
 
 	## start claim dialogue
