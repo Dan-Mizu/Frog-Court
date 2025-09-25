@@ -26,6 +26,7 @@ config/icon="uid://guae71qnjawp"
 
 [audio]
 
+buses/default_bus_layout="res://data/audio/default_bus_layout.tres"
 manager/sound/pool_1D_size=10
 manager/sound/pool_3D_size=10
 

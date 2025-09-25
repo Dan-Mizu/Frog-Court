@@ -53,7 +53,7 @@ func _on_accusation_phase_finished() -> void:
 
 	# change cam
 	_set_cam(Cams.JUDGE)
-	
+
 	State.round_data.accusations.responses.size()
 
 	# no accusations provided
