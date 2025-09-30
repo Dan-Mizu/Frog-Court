@@ -45,7 +45,7 @@ func _connect_to_twitch_events() -> void:
 		&"broadcaster_user_id": broadcaster_user.id,
 		&"user_id": broadcaster_user.id
 	})
-	Twitch.eventsub.event_received.connect(_on_chat_message)
+	if not Twitch.eventsub.event_received.is_connected(_on_chat_message): Twitch.eventsub.event_received.connect(_on_chat_message)
 
 #endregion
 
@@ -117,8 +117,8 @@ func _receive_command(_from_username: String, info: TwitchCommandInfo, args: Pac
 			round_data.phase,
 			chat_message.chatter_user_id,
 			chat_message.chatter_user_name,
-			accused_name,
-			claim
+			claim,
+			accused_name
 		)
 
 	# message response
@@ -338,7 +338,7 @@ class ResponseAccusation extends ResponseMessage:
 	var accused_name: String
 
 	# setup
-	func _init(_phase: Phase = Phase.NONE, _user_id: String = "", _user_display_name: String = "", _accused_name: String = "", _message: String = "") -> void:
+	func _init(_phase: Phase = Phase.NONE, _user_id: String = "", _user_display_name: String = "", _message: String = "", _accused_name: String = "", ) -> void:
 		super._init(_phase, _user_id, _user_display_name, _message)
-		accused_name = accused_name
+		accused_name = _accused_name
 #endregion
