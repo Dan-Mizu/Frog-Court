@@ -1,5 +1,8 @@
 extends Node
 
+# signals
+signal new_message_from_accused(message: String)
+
 # state
 var broadcaster_user: TwitchUser
 var round_data: RoundData = RoundData.new()
@@ -159,15 +162,14 @@ func _on_chat_message(event: TwitchEventsub.Event) -> void:
 	var chat_message: TwitchChatMessage = TwitchChatMessage.from_json(event.data)
 
 	# not the defendant
-	if chat_message.chatter_user_id != round_data.accused_user_id: return
+	if chat_message.chatter_user_id != round_data.selected_accusation.accuser_id: return
 
 	# get message text
 	var text: String = chat_message.message.text.strip_edges()
 	if text.is_empty(): return
 
-	# defendant sent chat message
-	#var defense = ResponseMessage.new(round_data.phase, chat_message.chatter_user_id, chat_message.chatter_user_name, text)
-	#round_data.defenses.add_response(defense)
+	# emit defendant message event
+	new_message_from_accused.emit(text)
 #endregion
 
 #region Rounds and Phases

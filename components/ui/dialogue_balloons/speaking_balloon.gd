@@ -200,13 +200,16 @@ func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
 	next(response.next_id)
 
 func _on_dialogue_label_spoke(letter: String, _letter_index: int, _speed: float) -> void:
+	# format letter
+	var _letter = letter.to_lower()
+
 	# letter has a sound
-	if letter_sfx.has(letter): 
+	if letter_sfx.has(_letter): 
 		# vary pitch
 		var pitch: float = randf_range(1.5, 2.0)
 
 		# play sound
-		SoundManager.play_sound_with_pitch(letter_sfx.get(letter), pitch, "Voices")
+		SoundManager.play_sound_with_pitch(letter_sfx.get(_letter), pitch, "Voices")
 
 func _on_finished() -> void:
 	finished.emit()

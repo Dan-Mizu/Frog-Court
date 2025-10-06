@@ -225,3 +225,33 @@ func _show_shared_bus_warning() -> void:
 
 
 #endregion
+
+func cleanup_freed_players() -> void:
+	# Remove any freed nodes from available and busy pools
+	sound_effects.available_players = sound_effects.available_players.filter(func(p):
+		return is_instance_valid(p)
+	)
+	sound_effects.busy_players = sound_effects.busy_players.filter(func(p):
+		return is_instance_valid(p)
+	)
+
+	ui_sound_effects.available_players = ui_sound_effects.available_players.filter(func(p):
+		return is_instance_valid(p)
+	)
+	ui_sound_effects.busy_players = ui_sound_effects.busy_players.filter(func(p):
+		return is_instance_valid(p)
+	)
+
+	ambient_sounds.available_players = ambient_sounds.available_players.filter(func(p):
+		return is_instance_valid(p)
+	)
+	ambient_sounds.busy_players = ambient_sounds.busy_players.filter(func(p):
+		return is_instance_valid(p)
+	)
+
+	music.available_players = music.available_players.filter(func(p):
+		return is_instance_valid(p)
+	)
+	music.busy_players = music.busy_players.filter(func(p):
+		return is_instance_valid(p)
+	)

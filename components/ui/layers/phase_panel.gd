@@ -13,6 +13,7 @@ class PhasePanelData:
 		return self
 
 # signals
+signal hiding
 signal finished
 
 # references
@@ -115,6 +116,7 @@ func _on_show() -> void:
 	SoundManager.play_sound_with_pitch(show_sfx, 0.8, "UI")
 func _on_hide() -> void:
 	SoundManager.play_sound_with_pitch(hide_sfx, 0.8, "UI")
+	hiding.emit()
 
 func _on_end_button_pressed() -> void:
 	_end()

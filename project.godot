@@ -45,7 +45,7 @@ runtime/balloon_path="res://components/ui/dialogue_balloons/speaking_balloon.tsc
 
 [display]
 
-window/size/mode=1
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
 

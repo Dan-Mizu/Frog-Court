@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cl37lpm48ih7m"]
+[gd_scene load_steps=35 format=3 uid="uid://cl37lpm48ih7m"]
 
 [ext_resource type="PackedScene" uid="uid://srsw82t30cm3" path="res://components/ui/layers/splashscreen.tscn" id="1_15585"]
 [ext_resource type="Script" uid="uid://bi6hy400giofx" path="res://scenes/court.gd" id="1_h0b8m"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://f8du7ir56x6a" path="res://data/dialogue/speaking.dialogue" id="3_2768l"]
 [ext_resource type="PackedScene" uid="uid://dqyaa4cxy5wxo" path="res://components/entities/judge_frog.tscn" id="3_ogvvj"]
 [ext_resource type="Shader" uid="uid://dt8n3jwli55n" path="res://assets/shaders/outline.gdshader" id="4_ogvvj"]
+[ext_resource type="PackedScene" uid="uid://dpjvccsl7nk8v" path="res://components/ui/dialogue_balloons/runtime_balloon.tscn" id="4_v012p"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_qqgq3"]
 [ext_resource type="AudioStream" uid="uid://dx2khqrnx3vug" path="res://assets/sounds/gavel_pounding.ogg" id="5_rnrgf"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="6_qyj8n"]
@@ -68,6 +69,7 @@ script = ExtResource("1_h0b8m")
 pause_menu = NodePath("Pause Menu")
 speaking_balloon = ExtResource("2_5mv5b")
 speaking_dialogue = ExtResource("3_2768l")
+runtime_balloon = ExtResource("4_v012p")
 phase_panel_scene = ExtResource("8_i5cvy")
 accusation_selection_scene = ExtResource("9_cn0p0")
 cam_positions = {

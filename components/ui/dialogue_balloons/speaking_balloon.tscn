@@ -37,7 +37,7 @@
 [ext_resource type="AudioStream" uid="uid://dsxpw2smutyh8" path="res://assets/sounds/ui/show.ogg" id="29_te54j"]
 [ext_resource type="AudioStream" uid="uid://cp2shv2uk4yhj" path="res://assets/sounds/ui/hide.ogg" id="30_te54j"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4it4x"]
 bg_color = Color(0, 0, 0, 1)
 border_width_left = 3
 border_width_top = 3
@@ -49,7 +49,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ri4m3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b6o2s"]
 bg_color = Color(0.121569, 0.121569, 0.121569, 1)
 border_width_left = 3
 border_width_top = 3
@@ -61,7 +61,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0njw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n05cc"]
 bg_color = Color(0, 0, 0, 1)
 border_width_left = 3
 border_width_top = 3
@@ -73,7 +73,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkmqt"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pyu4m"]
 bg_color = Color(0, 0, 0, 1)
 border_width_left = 3
 border_width_top = 3
@@ -86,15 +86,15 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="Theme" id="Theme_qq3yp"]
 default_font_size = 20
-Button/styles/disabled = SubResource("StyleBoxFlat_spyqn")
-Button/styles/focus = SubResource("StyleBoxFlat_ri4m3")
-Button/styles/hover = SubResource("StyleBoxFlat_e0njw")
-Button/styles/normal = SubResource("StyleBoxFlat_e0njw")
+Button/styles/disabled = SubResource("StyleBoxFlat_4it4x")
+Button/styles/focus = SubResource("StyleBoxFlat_b6o2s")
+Button/styles/hover = SubResource("StyleBoxFlat_n05cc")
+Button/styles/normal = SubResource("StyleBoxFlat_n05cc")
 MarginContainer/constants/margin_bottom = 15
 MarginContainer/constants/margin_left = 30
 MarginContainer/constants/margin_right = 30
 MarginContainer/constants/margin_top = 15
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_qkmqt")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_pyu4m")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6jns"]
 bg_color = Color(0, 0, 0, 1)

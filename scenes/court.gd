@@ -4,6 +4,7 @@ extends Node3D
 @export var pause_menu: PauseMenu
 @export var speaking_balloon: PackedScene
 @export var speaking_dialogue: DialogueResource
+@export var runtime_balloon: PackedScene
 @export var phase_panel_scene: PackedScene
 @export var accusation_selection_scene: PackedScene
 enum Cams {
@@ -104,7 +105,15 @@ func _on_accusation_phase_finished() -> void:
 		_play_dialogue("accusations_received").finished.connect(_start_accusation_selection)
 
 # restart game
-func _restart() -> void: get_tree().reload_current_scene()
+func _restart() -> void:
+	# cleanup sound manager
+	SoundManager.cleanup_freed_players()
+
+	# wait for it...
+	await get_tree().process_frame
+
+	# restart the game
+	get_tree().reload_current_scene()
 
 # let judge pick an accusation
 func _start_accusation_selection() -> void:
@@ -169,7 +178,9 @@ func _on_finished_accuser_focus() -> void:
 	phase_panel.finished.connect(_on_defense_phase_finished)
 
 	# begin capturing accused's chat messages and displaying them
-	
+	var defendant_balloon: RuntimeBalloon = runtime_balloon.instantiate()
+	self.add_child(defendant_balloon)
+	phase_panel.hiding.connect(func(): defendant_balloon.animation_player.play("hide"))
 
 func _on_defense_phase_finished() -> void:
 	# update phase
