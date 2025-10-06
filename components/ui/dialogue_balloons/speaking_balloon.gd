@@ -8,7 +8,7 @@ signal finished
 @export var next_action: StringName = &"ui_accept"
 
 ## The action to use to skip typing the dialogue
-@export var skip_action: StringName = &"ui_cancel"
+@export var skip_action: StringName = &"ui_select"
 
 # references
 @onready var next_indicator: TextureRect = %"Next Indicator"

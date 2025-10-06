@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://dg3blyov6hyfp"]
 
 [ext_resource type="PackedScene" uid="uid://bamiew5u14hbm" path="res://components/ui/dropshadow.tscn" id="1_0m1a0"]
-[ext_resource type="Script" uid="uid://bh5roe6wjnl4m" path="res://components/ui/phase_panel.gd" id="1_ouvq3"]
+[ext_resource type="Script" uid="uid://bh5roe6wjnl4m" path="res://components/ui/layers/phase_panel.gd" id="1_ouvq3"]
 [ext_resource type="AudioStream" uid="uid://dsxpw2smutyh8" path="res://assets/sounds/ui/show.ogg" id="2_jryqy"]
 [ext_resource type="FontFile" uid="uid://cvh0pvj1prwpo" path="res://assets/fonts/super trend/Super Trend.ttf" id="2_ouvq3"]
 [ext_resource type="FontFile" uid="uid://c4mm3of2mc8o5" path="res://addons/phantom_camera/fonts/Nunito-Black.ttf" id="3_cgnsw"]

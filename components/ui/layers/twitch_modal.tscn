@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://c87qa76hw2ccl"]
 
-[ext_resource type="Script" uid="uid://bmm2idnn4yleo" path="res://components/ui/twitch_modal.gd" id="1_eedwr"]
+[ext_resource type="Script" uid="uid://bmm2idnn4yleo" path="res://components/ui/layers/twitch_modal.gd" id="1_eedwr"]
 [ext_resource type="Shader" uid="uid://bwc015kkee3m2" path="res://assets/shaders/styled_blur.gdshader" id="1_vlgm7"]
 [ext_resource type="AudioStream" uid="uid://c1ppsbwk1wer7" path="res://assets/sounds/ui/next.ogg" id="2_do3vn"]
 [ext_resource type="PackedScene" uid="uid://bamiew5u14hbm" path="res://components/ui/dropshadow.tscn" id="2_eedwr"]
@@ -359,8 +359,6 @@ Button/colors/font_focus_color = Color(0.392157, 0.254902, 0.647059, 1)
 Button/colors/font_hover_color = Color(0.392157, 0.254902, 0.647059, 1)
 Button/colors/font_pressed_color = Color(0.392157, 0.254902, 0.647059, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d0d5a"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6ra0"]
 content_margin_left = 25.0
 content_margin_top = 3.0
@@ -371,6 +369,8 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d0d5a"]
 
 [sub_resource type="Gradient" id="Gradient_l8syn"]
 offsets = PackedFloat32Array(0.781818, 0.789091, 0.996364, 1)
@@ -461,6 +461,7 @@ _data = {
 }
 
 [node name="TwitchModal" type="CanvasLayer"]
+layer = 126
 script = ExtResource("1_eedwr")
 click_sfx = ExtResource("2_do3vn")
 
@@ -525,11 +526,11 @@ custom_minimum_size = Vector2(115, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = SubResource("Theme_4enwl")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_d0d5a")
-theme_override_styles/disabled = ExtResource("5_0xxvp")
-theme_override_styles/hover = SubResource("StyleBoxFlat_c6ra0")
-theme_override_styles/pressed = ExtResource("6_qbvkx")
 theme_override_styles/normal = ExtResource("7_t8635")
+theme_override_styles/pressed = ExtResource("6_qbvkx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c6ra0")
+theme_override_styles/disabled = ExtResource("5_0xxvp")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d0d5a")
 text = "ui.twitch_modal.connect_button"
 
 [node name="Dropshadow" parent="MarginContainer/CenterContainer/Panel/MarginContainer/VBoxContainer/TwitchConnectButton" instance=ExtResource("2_eedwr")]

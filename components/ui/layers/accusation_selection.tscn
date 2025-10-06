@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://d3eelg2so4kqv"]
 
-[ext_resource type="Script" uid="uid://0lf5mtt5o0hf" path="res://components/ui/accusation_selection.gd" id="1_c3oac"]
+[ext_resource type="Script" uid="uid://0lf5mtt5o0hf" path="res://components/ui/layers/accusation_selection.gd" id="1_c3oac"]
 [ext_resource type="AudioStream" uid="uid://b0c8j3y0sbpp2" path="res://assets/sounds/ui/cameronpride_page-flip.wav" id="2_5eh81"]
 [ext_resource type="AudioStream" uid="uid://bsd6cym1jjyla" path="res://assets/sounds/ui/apallot_match_1.wav" id="2_j6mqc"]
 [ext_resource type="AudioStream" uid="uid://12fra6kmg6vt" path="res://assets/sounds/ui/apallot_match_2.wav" id="3_rpyf7"]

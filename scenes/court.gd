@@ -1,6 +1,7 @@
 extends Node3D
 
 @export_category("References")
+@export var pause_menu: PauseMenu
 @export var speaking_balloon: PackedScene
 @export var speaking_dialogue: DialogueResource
 @export var phase_panel_scene: PackedScene
@@ -73,6 +74,9 @@ func _on_accusation_phase_finished() -> void:
 		# switch to normal judge cam
 		_set_cam(Cams.JUDGE)
 
+		# disable pause menu
+		pause_menu.enabled = false
+
 		# start judge dialogue
 		_play_dialogue("no_accusations").finished.connect(_restart)
 
@@ -98,6 +102,9 @@ func _start_accusation_selection() -> void:
 	accusation_selection_ui.claim_selected.connect(_on_accusation_selected)
 
 func _on_no_accusation_selected() -> void:
+	# disable pause menu
+	pause_menu.enabled = false
+
 	# restart
 	_play_dialogue("no_selected_accusation").finished.connect(_restart)
 

@@ -388,6 +388,7 @@ theme_override_colors/default_color = Color(0.262932, 0.262932, 0.262932, 1)
 theme_override_fonts/normal_font = ExtResource("3_5l8qi")
 theme_override_font_sizes/normal_font_size = 30
 text = "Dialogue..."
+skip_action = &"ui_select"
 seconds_per_step = 0.04
 
 [node name="Dropshadow" parent="Balloon/MarginContainer/Control/Message" instance=ExtResource("5_5l8qi")]
