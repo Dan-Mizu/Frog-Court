@@ -206,7 +206,7 @@ func _on_dialogue_label_spoke(letter: String, _letter_index: int, _speed: float)
 		var pitch: float = randf_range(1.5, 2.0)
 
 		# play sound
-		SoundManager.play_sound_with_pitch(letter_sfx.get(letter).duplicate(), pitch, "Voices")
+		SoundManager.play_sound_with_pitch(letter_sfx.get(letter), pitch, "Voices")
 
 func _on_finished() -> void:
 	finished.emit()

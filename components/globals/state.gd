@@ -3,7 +3,6 @@ extends Node
 # state
 var broadcaster_user: TwitchUser
 var round_data: RoundData = RoundData.new()
-var selected_accusation: ResponseAccusation
 
 #region Twitch Connection
 func connect_to_twitch() -> bool:
@@ -195,8 +194,6 @@ class RoundData extends RefCounted:
 				# store
 				phase = value
 	var selected_accusation: ResponseAccusation = null
-	var accuser_user_id: String = ""
-	var accused_user_id: String = ""
 
 	# responses
 	var accusations: Responses = Responses.new().init([filter_no_duplicates, make_filter_user_limit(2)])

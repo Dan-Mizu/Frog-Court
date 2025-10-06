@@ -110,14 +110,14 @@ func _on_no_accusation_selected() -> void:
 
 func _on_accusation_selected(claim: State.ResponseAccusation) -> void:
 	# store
-	State.selected_accusation = claim
+	State.round_data.selected_accusation = claim
 
 	# start the accused's defense
 	_play_dialogue("accusation_selected").finished.connect(_start_accusation_defense)
 
 func _start_accusation_defense() -> void:
 	# show accuser's character
-	var accuser_character: ChatterCharacter = _get_character_from_id(State.selected_accusation.user_id).instantiate()
+	var accuser_character: ChatterCharacter = _get_character_from_id(State.round_data.selected_accusation.user_id).instantiate()
 	claimant_position.add_child(accuser_character)
 
 	# switch to accuser cam and make them emote
@@ -129,14 +129,14 @@ func _start_accusation_defense() -> void:
 
 func _on_finished_accuser_focus() -> void:
 	# accused is not in chat
-	if State.selected_accusation.accuser_id.is_empty(): 
+	if State.round_data.selected_accusation.accuser_id.is_empty(): 
 		# start jury phase instead
 		
 
 		return
 
 	# show accused's character
-	var accused_character: ChatterCharacter = _get_character_from_id(State.selected_accusation.accuser_id).instantiate()
+	var accused_character: ChatterCharacter = _get_character_from_id(State.round_data.selected_accusation.accuser_id).instantiate()
 	defendant_position.add_child(accused_character)
 
 	# switch to accused cam

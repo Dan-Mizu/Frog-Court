@@ -7,7 +7,7 @@ Judge {{State.broadcaster_user.display_name}}: Let us proceed.
 
 ~ accusations_received
 Judge {{State.broadcaster_user.display_name}}: We have received {{State.round_data.accusations.responses.size()}} complaint[if State.round_data.accusations.responses.size() > 1]s[/if].
-Judge {{State.broadcaster_user.display_name}}: Let us hear [if State.round_data.accusations.responses.size() > 1]the first[else]it[/if].
+Judge {{State.broadcaster_user.display_name}}: Let's see here...
 => END
 
 ~ no_accusations
@@ -16,15 +16,15 @@ Judge {{State.broadcaster_user.display_name}}: [do Utility.play_sound(gavel_sfx)
 => END
 
 ~ no_selected_accusation
-Judge {{State.broadcaster_user.display_name}}: Well.[wait=1.] Looks like theres no complaints!
+Judge {{State.broadcaster_user.display_name}}: Well.[wait=1.] These complaints all sucked.
 Judge {{State.broadcaster_user.display_name}}: [do Utility.play_sound(gavel_sfx)]Court is adjourned early today!
 => END
 
 ~ accusation_selected
-Judge {{State.broadcaster_user.display_name}}: Ah. Here's one. {{State.selected_accusation.user_display_name}} has a complaint against {{State.selected_accusation.accused_name}}.
-Judge {{State.broadcaster_user.display_name}}: {{State.selected_accusation.user_display_name}} and {{State.selected_accusation.accused_name}}! Please approach the stands.
-if State.selected_accusation.accuser_id.is_empty():
-	Judge {{State.broadcaster_user.display_name}}: [speed=.25]. . . [speed=1.][wait=1.][font_size=18]{{State.selected_accusation.accused_name}}?[/font_size]
-	Judge {{State.broadcaster_user.display_name}}: Well...[wait=.25] Looks like {{State.selected_accusation.accused_name}} is not joining us today.
+Judge {{State.broadcaster_user.display_name}}: Ah. Here's one. {{State.round_data.selected_accusation.user_display_name}} has a complaint against {{State.round_data.selected_accusation.accused_name}}.
+Judge {{State.broadcaster_user.display_name}}: {{State.round_data.selected_accusation.user_display_name}} and {{State.round_data.selected_accusation.accused_name}}! Please approach the stands.
+if State.round_data.selected_accusation.accuser_id.is_empty():
+	Judge {{State.broadcaster_user.display_name}}: [speed=.25]. . . [speed=1.][wait=1.][font_size=18]{{State.round_data.selected_accusation.accused_name}}?[/font_size]
+	Judge {{State.broadcaster_user.display_name}}: Well...[wait=.25] Looks like {{State.round_data.selected_accusation.accused_name}} is not joining us today.
 	Judge {{State.broadcaster_user.display_name}}: We will have to proceed to the jury verdict without them!
 => END
