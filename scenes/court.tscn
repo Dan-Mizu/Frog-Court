@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cl37lpm48ih7m"]
+[gd_scene load_steps=28 format=3 uid="uid://cl37lpm48ih7m"]
 
 [ext_resource type="PackedScene" uid="uid://srsw82t30cm3" path="res://components/ui/splashscreen.tscn" id="1_15585"]
 [ext_resource type="Script" uid="uid://bi6hy400giofx" path="res://scenes/court.gd" id="1_h0b8m"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="6_qyj8n"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_15585"]
 [ext_resource type="PackedScene" uid="uid://dg3blyov6hyfp" path="res://components/ui/phase_panel.tscn" id="8_i5cvy"]
+[ext_resource type="PackedScene" uid="uid://d3eelg2so4kqv" path="res://components/ui/accusation_selection.tscn" id="9_cn0p0"]
 [ext_resource type="PackedScene" uid="uid://c87qa76hw2ccl" path="res://components/ui/twitch_modal.tscn" id="10_d0d5a"]
 [ext_resource type="PackedScene" uid="uid://dp4ryhn48y62p" path="res://components/entities/chatters/elephant.tscn" id="16_c6ra0"]
 [ext_resource type="PackedScene" uid="uid://codxo4wyg8jko" path="res://components/entities/chatters/panda.tscn" id="17_revm4"]
@@ -56,6 +57,7 @@ script = ExtResource("1_h0b8m")
 speaking_balloon = ExtResource("2_5mv5b")
 speaking_dialogue = ExtResource("3_2768l")
 phase_panel_scene = ExtResource("8_i5cvy")
+accusation_selection_scene = ExtResource("9_cn0p0")
 cam_markers = {
 0: NodePath("Cameras/Judge Cam"),
 1: NodePath("Cameras/Claimant Cam"),

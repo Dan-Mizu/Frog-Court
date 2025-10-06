@@ -1,5 +1,5 @@
 ~ intro
-Judge {{State.broadcaster_user.display_name}}: [do play_sound(gavel_sfx)]Order![wait=.35] [wave amp=25 freq=15]Order![/wave][do fade_out_sound(crowd_murmur_sfx_player, 2.5)]
+Judge {{State.broadcaster_user.display_name}}: [do Utility.play_sound(gavel_sfx)]Order![wait=.35] [wave amp=25 freq=15]Order![/wave][do Utility.fade_out_sound(crowd_murmur_sfx_player, 2.5)]
 Judge {{State.broadcaster_user.display_name}}: We're gathered here today to put chat on trial.
 Judge {{State.broadcaster_user.display_name}}: You will all file your complaints. As the Judge, I reserve the right to dismiss any claims.[wait=.5] [speed=.6]So make them good.
 Judge {{State.broadcaster_user.display_name}}: Let us proceed.
@@ -7,10 +7,15 @@ Judge {{State.broadcaster_user.display_name}}: Let us proceed.
 
 ~ accusations_received
 Judge {{State.broadcaster_user.display_name}}: We have received {{State.round_data.accusations.responses.size()}} complaint[if State.round_data.accusations.responses.size() > 1]s[/if].
-Judge {{State.broadcaster_user.display_name}}: Let us hear the first.
+Judge {{State.broadcaster_user.display_name}}: Let us hear [if State.round_data.accusations.responses.size() > 1]the first[else]it[/if].
 => END
 
 ~ no_accusations
 Judge {{State.broadcaster_user.display_name}}: [speed=.25]. . . [speed=1.][wait=1.][font_size=18]No complaints?[/font_size]
-Judge {{State.broadcaster_user.display_name}}: [do play_sound(gavel_sfx)]It seems the court is adjourned early today!
+Judge {{State.broadcaster_user.display_name}}: [do Utility.play_sound(gavel_sfx)]It seems the court is adjourned early today!
+=> END
+
+~ no_selected_accusation
+Judge {{State.broadcaster_user.display_name}}: Well.[wait=1.] Looks like theres no complaints!
+Judge {{State.broadcaster_user.display_name}}: [do Utility.play_sound(gavel_sfx)]Court is adjourned early today!
 => END

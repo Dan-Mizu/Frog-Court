@@ -37,6 +37,7 @@ PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_came
 State="*res://components/globals/state.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Twitch="*res://addons/twitcher/twitch_service.tscn"
+Utility="*res://components/globals/utility.gd"
 
 [dialogue_manager]
 

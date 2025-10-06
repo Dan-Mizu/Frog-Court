@@ -33,9 +33,9 @@
 [ext_resource type="AudioStream" uid="uid://e6wj4bbtle2n" path="res://assets/sounds/alphabet/X.wav" id="25_gi4q2"]
 [ext_resource type="AudioStream" uid="uid://svwhbyuvay84" path="res://assets/sounds/alphabet/Y.wav" id="26_qa66v"]
 [ext_resource type="AudioStream" uid="uid://dbg8gmgyiyqba" path="res://assets/sounds/alphabet/Z.wav" id="27_jorvh"]
-[ext_resource type="AudioStream" uid="uid://c1ppsbwk1wer7" path="res://assets/sounds/next.ogg" id="28_0c0jh"]
-[ext_resource type="AudioStream" uid="uid://dsxpw2smutyh8" path="res://assets/sounds/show.ogg" id="29_te54j"]
-[ext_resource type="AudioStream" uid="uid://cp2shv2uk4yhj" path="res://assets/sounds/hide.ogg" id="30_te54j"]
+[ext_resource type="AudioStream" uid="uid://c1ppsbwk1wer7" path="res://assets/sounds/ui/next.ogg" id="28_0c0jh"]
+[ext_resource type="AudioStream" uid="uid://dsxpw2smutyh8" path="res://assets/sounds/ui/show.ogg" id="29_te54j"]
+[ext_resource type="AudioStream" uid="uid://cp2shv2uk4yhj" path="res://assets/sounds/ui/hide.ogg" id="30_te54j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)

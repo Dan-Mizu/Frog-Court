@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://bamiew5u14hbm" path="res://components/ui/dropshadow.tscn" id="1_0m1a0"]
 [ext_resource type="Script" uid="uid://bh5roe6wjnl4m" path="res://components/ui/phase_panel.gd" id="1_ouvq3"]
-[ext_resource type="AudioStream" uid="uid://dsxpw2smutyh8" path="res://assets/sounds/show.ogg" id="2_jryqy"]
+[ext_resource type="AudioStream" uid="uid://dsxpw2smutyh8" path="res://assets/sounds/ui/show.ogg" id="2_jryqy"]
 [ext_resource type="FontFile" uid="uid://cvh0pvj1prwpo" path="res://assets/fonts/super trend/Super Trend.ttf" id="2_ouvq3"]
 [ext_resource type="FontFile" uid="uid://c4mm3of2mc8o5" path="res://addons/phantom_camera/fonts/Nunito-Black.ttf" id="3_cgnsw"]
-[ext_resource type="AudioStream" uid="uid://cp2shv2uk4yhj" path="res://assets/sounds/hide.ogg" id="3_f86mt"]
+[ext_resource type="AudioStream" uid="uid://cp2shv2uk4yhj" path="res://assets/sounds/ui/hide.ogg" id="3_f86mt"]
 [ext_resource type="FontFile" uid="uid://yx4o1tu8icbs" path="res://assets/fonts/cute dino/Cute Dino.otf" id="4_2xywi"]
 [ext_resource type="Texture2D" uid="uid://xww4btpoberm" path="res://assets/textures/icons/IcBaselineChatBubble.png" id="5_srjr2"]
 [ext_resource type="Script" uid="uid://b72enqojpkky8" path="res://components/ui/behaviours/expand_hovered_control_module.gd" id="7_srjr2"]
@@ -316,13 +316,13 @@ value = 100.0
 fill_mode = 1
 show_percentage = false
 
-[node name="Buttons" type="PanelContainer" parent="Control/MarginContainer/VBoxContainer"]
+[node name="End Button" type="PanelContainer" parent="Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_cn0p0")
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/Buttons"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/VBoxContainer/End Button"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 20
@@ -330,11 +330,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/Buttons/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer/End Button/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/VBoxContainer/End Button/MarginContainer/HBoxContainer"]
 modulate = Color(1, 1, 1, 0.454902)
 layout_mode = 2
 mouse_filter = 2
@@ -342,26 +342,27 @@ texture = ExtResource("8_86pif")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/Buttons/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer/End Button/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.454902)
 theme_override_fonts/font = ExtResource("3_cgnsw")
 theme_override_font_sizes/font_size = 30
-text = "END"
+text = "End"
 vertical_alignment = 1
+uppercase = true
 
-[node name="Dropshadow" parent="Control/MarginContainer/VBoxContainer/Buttons/MarginContainer" instance=ExtResource("1_0m1a0")]
+[node name="Dropshadow" parent="Control/MarginContainer/VBoxContainer/End Button/MarginContainer" instance=ExtResource("1_0m1a0")]
 layout_mode = 2
 theme_override_constants/margin_left = -19
 theme_override_constants/margin_right = -19
 theme_override_constants/margin_bottom = -3
 
-[node name="Button" type="Button" parent="Control/MarginContainer/VBoxContainer/Buttons"]
+[node name="Button" type="Button" parent="Control/MarginContainer/VBoxContainer/End Button"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_srjr2")
 flat = true
 
-[node name="ExpandHoveredControl" type="Node" parent="Control/MarginContainer/VBoxContainer/Buttons/Button" node_paths=PackedStringArray("target_control")]
+[node name="ExpandHoveredControl" type="Node" parent="Control/MarginContainer/VBoxContainer/End Button/Button" node_paths=PackedStringArray("target_control")]
 script = ExtResource("7_srjr2")
 expand_scale = Vector2(1.1, 1.1)
 return_duration = 0.1
@@ -370,7 +371,7 @@ tween_ease = 2
 target_control = NodePath("../..")
 metadata/_custom_type_script = "uid://b72enqojpkky8"
 
-[node name="ShrinkPressedButton" type="Node" parent="Control/MarginContainer/VBoxContainer/Buttons/Button" node_paths=PackedStringArray("target_control")]
+[node name="ShrinkPressedButton" type="Node" parent="Control/MarginContainer/VBoxContainer/End Button/Button" node_paths=PackedStringArray("target_control")]
 script = ExtResource("9_jryqy")
 target_control = NodePath("../..")
 metadata/_custom_type_script = "uid://dqiho7uj8ent3"
@@ -383,4 +384,4 @@ libraries = {
 autoplay = "show"
 
 [connection signal="timeout" from="Control/MarginContainer/VBoxContainer/Panel/MarginContainer/VBoxContainer/Examples/Example/ExampleTimer" to="." method="_cycle_example"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Buttons/Button" to="." method="_on_end_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/End Button/Button" to="." method="_on_end_button_pressed"]

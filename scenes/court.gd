@@ -4,6 +4,7 @@ extends Node3D
 @export var speaking_balloon: PackedScene
 @export var speaking_dialogue: DialogueResource
 @export var phase_panel_scene: PackedScene
+@export var accusation_selection_scene: PackedScene
 enum Cams {
 	JUDGE,
 	CLAIMANT,
@@ -34,6 +35,7 @@ func _start_game() -> void:
 	# start intro dialogue
 	_play_dialogue("intro").finished.connect(_start_accusation_phase)
 
+# allow chatters to use command to accuse others with a claim
 func _start_accusation_phase() -> void:
 	# change cam
 	_set_cam(Cams.PANEL)
@@ -47,6 +49,7 @@ func _start_accusation_phase() -> void:
 	# notify twitch chat
 	Twitch.chat("/me Accusation phase has begun. Type !accuse <user> <claim>")
 
+# reviewing results of claim phase
 func _on_accusation_phase_finished() -> void:
 	# update phase
 	State.round_data.phase = State.Phase.NONE
@@ -63,28 +66,21 @@ func _on_accusation_phase_finished() -> void:
 # restart game
 func _restart() -> void: get_tree().reload_current_scene()
 
+# let judge pick an accusation
 func _start_accusation_selection() -> void:
-	# shuffle responses randomly
-	State.round_data.accusations.responses.shuffle()
+	# show accusation form clipboard UI
+	var accusation_selection_ui: AccusationSelectionUI = accusation_selection_scene.instantiate()
+	self.add_child(accusation_selection_ui)
 
-	# get first randomly shuffled response
-	var response: State.ResponseAccusation = State.round_data.accusations.responses.pop_back()
+	# connect events
+	accusation_selection_ui.no_claims_selected.connect(_on_no_accusation_selected)
 
-	# fetch accused twitch user
-	var user: TwitchUser = await Twitch.get_user(response.accused_name)
-
-	# user not found
-	if not user: print("User '%s' not found." % response.accused_name)
-	else: print("User found: %s, ID: %s" % [user.display_name, user.id])
+func _on_no_accusation_selected() -> void:
+	# restart
+	_play_dialogue("no_selected_accusation").finished.connect(_restart)
 #endregion
 
 #region Utility
-func play_and_wait_sound(sound: AudioStream) -> void: await play_sound(sound).finished
-
-func play_sound(sound: AudioStream) -> AudioStreamPlayer: return SoundManager.play_sound(sound, "Ambience")
-
-func fade_out_sound(player: AudioStreamPlayer, duration: float = 1.0) -> void: SoundManager.sound_effects.fade_volume(player, player.volume_db, -80.0, duration)
-
 func _play_dialogue(dialogue: StringName) -> DialogueBalloon: return DialogueManager.show_dialogue_balloon_scene(speaking_balloon, speaking_dialogue, dialogue) as DialogueBalloon
 
 func _set_cam(cam: Cams) -> void:
