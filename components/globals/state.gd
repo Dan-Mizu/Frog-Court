@@ -214,22 +214,13 @@ class RoundData extends RefCounted:
 	func make_filter_user_limit(limit: int) -> Callable:
 		return func(response: Response, container: Responses) -> bool:
 			var count := 0
-			for r in container.responses:
-				if r.user_id == response.user_id:
-					count += 1
-			if count >= limit:
-				## DEBUG
-				#print("%s exceeded limit (%d)" % [response.user_display_name, limit])
-				return false
+			for r in container.responses: if r.user_id == response.user_id: count += 1
+			if count >= limit: return false
 			return true
 
 	# allow only one vote total per user
-	func filter_one_vote(response: Response, container: Responses) -> bool:
-		for r in container.responses:
-			if r.user_id == response.user_id:
-				## DEBUG
-				#print("%s already voted!" % response.user_display_name)
-				return false
+	func filter_one_vote(response: Response, container: Filtered) -> bool:
+		for r in container.get_all_responses(): if r.user_id == response.user_id: return false
 		return true
 
 class Filtered extends RefCounted:
@@ -241,12 +232,18 @@ class Filtered extends RefCounted:
 		filters = _filters
 		return self
 
+	func get_all_responses() -> Array:
+		return []
+
 class Responses extends Filtered:
 	# signals
 	signal response_added(response: Response)
 
 	# state
 	var responses: Array[Response] = []
+
+	func get_all_responses() -> Array:
+		return responses
 
 	func add_response(response: Response) -> void:
 		# check filters
@@ -277,6 +274,9 @@ class Votes extends Filtered:
 		get: return yea_count + nay_count
 	var yea_responses: Array[Response] = []
 	var nay_responses: Array[Response] = []
+
+	func get_all_responses() -> Array:
+		return yea_responses + nay_responses
 
 	func vote_yea(response: Response) -> void: 
 		# check filters

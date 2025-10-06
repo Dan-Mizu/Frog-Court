@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cl37lpm48ih7m"]
+[gd_scene load_steps=34 format=3 uid="uid://cl37lpm48ih7m"]
 
 [ext_resource type="PackedScene" uid="uid://srsw82t30cm3" path="res://components/ui/layers/splashscreen.tscn" id="1_15585"]
 [ext_resource type="Script" uid="uid://bi6hy400giofx" path="res://scenes/court.gd" id="1_h0b8m"]
@@ -17,12 +17,21 @@
 [ext_resource type="PackedScene" uid="uid://d3eelg2so4kqv" path="res://components/ui/layers/accusation_selection.tscn" id="9_cn0p0"]
 [ext_resource type="PackedScene" uid="uid://c87qa76hw2ccl" path="res://components/ui/layers/twitch_modal.tscn" id="10_d0d5a"]
 [ext_resource type="PackedScene" uid="uid://dcbjv822qrpqg" path="res://components/entities/chatters/zebra.tscn" id="11_b3dk5"]
+[ext_resource type="AudioStream" uid="uid://brbxubyjyxcoe" path="res://assets/sounds/deleted_user_2104797_crowd-gasp_1.wav" id="13_7awlx"]
 [ext_resource type="PackedScene" uid="uid://7b5kkdx0ky7p" path="res://components/ui/layers/pause_menu.tscn" id="14_g8kxy"]
+[ext_resource type="AudioStream" uid="uid://chu66ejb5jf0y" path="res://assets/sounds/deleted_user_2104797_crowd-gasp_2.wav" id="14_v012p"]
+[ext_resource type="AudioStream" uid="uid://dn5qapxaoe4u2" path="res://assets/sounds/deleted_user_2104797_crowd-gasp_3.wav" id="15_erabv"]
 [ext_resource type="PackedScene" uid="uid://dp4ryhn48y62p" path="res://components/entities/chatters/elephant.tscn" id="16_c6ra0"]
 [ext_resource type="PackedScene" uid="uid://codxo4wyg8jko" path="res://components/entities/chatters/panda.tscn" id="17_revm4"]
 [ext_resource type="PackedScene" uid="uid://die18x7otjea6" path="res://components/entities/chatters/chicken.tscn" id="18_cn0p0"]
 [ext_resource type="PackedScene" uid="uid://ducn7r00ertsd" path="res://components/entities/chatters/bunny.tscn" id="19_b3dk5"]
 [ext_resource type="PackedScene" uid="uid://w6ylo7rff0kc" path="res://components/entities/chatters/cow.tscn" id="20_g8kxy"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xjkrd"]
+streams_count = 3
+stream_0/stream = ExtResource("13_7awlx")
+stream_1/stream = ExtResource("14_v012p")
+stream_2/stream = ExtResource("15_erabv")
 
 [sub_resource type="QuadMesh" id="QuadMesh_i1kge"]
 flip_faces = true
@@ -75,6 +84,7 @@ defendant_position = NodePath("Character Positions/Defendant Position")
 jury_positions = [NodePath("Character Positions/Jury/1"), NodePath("Character Positions/Jury/2"), NodePath("Character Positions/Jury/3"), NodePath("Character Positions/Jury/4"), NodePath("Character Positions/Jury/5"), NodePath("Character Positions/Jury/6"), NodePath("Character Positions/Jury/7"), NodePath("Character Positions/Jury/8"), NodePath("Character Positions/Jury/9"), NodePath("Character Positions/Jury/10")]
 gallery_positions = [NodePath("Character Positions/Gallery/1"), NodePath("Character Positions/Gallery/2"), NodePath("Character Positions/Gallery/3"), NodePath("Character Positions/Gallery/4"), NodePath("Character Positions/Gallery/5"), NodePath("Character Positions/Gallery/6"), NodePath("Character Positions/Gallery/7"), NodePath("Character Positions/Gallery/8"), NodePath("Character Positions/Gallery/9"), NodePath("Character Positions/Gallery/10"), NodePath("Character Positions/Gallery/11"), NodePath("Character Positions/Gallery/12")]
 crowd_murmur_sfx = ExtResource("2_c7axm")
+crowd_gasp_sfx = SubResource("AudioStreamRandomizer_xjkrd")
 gavel_sfx = ExtResource("5_rnrgf")
 
 [node name="Splashscreen" parent="." instance=ExtResource("1_15585")]
@@ -92,7 +102,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0377
 transform = Transform3D(-0.977257, 0, -0.212058, 0, 1, 0, 0.212058, 0, -0.977257, -2.26184, 6.56033, 20.3607)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 18, 13, -7.5)
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 16.286242, 13, -9.843016)
 fov = 55.0
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
@@ -125,14 +135,14 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="Claimant Cam" type="Node3D" parent="Camera Positions"]
 unique_name_in_owner = true
-transform = Transform3D(-1, 1.51808e-08, -8.60946e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, 12, 10, 6)
+transform = Transform3D(-1, 1.51808e-08, -8.60946e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, 12, 11.32, 6)
 script = ExtResource("6_qyj8n")
 tween_resource = SubResource("Resource_qqgq3")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="Defendant Cam" type="Node3D" parent="Camera Positions"]
 unique_name_in_owner = true
-transform = Transform3D(-1, 1.51808e-08, -8.60946e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, -16, 10, 6)
+transform = Transform3D(-1, 1.51808e-08, -8.60946e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, -16, 11.32, 6)
 script = ExtResource("6_qyj8n")
 tween_resource = SubResource("Resource_qqgq3")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
@@ -146,7 +156,7 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="Jury Cam" type="Node3D" parent="Camera Positions"]
 unique_name_in_owner = true
-transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 18, 13, -7.5)
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 16.286242, 13, -9.843016)
 script = ExtResource("6_qyj8n")
 priority = 1
 tween_resource = SubResource("Resource_15585")

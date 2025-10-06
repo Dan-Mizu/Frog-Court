@@ -28,3 +28,27 @@ if State.round_data.selected_accusation.accuser_id.is_empty():
 	Judge {{State.broadcaster_user.display_name}}: Well...[wait=.25] Looks like {{State.round_data.selected_accusation.accused_name}} is not joining us today.
 	Judge {{State.broadcaster_user.display_name}}: We will have to proceed to the jury verdict without them!
 => END
+
+~ defense_finished
+% Judge {{State.broadcaster_user.display_name}}: Likely story...
+% Judge {{State.broadcaster_user.display_name}}: Hm...
+% Judge {{State.broadcaster_user.display_name}}: Sure...
+=> begin_deliberation
+
+~ begin_deliberation
+Judge {{State.broadcaster_user.display_name}}: The Jury will now deliberate!
+=> END
+
+~ deliberation_over
+Judge {{State.broadcaster_user.display_name}}: The Jury has decided.
+Judge {{State.broadcaster_user.display_name}}: The defendant... [wait=.25]{{State.round_data.selected_accusation.accused_name}}... [wait=.25] is found[speed=.25]...[speed=1.]
+if State.round_data.jury_votes.get_outcome() == State.Votes.Outcome.YEA:
+	Judge {{State.broadcaster_user.display_name}}: [do Utility.play_and_wait_sound(gavel_sfx)][wave amp=25 freq=15]GUILTY!!![/wave][do Utility.play_sound(crowd_gasp_sfx)]
+else:
+	Judge {{State.broadcaster_user.display_name}}: [do Utility.play_and_wait_sound(gavel_sfx)][wave amp=25 freq=15]NOT guilty!!![/wave][do Utility.play_sound(crowd_gasp_sfx)]
+=> end_of_day
+
+~ end_of_day
+Judge {{State.broadcaster_user.display_name}}: Thats all for today...
+Judge {{State.broadcaster_user.display_name}}: [do Utility.play_sound(gavel_sfx)]Court is adjourned!
+=> END

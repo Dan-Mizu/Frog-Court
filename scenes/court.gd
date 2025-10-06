@@ -23,7 +23,22 @@ enum Cams {
 
 @export_group("SFX")
 @export var crowd_murmur_sfx: AudioStream
+@export var crowd_gasp_sfx: AudioStream
 @export var gavel_sfx: AudioStream
+
+# phase panel data
+var phase_panels_data: Dictionary[State.Phase, PhasePanel.PhasePanelData] = {
+	State.Phase.ACCUSATION: PhasePanel.PhasePanelData.new().init("!accuse <user> <claim>", [
+			"!accuse Nymn Didn't go live on time.",
+			"!accuse Erobb221 Scamming a charity.",
+			"!accuse Chatter Posting an ascii phallus in chat.",
+			"!accuse Chatter Furry tendencies.",
+			"!accuse Pokelawls Swollen balls.",
+			"!accuse Forsen Primary suspect in nina's disappearance."
+		], true),
+	#State.Phase.DEFENSE: PhasePanel.PhasePanelData.new().init("defend yourself"),
+	State.Phase.DELIBERATION: PhasePanel.PhasePanelData.new().init("is the defendant guilty? vote !yea / !nay", [], true)
+}
 
 # internal
 var crowd_murmur_sfx_player: AudioStreamPlayer
@@ -37,7 +52,7 @@ func _ready() -> void:
 	for i in range(randi_range(4, 6)): gallery_positions[i].add_child(_get_random_character().instantiate())
 
 	# play crowd murmur SFX
-	crowd_murmur_sfx_player = SoundManager.play_ambient_sound(crowd_murmur_sfx.duplicate(), 3.0, "Ambience")
+	crowd_murmur_sfx_player = SoundManager.play_ambient_sound(crowd_murmur_sfx, 3.0, "Ambience")
 
 #region Events
 # start the game once fully authenticated with twitch and the modal is fully hidden
@@ -57,12 +72,12 @@ func _start_accusation_phase() -> void:
 
 	# start accusation phase
 	State.round_data.phase = State.Phase.ACCUSATION
-	var phase_panel: PhasePanel = phase_panel_scene.instantiate()
+	var phase_panel: PhasePanel = phase_panel_scene.instantiate().init(phase_panels_data.get(State.round_data.phase))
 	self.add_child(phase_panel)
 	phase_panel.finished.connect(_on_accusation_phase_finished)
 
 	# notify twitch chat
-	Twitch.chat("/me Accusation phase has begun. Type !accuse <user> <claim>")
+	Twitch.chat("/me 📣 Accusation phase has begun. Type !accuse <user> <claim>")
 
 # reviewing results of claim phase
 func _on_accusation_phase_finished() -> void:
@@ -70,7 +85,7 @@ func _on_accusation_phase_finished() -> void:
 	State.round_data.phase = State.Phase.NONE
 
 	# no accusations provided (restart)
-	if State.round_data.accusations.responses.is_empty(): 
+	if State.round_data.accusations.responses.is_empty():
 		# switch to normal judge cam
 		_set_cam(Cams.JUDGE)
 
@@ -128,11 +143,15 @@ func _start_accusation_defense() -> void:
 	accuser_character.finished_animation.connect(func(_anim: ChatterCharacter.Anim): _on_finished_accuser_focus(), ConnectFlags.CONNECT_ONE_SHOT)
 
 func _on_finished_accuser_focus() -> void:
-	# accused is not in chat
-	if State.round_data.selected_accusation.accuser_id.is_empty(): 
-		# start jury phase instead
-		
+	# accused is not in chat- start deliberation phase instead
+	if State.round_data.selected_accusation.accuser_id.is_empty():
+		# judge cam
+		_set_cam(Cams.JUDGE)
 
+		# start judge dialogue
+		_play_dialogue("begin_deliberation").finished.connect(_start_deliberation_phase)
+
+		# skip showing defendant
 		return
 
 	# show accused's character
@@ -143,8 +162,50 @@ func _on_finished_accuser_focus() -> void:
 	_set_cam(Cams.DEFENDANT)
 	accused_character.play_anim(ChatterCharacter.Anim.HOP)
 
+	# start defense phase
+	State.round_data.phase = State.Phase.DEFENSE
+	var phase_panel: PhasePanel = phase_panel_scene.instantiate().init(PhasePanel.PhasePanelData.new().init("defend yourself, %s!" % State.round_data.selected_accusation.accused_name), 90.)
+	self.add_child(phase_panel)
+	phase_panel.finished.connect(_on_defense_phase_finished)
+
 	# begin capturing accused's chat messages and displaying them
 	
+
+func _on_defense_phase_finished() -> void:
+	# update phase
+	State.round_data.phase = State.Phase.NONE
+
+	# judge cam
+	_set_cam(Cams.JUDGE)
+
+	# start judge dialogue
+	_play_dialogue("defense_finished").finished.connect(_start_deliberation_phase)
+
+func _start_deliberation_phase() -> void:
+	# switch to jury cam
+	_set_cam(Cams.JURY)
+
+	# start deliberation phase
+	State.round_data.phase = State.Phase.DELIBERATION
+	var phase_panel: PhasePanel = phase_panel_scene.instantiate().init(phase_panels_data.get(State.round_data.phase))
+	self.add_child(phase_panel)
+	phase_panel.finished.connect(_on_deliberation_phase_finished)
+
+	# notify twitch chat
+	Twitch.chat("/me 🗳️ Deliberation phase has begun. Type !yea or !nay if the defendant is guilty or not.")
+
+func _on_deliberation_phase_finished() -> void:
+	# update phase
+	State.round_data.phase = State.Phase.NONE
+
+	# close judge cam
+	_set_cam(Cams.JUDGE_CLOSE)
+
+	# disable pause menu
+	pause_menu.enabled = false
+
+	# judge delivers final verdict
+	_play_dialogue("deliberation_over").finished.connect(_restart)
 #endregion
 
 #region Utility

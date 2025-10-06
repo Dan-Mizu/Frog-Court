@@ -12,20 +12,6 @@ class PhasePanelData:
 		has_response_count = _has_response_count
 		return self
 
-# data
-var phase_panels_data: Dictionary[State.Phase, PhasePanelData] = {
-	State.Phase.ACCUSATION: PhasePanelData.new().init("!accuse <user> <claim>", [
-			"!accuse Nymn Didn't go live on time.",
-			"!accuse Erobb221 Scamming a charity.",
-			"!accuse Chatter Posting an ascii phallus in chat.",
-			"!accuse Chatter Furry tendencies.",
-			"!accuse Pokelawls Swollen balls.",
-			"!accuse Forsen Primary suspect in nina's disappearance."
-		], true),
-	State.Phase.DEFENSE: PhasePanelData.new().init("defend yourself"),
-	State.Phase.DELIBERATION: PhasePanelData.new().init("did the defendant do it? vote !yea/!nay")
-}
-
 # signals
 signal finished
 
@@ -45,8 +31,9 @@ signal finished
 # properties
 var wait_time_seconds: float = 60.0
 
-# state
+# properties
 @onready var phase: State.Phase = State.round_data.phase
+var phase_panel_data: PhasePanelData
 
 # internal
 var _response_count: int = 0
@@ -54,8 +41,8 @@ var _elapsed_time: float = 0.0
 var _ended: bool = false
 
 # get data on initialization
-func init(_wait_time_seconds: float = 60.0, _phase: State.Phase = State.round_data.phase) -> PhasePanel:
-	phase = _phase
+func init(_phase_panel_data: PhasePanelData, _wait_time_seconds: float = 60.0) -> PhasePanel:
+	phase_panel_data = _phase_panel_data
 	wait_time_seconds = _wait_time_seconds
 	return self
 
@@ -65,20 +52,19 @@ func _ready() -> void:
 	time_remaining_bar.max_value = wait_time_seconds
 	time_remaining_bar.value = wait_time_seconds
 
-	# phase based initialization
+	# connect response signals per phase
 	match phase:
 		State.Phase.ACCUSATION:
-			# connect to new response signal
 			State.round_data.accusations.response_added.connect(_on_response_added)
-
-	# get phase data
-	var phase_data: PhasePanelData = phase_panels_data.get(phase)
+		State.Phase.DELIBERATION:
+			State.round_data.jury_votes.yea_voted.connect(_on_response_added)
+			State.round_data.jury_votes.nay_voted.connect(_on_response_added)
 
 	# setup ui labels
-	command_hint_label.text = phase_data.hint
+	command_hint_label.text = phase_panel_data.hint
 
 	# examples
-	if not phase_data.examples.is_empty():
+	if not phase_panel_data.examples.is_empty():
 		# show examples
 		examples.visible = true
 
@@ -91,7 +77,7 @@ func _ready() -> void:
 	else: examples.visible = false
 
 	# info
-	if phase_data.has_response_count: info.visible = true
+	if phase_panel_data.has_response_count: info.visible = true
 	else: info.visible = false
 
 func _process(delta: float) -> void:
@@ -144,14 +130,11 @@ func _on_response_added(_response: State.Response) -> void:
 #region Examples
 var _example_pool: Array[String] = []
 func _reset_example_pool() -> void:
-	# sets up the pool of examples for this phase
-	var phase_data: PhasePanelData = phase_panels_data.get(phase)
-
 	# no examples
-	if phase_data.examples.is_empty(): return
+	if phase_panel_data.examples.is_empty(): return
 
 	# get examples
-	_example_pool = phase_data.examples.duplicate()
+	_example_pool = phase_panel_data.examples.duplicate()
 
 	# randomize the order of examples
 	_example_pool.shuffle()
