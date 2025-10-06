@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cl37lpm48ih7m"]
+[gd_scene load_steps=29 format=3 uid="uid://cl37lpm48ih7m"]
 
 [ext_resource type="PackedScene" uid="uid://srsw82t30cm3" path="res://components/ui/splashscreen.tscn" id="1_15585"]
 [ext_resource type="Script" uid="uid://bi6hy400giofx" path="res://scenes/court.gd" id="1_h0b8m"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dg3blyov6hyfp" path="res://components/ui/phase_panel.tscn" id="8_i5cvy"]
 [ext_resource type="PackedScene" uid="uid://d3eelg2so4kqv" path="res://components/ui/accusation_selection.tscn" id="9_cn0p0"]
 [ext_resource type="PackedScene" uid="uid://c87qa76hw2ccl" path="res://components/ui/twitch_modal.tscn" id="10_d0d5a"]
+[ext_resource type="PackedScene" uid="uid://dcbjv822qrpqg" path="res://components/entities/chatters/zebra.tscn" id="11_b3dk5"]
 [ext_resource type="PackedScene" uid="uid://dp4ryhn48y62p" path="res://components/entities/chatters/elephant.tscn" id="16_c6ra0"]
 [ext_resource type="PackedScene" uid="uid://codxo4wyg8jko" path="res://components/entities/chatters/panda.tscn" id="17_revm4"]
 [ext_resource type="PackedScene" uid="uid://die18x7otjea6" path="res://components/entities/chatters/chicken.tscn" id="18_cn0p0"]
@@ -36,12 +37,12 @@ shader_parameter/outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Resource" id="Resource_h0b8m"]
 script = ExtResource("7_15585")
-duration = 0.5
+duration = 0.6
 transition = 1
 
 [sub_resource type="Resource" id="Resource_qqgq3"]
 script = ExtResource("7_15585")
-duration = 0.8
+duration = 0.4
 transition = 1
 
 [sub_resource type="Resource" id="Resource_qyj8n"]
@@ -52,19 +53,25 @@ transition = 1
 script = ExtResource("7_15585")
 transition = 1
 
-[node name="Court" type="Node3D" node_paths=PackedStringArray("cam_markers")]
+[node name="Court" type="Node3D" node_paths=PackedStringArray("cam_positions", "claimant_position", "defendant_position", "jury_positions", "gallery_positions")]
 script = ExtResource("1_h0b8m")
 speaking_balloon = ExtResource("2_5mv5b")
 speaking_dialogue = ExtResource("3_2768l")
 phase_panel_scene = ExtResource("8_i5cvy")
 accusation_selection_scene = ExtResource("9_cn0p0")
-cam_markers = {
-0: NodePath("Cameras/Judge Cam"),
-1: NodePath("Cameras/Claimant Cam"),
-2: NodePath("Cameras/Defendant Cam"),
-3: NodePath("Cameras/Panel Cam"),
-4: NodePath("Cameras/Jury Cam")
+cam_positions = {
+0: NodePath("Camera Positions/Judge Cam"),
+1: NodePath("Camera Positions/Claimant Cam"),
+2: NodePath("Camera Positions/Defendant Cam"),
+3: NodePath("Camera Positions/Gallery Cam"),
+4: NodePath("Camera Positions/Jury Cam"),
+5: NodePath("Camera Positions/Judge Cam Close")
 }
+characters = Array[PackedScene]([ExtResource("19_b3dk5"), ExtResource("18_cn0p0"), ExtResource("20_g8kxy"), ExtResource("16_c6ra0"), ExtResource("17_revm4"), ExtResource("11_b3dk5")])
+claimant_position = NodePath("Character Positions/Claimant Position")
+defendant_position = NodePath("Character Positions/Defendant Position")
+jury_positions = [NodePath("Character Positions/Jury/1"), NodePath("Character Positions/Jury/2"), NodePath("Character Positions/Jury/3"), NodePath("Character Positions/Jury/4"), NodePath("Character Positions/Jury/5"), NodePath("Character Positions/Jury/6"), NodePath("Character Positions/Jury/7"), NodePath("Character Positions/Jury/8"), NodePath("Character Positions/Jury/9"), NodePath("Character Positions/Jury/10")]
+gallery_positions = [NodePath("Character Positions/Gallery/1"), NodePath("Character Positions/Gallery/2"), NodePath("Character Positions/Gallery/3"), NodePath("Character Positions/Gallery/4"), NodePath("Character Positions/Gallery/5"), NodePath("Character Positions/Gallery/6"), NodePath("Character Positions/Gallery/7"), NodePath("Character Positions/Gallery/8"), NodePath("Character Positions/Gallery/9"), NodePath("Character Positions/Gallery/10"), NodePath("Character Positions/Gallery/11"), NodePath("Character Positions/Gallery/12")]
 crowd_murmur_sfx = ExtResource("2_c7axm")
 gavel_sfx = ExtResource("5_rnrgf")
 
@@ -97,39 +104,44 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_i1kge")
 surface_material_override/0 = SubResource("ShaderMaterial_3ufgy")
 
-[node name="Cameras" type="Node3D" parent="."]
+[node name="Camera Positions" type="Node3D" parent="."]
 
-[node name="Judge Cam" type="Node3D" parent="Cameras"]
+[node name="Judge Cam" type="Node3D" parent="Camera Positions"]
 unique_name_in_owner = true
 transform = Transform3D(-1, -1.51808e-08, 8.60946e-08, 0, 0.984808, 0.173648, -8.74228e-08, 0.173648, -0.984808, -2, 15, 1.5)
 script = ExtResource("6_qyj8n")
 tween_resource = SubResource("Resource_h0b8m")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="Claimant Cam" type="Node3D" parent="Cameras"]
+[node name="Judge Cam Close" type="Node3D" parent="Camera Positions"]
+unique_name_in_owner = true
+transform = Transform3D(-1, -1.51808e-08, 8.60946e-08, 0, 0.984808, 0.173648, -8.74228e-08, 0.173648, -0.984808, -2, 12.772806, 6.8268604)
+script = ExtResource("6_qyj8n")
+tween_resource = SubResource("Resource_h0b8m")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Claimant Cam" type="Node3D" parent="Camera Positions"]
 unique_name_in_owner = true
 transform = Transform3D(-1, 1.51808e-08, -8.60946e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, 12, 10, 6)
 script = ExtResource("6_qyj8n")
 tween_resource = SubResource("Resource_qqgq3")
-tween_on_load = false
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="Defendant Cam" type="Node3D" parent="Cameras"]
+[node name="Defendant Cam" type="Node3D" parent="Camera Positions"]
 unique_name_in_owner = true
 transform = Transform3D(-1, 1.51808e-08, -8.60946e-08, 0, 0.984808, 0.173648, 8.74228e-08, 0.173648, -0.984808, -16, 10, 6)
 script = ExtResource("6_qyj8n")
 tween_resource = SubResource("Resource_qqgq3")
-tween_on_load = false
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="Panel Cam" type="Node3D" parent="Cameras"]
+[node name="Gallery Cam" type="Node3D" parent="Camera Positions"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.9680209, 0.2508697, 0, -0.2508697, 0.9680209, 0.75, 18.75, 12.5)
 script = ExtResource("6_qyj8n")
 tween_resource = SubResource("Resource_qyj8n")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="Jury Cam" type="Node3D" parent="Cameras"]
+[node name="Jury Cam" type="Node3D" parent="Camera Positions"]
 unique_name_in_owner = true
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 18, 13, -7.5)
 script = ExtResource("6_qyj8n")
@@ -137,19 +149,82 @@ priority = 1
 tween_resource = SubResource("Resource_15585")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="Elephant" parent="." instance=ExtResource("16_c6ra0")]
-transform = Transform3D(-0.7972259, 0, 0.6036811, 0, 1, 0, -0.6036811, 0, -0.7972259, -16.261448, 3.6980867, 16.916775)
+[node name="Character Positions" type="Node3D" parent="."]
 
-[node name="Panda" parent="." instance=ExtResource("17_revm4")]
-transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, -11.7914, 2.5412579, -11.091156)
-
-[node name="Chicken" parent="." instance=ExtResource("18_cn0p0")]
-transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -31.435204, 3.446959, 4.799917)
-
-[node name="Bunny" parent="." instance=ExtResource("19_b3dk5")]
+[node name="Claimant Position" type="Marker3D" parent="Character Positions"]
 transform = Transform3D(-0.8194923, 0, -0.57309026, 0, 1, 0, 0.57309026, 0, -0.8194923, 11.771343, 3.2692766, 16.42095)
 
-[node name="Cow" parent="." instance=ExtResource("20_g8kxy")]
+[node name="Defendant Position" type="Marker3D" parent="Character Positions"]
+transform = Transform3D(-0.79722583, 0, 0.60368115, 0, 1, 0, -0.60368115, 0, -0.79722583, -16.261448, 3.6980867, 16.916775)
+
+[node name="Jury" type="Node3D" parent="Character Positions"]
+
+[node name="1" type="Marker3D" parent="Character Positions/Jury"]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -31.435204, 3.446959, 8.729975)
+
+[node name="2" type="Marker3D" parent="Character Positions/Jury"]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -31.435204, 3.446959, 4.799917)
+
+[node name="3" type="Marker3D" parent="Character Positions/Jury"]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -31.435204, 3.446959, 1.1730165)
+
+[node name="4" type="Marker3D" parent="Character Positions/Jury"]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -31.435204, 3.446959, -2.2039063)
+
+[node name="5" type="Marker3D" parent="Character Positions/Jury"]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -34.909523, 4.974532, 12.39653)
+
+[node name="6" type="Marker3D" parent="Character Positions/Jury"]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -34.909523, 4.974532, 8.855964)
+
+[node name="7" type="Marker3D" parent="Character Positions/Jury"]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -34.909523, 4.974532, 4.792495)
+
+[node name="8" type="Marker3D" parent="Character Positions/Jury"]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -34.909523, 4.974532, 1.1730165)
+
+[node name="9" type="Marker3D" parent="Character Positions/Jury"]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -34.909523, 4.974532, -2.4580731)
+
+[node name="10" type="Marker3D" parent="Character Positions/Jury"]
+transform = Transform3D(-0.008185458, 0, 0.9999665, 0, 1, 0, -0.9999665, 0, -0.008185458, -34.909523, 4.974532, -6.0837717)
+
+[node name="Gallery" type="Node3D" parent="Character Positions"]
+
+[node name="1" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, -25.252495, 2.5412579, -11.091156)
+
+[node name="2" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, -18.884789, 2.5412579, -11.091156)
+
+[node name="3" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, -11.7914, 2.5412579, -11.091156)
+
+[node name="4" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, -25.252495, 2.5412579, -16.148026)
+
+[node name="5" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, -18.884789, 2.5412579, -15.898819)
+
+[node name="6" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, -11.7914, 2.5412579, -15.86082)
+
+[node name="7" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9758482, 0, -0.21844983, 0, 1, 0, 0.21844983, 0, 0.9758482, 13.447212, 2.5366387, -10.855047)
+
+[node name="8" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9758482, 0, -0.21844983, 0, 1, 0, 0.21844983, 0, 0.9758482, 19.60464, 2.5366387, -10.855047)
+
+[node name="9" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9758482, 0, -0.21844983, 0, 1, 0, 0.21844983, 0, 0.9758482, 25.422249, 2.5366387, -10.855047)
+
+[node name="10" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9758482, 0, -0.21844983, 0, 1, 0, 0.21844983, 0, 0.9758482, 13.447212, 2.5366387, -15.101171)
+
+[node name="11" type="Marker3D" parent="Character Positions/Gallery"]
+transform = Transform3D(0.9758482, 0, -0.21844983, 0, 1, 0, 0.21844983, 0, 0.9758482, 19.60464, 2.5366387, -15.079748)
+
+[node name="12" type="Marker3D" parent="Character Positions/Gallery"]
 transform = Transform3D(0.9758482, 0, -0.21844983, 0, 1, 0, 0.21844983, 0, 0.9758482, 25.422249, 2.5366387, -15.023085)
 
 [connection signal="modal_finished" from="TwitchModal" to="." method="_on_twitch_modal_finished"]

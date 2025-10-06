@@ -2,7 +2,7 @@ extends CanvasLayer
 class_name AccusationSelectionUI
 
 # signals
-signal claim_proceeding(claim: State.ResponseAccusation)
+signal claim_selected(claim: State.ResponseAccusation)
 signal no_claims_selected
 
 # references
@@ -40,24 +40,20 @@ func _get_next_accusation() -> void:
 	# get next shuffled response
 	_current_accusation = State.round_data.accusations.responses.pop_back()
 
-	# accused name
-	var accused_name: String = _current_accusation.accused_name
-
 	# fetch accused twitch user
-	var user: TwitchUser = await Twitch.get_user(accused_name)
+	var user: TwitchUser = await Twitch.get_user(_current_accusation.accused_name)
 
 	# found user- check if in chat room
-	if user: 
+	if user:
 		# update accused name
-		accused_name = user.display_name
+		_current_accusation.accused_name = user.display_name
 
-		# is currently in chat
-		if user.id in _chatters: 
-			prints("FOUND USER")
+		# is currently in chat- store ID
+		if user.id in _chatters: _current_accusation.accuser_id = user.id
 
 	# setup UI form
 	accuser_name_label.text = _current_accusation.user_display_name
-	accused_name_label.text = accused_name
+	accused_name_label.text = _current_accusation.accused_name
 	claim_label.text = _current_accusation.message
 
 	# play page turn sound
@@ -88,7 +84,7 @@ func _on_proceed_button_pressed() -> void:
 
 func _on_clipboard_fully_hidden() -> void:
 	# accusation selected
-	if _selected: claim_proceeding.emit(_current_accusation)
+	if _selected: claim_selected.emit(_current_accusation)
 
 	# no accusation selected
 	else: no_claims_selected.emit()

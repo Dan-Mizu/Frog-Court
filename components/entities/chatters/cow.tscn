@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=4 uid="uid://w6ylo7rff0kc"]
+[gd_scene load_steps=6 format=4 uid="uid://w6ylo7rff0kc"]
 
 [ext_resource type="PackedScene" uid="uid://cawrxj7t3563d" path="res://assets/models/characters/cow/cow.glb" id="1_l6wc8"]
+[ext_resource type="Script" uid="uid://cw3nvf2suahr3" path="res://components/entities/chatters/chatter_character.gd" id="2_f4t66"]
 [ext_resource type="Texture2D" uid="uid://bw8yxin8a1j1a" path="res://assets/models/characters/cow/cow_0.png" id="2_vp1jf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f4t66"]
@@ -31,7 +32,9 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[node name="Cow" instance=ExtResource("1_l6wc8")]
+[node name="Cow" node_paths=PackedStringArray("animation_player") instance=ExtResource("1_l6wc8")]
+script = ExtResource("2_f4t66")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="Node" parent="." index="0"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -39,12 +42,12 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 [node name="Skeleton3D" parent="Node" index="0"]
 bones/0/position = Vector3(0, 3.8653915, 0)
 bones/0/rotation = Quaternion(1.8626451e-09, -3.0670053e-09, 0.7071068, 0.7071068)
-bones/2/rotation = Quaternion(1.1046946e-14, 1.1509336e-12, 0.004441751, 0.9999902)
-bones/6/rotation = Quaternion(0.008887976, 0.01985119, 0.98830426, -0.15093632)
-bones/7/rotation = Quaternion(0, -6.25705e-12, 0.015358316, 0.99988216)
+bones/2/rotation = Quaternion(2.9675609e-15, 1.1509334e-12, 0.0044417507, 0.9999901)
+bones/6/rotation = Quaternion(0, -2.3283064e-10, 0.9475275, -0.31967437)
+bones/7/rotation = Quaternion(-2.3283062e-10, -9.766332e-12, 0.015358314, 0.99988204)
 bones/8/rotation = Quaternion(3.0267984e-09, 0, -0.017848605, 0.99984074)
-bones/13/rotation = Quaternion(0.99074405, -0.1330717, -0.00960711, -0.025020711)
-bones/14/rotation = Quaternion(7.916244e-09, 8.336756e-12, 0.015358315, 0.99988216)
+bones/13/rotation = Quaternion(0.9482568, -0.31750447, -8.731149e-11, 3.2014214e-10)
+bones/14/rotation = Quaternion(7.4505815e-09, 1.4496215e-12, 0.015358315, 0.99988216)
 bones/15/rotation = Quaternion(-1.498847e-09, -4.6566123e-10, -0.017848609, 0.9998408)
 bones/20/rotation = Quaternion(0, 1.1410398e-25, 1, 2.8327693e-16)
 bones/21/rotation = Quaternion(0, 0, 0, 1)
@@ -55,3 +58,5 @@ mesh = SubResource("ArrayMesh_8igvg")
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Idle"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

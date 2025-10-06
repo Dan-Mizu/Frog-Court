@@ -19,3 +19,12 @@ Judge {{State.broadcaster_user.display_name}}: [do Utility.play_sound(gavel_sfx)
 Judge {{State.broadcaster_user.display_name}}: Well.[wait=1.] Looks like theres no complaints!
 Judge {{State.broadcaster_user.display_name}}: [do Utility.play_sound(gavel_sfx)]Court is adjourned early today!
 => END
+
+~ accusation_selected
+Judge {{State.broadcaster_user.display_name}}: Ah. Here's one. {{State.selected_accusation.user_display_name}} has a complaint against {{State.selected_accusation.accused_name}}.
+Judge {{State.broadcaster_user.display_name}}: {{State.selected_accusation.user_display_name}} and {{State.selected_accusation.accused_name}}! Please approach the stands.
+if State.selected_accusation.accuser_id.is_empty():
+	Judge {{State.broadcaster_user.display_name}}: [speed=.25]. . . [speed=1.][wait=1.][font_size=18]{{State.selected_accusation.accused_name}}?[/font_size]
+	Judge {{State.broadcaster_user.display_name}}: Well...[wait=.25] Looks like {{State.selected_accusation.accused_name}} is not joining us today.
+	Judge {{State.broadcaster_user.display_name}}: We will have to proceed to the jury verdict without them!
+=> END

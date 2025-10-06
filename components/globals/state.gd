@@ -3,6 +3,7 @@ extends Node
 # state
 var broadcaster_user: TwitchUser
 var round_data: RoundData = RoundData.new()
+var selected_accusation: ResponseAccusation
 
 #region Twitch Connection
 func connect_to_twitch() -> bool:
@@ -336,6 +337,7 @@ class ResponseMessage extends Response:
 class ResponseAccusation extends ResponseMessage:
 	# state
 	var accused_name: String
+	var accuser_id: String
 
 	# setup
 	func _init(_phase: Phase = Phase.NONE, _user_id: String = "", _user_display_name: String = "", _message: String = "", _accused_name: String = "", ) -> void:

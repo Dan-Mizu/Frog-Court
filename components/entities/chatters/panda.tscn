@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=4 uid="uid://codxo4wyg8jko"]
+[gd_scene load_steps=6 format=4 uid="uid://codxo4wyg8jko"]
 
 [ext_resource type="PackedScene" uid="uid://b5j5qt1cfl3nd" path="res://assets/models/characters/panda/panda.glb" id="1_0fige"]
+[ext_resource type="Script" uid="uid://cw3nvf2suahr3" path="res://components/entities/chatters/chatter_character.gd" id="2_1y1xs"]
 [ext_resource type="Texture2D" uid="uid://b28e6sl3l0tj4" path="res://assets/models/characters/panda/panda_0.png" id="2_273xw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1y1xs"]
@@ -31,19 +32,21 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[node name="Panda" instance=ExtResource("1_0fige")]
+[node name="Panda" node_paths=PackedStringArray("animation_player") instance=ExtResource("1_0fige")]
+script = ExtResource("2_1y1xs")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="Node" parent="." index="0"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Node" index="0"]
 bones/0/rotation = Quaternion(0, 0, 0.7071068, 0.7071068)
-bones/2/rotation = Quaternion(0, 0, 0.0044417507, 0.99999017)
+bones/2/rotation = Quaternion(0, 0, 0.0044417507, 0.9999901)
 bones/3/rotation = Quaternion(-2.719953e-10, 8.523128e-10, -0.706297, 0.7079157)
-bones/6/rotation = Quaternion(-0.015328186, 0.0036941876, 0.9897612, -0.14186019)
-bones/7/rotation = Quaternion(0, 0, 0.015358314, 0.9998821)
-bones/13/rotation = Quaternion(0.9908345, -0.13451146, -0.012347132, 0.0011292563)
-bones/14/rotation = Quaternion(7.449702e-09, 1.14428356e-10, 0.015358314, 0.9998821)
+bones/6/rotation = Quaternion(9.3132246e-10, -4.6566123e-10, 0.94752747, -0.31967434)
+bones/7/rotation = Quaternion(0, 0, 0.015358313, 0.99988204)
+bones/13/rotation = Quaternion(0.94825685, -0.31750444, -2.3283064e-10, -2.3283064e-10)
+bones/14/rotation = Quaternion(7.4497017e-09, 1.1442835e-10, 0.015358313, 0.99988204)
 bones/15/rotation = Quaternion(7.449394e-09, -1.3298251e-10, -0.01784861, 0.99984074)
 
 [node name="Panda" parent="Node/Skeleton3D" index="0"]
@@ -51,3 +54,5 @@ mesh = SubResource("ArrayMesh_1epf4")
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Idle"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
