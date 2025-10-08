@@ -106,6 +106,9 @@ func _on_accusation_phase_finished() -> void:
 
 # restart game
 func _restart() -> void:
+	# reset round data
+	State.round_data = State.RoundData.new()
+
 	# cleanup sound manager
 	SoundManager.cleanup_freed_players()
 

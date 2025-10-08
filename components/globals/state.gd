@@ -5,7 +5,7 @@ signal new_message_from_accused(message: String)
 
 # state
 var broadcaster_user: TwitchUser
-var round_data: RoundData = RoundData.new()
+@onready var round_data: RoundData = RoundData.new()
 
 #region Twitch Connection
 func connect_to_twitch() -> bool:
