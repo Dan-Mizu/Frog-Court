@@ -42,7 +42,7 @@ var active_control: Control
 var original_scale: Vector2
 var original_min_size: Vector2
 var tween: Tween
-var is_hovered: bool = false
+@onready var is_hovered: bool = false
 
 func _ready() -> void:
 	# Check if parent is a control

@@ -30,16 +30,16 @@ signal finished
 @export var hide_sfx: AudioStream
 
 # properties
-var wait_time_seconds: float = 60.0
+@onready var wait_time_seconds: float = 60.0
 
 # properties
 @onready var phase: State.Phase = State.round_data.phase
 var phase_panel_data: PhasePanelData
 
 # internal
-var _response_count: int = 0
-var _elapsed_time: float = 0.0
-var _ended: bool = false
+@onready var _response_count: int = 0
+@onready var _elapsed_time: float = 0.0
+@onready var _ended: bool = false
 
 # get data on initialization
 func init(_phase_panel_data: PhasePanelData, _wait_time_seconds: float = 60.0) -> PhasePanel:

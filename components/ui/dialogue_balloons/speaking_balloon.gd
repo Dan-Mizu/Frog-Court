@@ -28,16 +28,16 @@ func _on_hide() -> void:
 var resource: DialogueResource
 
 ## Temporary game states
-var temporary_game_states: Array = []
+@onready var temporary_game_states: Array = []
 
 ## See if we are waiting for the player
-var is_waiting_for_input: bool = false:
+@onready var is_waiting_for_input: bool = false:
 	set(value):
 		is_waiting_for_input = value
 		next_indicator.visible = value
 
 ## See if we are running a long mutation and should hide the balloon
-var will_hide_balloon: bool = false
+@onready var will_hide_balloon: bool = false
 
 ## A dictionary to store any ephemeral variables
 var locals: Dictionary = {}

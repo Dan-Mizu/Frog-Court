@@ -14,7 +14,8 @@ func _on_show() -> void:
 	SoundManager.play_sound(show_balloon_sfx.duplicate(), "UI")
 @export var hide_balloon_sfx: AudioStream
 func _on_hide() -> void:
-	SoundManager.play_sound(hide_balloon_sfx.duplicate(), "UI")
+	pass
+	#SoundManager.play_sound(hide_balloon_sfx.duplicate(), "UI")
 
 ## The label showing the name of the currently speaking character
 @onready var character_label: RichTextLabel = %CharacterLabel

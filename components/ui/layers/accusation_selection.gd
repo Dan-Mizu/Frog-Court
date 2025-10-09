@@ -16,7 +16,7 @@ signal no_claims_selected
 
 # internal
 var _current_accusation: State.ResponseAccusation
-var _selected: bool = false
+@onready var _selected: bool = false
 var _chatters: Array[String]
 
 # get first accusation

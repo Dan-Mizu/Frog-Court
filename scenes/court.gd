@@ -28,7 +28,7 @@ enum Cams {
 @export var gavel_sfx: AudioStream
 
 # phase panel data
-var phase_panels_data: Dictionary[State.Phase, PhasePanel.PhasePanelData] = {
+@onready var phase_panels_data: Dictionary[State.Phase, PhasePanel.PhasePanelData] = {
 	State.Phase.ACCUSATION: PhasePanel.PhasePanelData.new().init("!accuse <user> <claim>", [
 			"!accuse Nymn Didn't go live on time.",
 			"!accuse Erobb221 Scamming a charity.",
@@ -42,7 +42,7 @@ var phase_panels_data: Dictionary[State.Phase, PhasePanel.PhasePanelData] = {
 }
 
 # internal
-var crowd_murmur_sfx_player: AudioStreamPlayer
+@onready var crowd_murmur_sfx_player: AudioStreamPlayer = null
 
 # setup scene
 func _ready() -> void:
@@ -108,9 +108,6 @@ func _on_accusation_phase_finished() -> void:
 func _restart() -> void:
 	# reset round data
 	State.round_data = State.RoundData.new()
-
-	# cleanup sound manager
-	SoundManager.cleanup_freed_players()
 
 	# wait for it...
 	await get_tree().process_frame
@@ -244,7 +241,7 @@ func _get_character_from_id(_id: String) -> PackedScene:
 	# always give back the same character scene, given the same input
 	return characters[id % characters.size()]
 
-var _character_pool: Array[PackedScene]
+@onready var _character_pool: Array[PackedScene] = []
 func _get_random_character() -> PackedScene:
 	# refresh pool
 	if _character_pool.is_empty(): 

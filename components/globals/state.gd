@@ -4,7 +4,7 @@ extends Node
 signal new_message_from_accused(message: String)
 
 # state
-var broadcaster_user: TwitchUser
+@onready var broadcaster_user: TwitchUser = null
 @onready var round_data: RoundData = RoundData.new()
 
 #region Twitch Connection
@@ -303,7 +303,7 @@ class Votes extends Filtered:
 		nay_voted.emit(response)
 
 	func get_outcome() -> Outcome:
-		# yays have it
+		# yeas have it
 		if yea_count > nay_count: return Outcome.YEA
 
 		# nays have it

@@ -8,7 +8,7 @@ class_name PauseMenu
 @export var ui_volume_setting_slider: SettingSlider
 
 # internal
-var enabled = false
+@onready var enabled = false
 
 func _ready() -> void:
 	# hide on start
