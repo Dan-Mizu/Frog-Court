@@ -2,6 +2,7 @@ extends Node3D
 
 @export_category("References")
 @export var pause_menu: PauseMenu
+@export var fade_overlay_animation_player: AnimationPlayer
 @export var speaking_balloon: PackedScene
 @export var speaking_dialogue: DialogueResource
 @export var runtime_balloon: PackedScene
@@ -27,6 +28,9 @@ enum Cams {
 @export var crowd_gasp_sfx: AudioStream
 @export var gavel_sfx: AudioStream
 
+# internal
+@onready var _loaded_characters: Array[ChatterCharacter] = []
+
 # phase panel data
 @onready var phase_panels_data: Dictionary[State.Phase, PhasePanel.PhasePanelData] = {
 	State.Phase.ACCUSATION: PhasePanel.PhasePanelData.new().init("!accuse <user> <claim>", [
@@ -46,14 +50,42 @@ enum Cams {
 
 # setup scene
 func _ready() -> void:
-	# add gallery and jury characters
-	jury_positions.shuffle()
-	for i in range(randi_range(3, 4)): jury_positions[i].add_child(_get_random_character().instantiate())
-	gallery_positions.shuffle()
-	for i in range(randi_range(4, 6)): gallery_positions[i].add_child(_get_random_character().instantiate())
+	# add background characters
+	_setup_characters()
 
 	# play crowd murmur SFX
 	crowd_murmur_sfx_player = SoundManager.play_ambient_sound(crowd_murmur_sfx, 3.0, "Ambience")
+
+func _setup_characters() -> void:
+	# delete previous characters
+	for character in _loaded_characters: character.queue_free()
+	_loaded_characters.clear()
+
+	# add gallery and jury characters
+	jury_positions.shuffle()
+	for i in range(randi_range(3, 4)): 
+		var character: ChatterCharacter = _get_random_character().instantiate()
+		jury_positions[i].add_child(character)
+		_loaded_characters.append(character)
+	gallery_positions.shuffle()
+	for i in range(randi_range(4, 6)): 
+		var character: ChatterCharacter = _get_random_character().instantiate()
+		gallery_positions[i].add_child(_get_random_character().instantiate())
+		_loaded_characters.append(character)
+
+# restart game
+func _restart() -> void:
+	## reset round data
+	#State.round_data = State.RoundData.new()
+
+	## wait for it...
+	#await get_tree().process_frame
+
+	## restart the game
+	#get_tree().reload_current_scene()
+
+	# fade to black
+	fade_overlay_animation_player.play("fade_in")
 
 #region Events
 # start the game once fully authenticated with twitch and the modal is fully hidden
@@ -104,17 +136,6 @@ func _on_accusation_phase_finished() -> void:
 		# start judge dialogue
 		_play_dialogue("accusations_received").finished.connect(_start_accusation_selection)
 
-# restart game
-func _restart() -> void:
-	# reset round data
-	State.round_data = State.RoundData.new()
-
-	# wait for it...
-	await get_tree().process_frame
-
-	# restart the game
-	get_tree().reload_current_scene()
-
 # let judge pick an accusation
 func _start_accusation_selection() -> void:
 	# show accusation form clipboard UI
@@ -143,17 +164,18 @@ func _start_accusation_defense() -> void:
 	# show accuser's character
 	var accuser_character: ChatterCharacter = _get_character_from_id(State.round_data.selected_accusation.user_id).instantiate()
 	claimant_position.add_child(accuser_character)
+	_loaded_characters.append(accuser_character)
 
 	# switch to accuser cam and make them emote
 	_set_cam(Cams.CLAIMANT)
 	accuser_character.play_anim(ChatterCharacter.Anim.SAD)
 
-	# focus the accused when the focus on the accuser is finished
-	accuser_character.finished_animation.connect(func(_anim: ChatterCharacter.Anim): _on_finished_accuser_focus(), ConnectFlags.CONNECT_ONE_SHOT)
+	# play accuser dialogue
+	_play_dialogue("accuser_claim").finished.connect(_on_finished_accuser_focus)
 
 func _on_finished_accuser_focus() -> void:
 	# accused is not in chat- start deliberation phase instead
-	if State.round_data.selected_accusation.accuser_id.is_empty():
+	if State.round_data.selected_accusation.accused_id.is_empty():
 		# judge cam
 		_set_cam(Cams.JUDGE)
 
@@ -164,8 +186,9 @@ func _on_finished_accuser_focus() -> void:
 		return
 
 	# show accused's character
-	var accused_character: ChatterCharacter = _get_character_from_id(State.round_data.selected_accusation.accuser_id).instantiate()
+	var accused_character: ChatterCharacter = _get_character_from_id(State.round_data.selected_accusation.accused_id).instantiate()
 	defendant_position.add_child(accused_character)
+	_loaded_characters.append(accused_character)
 
 	# switch to accused cam
 	_set_cam(Cams.DEFENDANT)
@@ -181,6 +204,9 @@ func _on_finished_accuser_focus() -> void:
 	var defendant_balloon: RuntimeBalloon = runtime_balloon.instantiate()
 	self.add_child(defendant_balloon)
 	phase_panel.hiding.connect(func(): defendant_balloon.animation_player.play("hide"))
+
+	# notify twitch chat
+	Twitch.chat("/me 🛡️ @%s, defend yourself!" % State.round_data.selected_accusation.accused_name)
 
 func _on_defense_phase_finished() -> void:
 	# update phase
@@ -217,19 +243,45 @@ func _on_deliberation_phase_finished() -> void:
 
 	# judge delivers final verdict
 	_play_dialogue("deliberation_over").finished.connect(_restart)
+
+func _on_fade_in() -> void:
+	# reset round data
+	State.round_data = State.RoundData.new()
+
+	# reset characters
+	_setup_characters()
+
+	# change cam
+	_set_cam(Cams.JURY, _on_cam_reset)
+
+func _on_cam_reset() -> void:
+	# fade from black
+	fade_overlay_animation_player.play("fade_out")
+
+func _on_fade_out() -> void:
+	# change cam
+	_set_cam(Cams.JUDGE)
+
+	# start new day dialogue
+	_play_dialogue("another_day").finished.connect(_start_accusation_phase)
+
+	# enable pause menu
+	pause_menu.enabled = true
 #endregion
 
 #region Utility
 func _play_dialogue(dialogue: StringName) -> DialogueBalloon: return DialogueManager.show_dialogue_balloon_scene(speaking_balloon, speaking_dialogue, dialogue) as DialogueBalloon
 
-func _set_cam(cam: Cams) -> void:
+func _set_cam(cam: Cams, call_once: Callable = func(): pass ) -> void:
 	# loop through all registered camera markers
 	for cam_key in cam_positions:
 		# get phantom camera 3d node (camera marker)
 		var phantom_camera_3d: PhantomCamera3D = cam_positions.get(cam_key) as PhantomCamera3D 
 
 		# switch to the provided one
-		if cam_key == cam: phantom_camera_3d.priority = 1
+		if cam_key == cam: 
+			phantom_camera_3d.priority = 1
+			phantom_camera_3d.tween_completed.connect(call_once, ConnectFlags.CONNECT_ONE_SHOT)
 
 		# reset all others
 		else: phantom_camera_3d.priority = 0

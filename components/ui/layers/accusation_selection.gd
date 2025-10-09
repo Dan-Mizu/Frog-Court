@@ -49,7 +49,7 @@ func _get_next_accusation() -> void:
 		_current_accusation.accused_name = user.display_name
 
 		# is currently in chat- store ID
-		if user.id in _chatters: _current_accusation.accuser_id = user.id
+		if user.id in _chatters: _current_accusation.accused_id = user.id
 
 	# setup UI form
 	accuser_name_label.text = _current_accusation.user_display_name

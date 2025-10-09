@@ -162,11 +162,17 @@ func _on_chat_message(event: TwitchEventsub.Event) -> void:
 	var chat_message: TwitchChatMessage = TwitchChatMessage.from_json(event.data)
 
 	# not the defendant
-	if chat_message.chatter_user_id != round_data.selected_accusation.accuser_id: return
+	if chat_message.chatter_user_id != round_data.selected_accusation.accused_id: return
+
+	## ignore every non-normal message
+	#if chat_message.message_type != TwitchChatMessage.MessageType.text: return
+
+	# ignore replies
+	if chat_message.reply != null: return
 
 	# get message text
 	var text: String = chat_message.message.text.strip_edges()
-	if text.is_empty(): return
+	if text.is_empty() or text.begins_with("ACTION "): return
 
 	# emit defendant message event
 	new_message_from_accused.emit(text)
@@ -336,7 +342,7 @@ class ResponseMessage extends Response:
 class ResponseAccusation extends ResponseMessage:
 	# state
 	var accused_name: String
-	var accuser_id: String
+	var accused_id: String
 
 	# setup
 	func _init(_phase: Phase = Phase.NONE, _user_id: String = "", _user_display_name: String = "", _message: String = "", _accused_name: String = "", ) -> void:
