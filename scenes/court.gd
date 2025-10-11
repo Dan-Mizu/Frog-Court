@@ -58,7 +58,7 @@ func _ready() -> void:
 
 func _setup_characters() -> void:
 	# delete previous characters
-	for character in _loaded_characters: character.queue_free()
+	for old_character in _loaded_characters: old_character.free()
 	_loaded_characters.clear()
 
 	# add gallery and jury characters
@@ -70,20 +70,11 @@ func _setup_characters() -> void:
 	gallery_positions.shuffle()
 	for i in range(randi_range(4, 6)): 
 		var character: ChatterCharacter = _get_random_character().instantiate()
-		gallery_positions[i].add_child(_get_random_character().instantiate())
+		gallery_positions[i].add_child(character)
 		_loaded_characters.append(character)
 
 # restart game
 func _restart() -> void:
-	## reset round data
-	#State.round_data = State.RoundData.new()
-
-	## wait for it...
-	#await get_tree().process_frame
-
-	## restart the game
-	#get_tree().reload_current_scene()
-
 	# fade to black
 	fade_overlay_animation_player.play("fade_in")
 
@@ -110,7 +101,7 @@ func _start_accusation_phase() -> void:
 	phase_panel.finished.connect(_on_accusation_phase_finished)
 
 	# notify twitch chat
-	Twitch.chat("/me 📣 Accusation phase has begun. Type !accuse <user> <claim>")
+	Twitch.announcment("📣 Accusation phase has begun. Type !accuse <user> <claim>")
 
 # reviewing results of claim phase
 func _on_accusation_phase_finished() -> void:
@@ -206,7 +197,7 @@ func _on_finished_accuser_focus() -> void:
 	phase_panel.hiding.connect(func(): defendant_balloon.animation_player.play("hide"))
 
 	# notify twitch chat
-	Twitch.chat("/me 🛡️ @%s, defend yourself!" % State.round_data.selected_accusation.accused_name)
+	Twitch.announcment("🛡️ @%s, defend yourself!" % State.round_data.selected_accusation.accused_name)
 
 func _on_defense_phase_finished() -> void:
 	# update phase
@@ -229,7 +220,7 @@ func _start_deliberation_phase() -> void:
 	phase_panel.finished.connect(_on_deliberation_phase_finished)
 
 	# notify twitch chat
-	Twitch.chat("/me 🗳️ Deliberation phase has begun. Type !yea or !nay if the defendant is guilty or not.")
+	Twitch.announcment("🗳️ Deliberation phase has begun. Type !yea or !nay if the defendant is guilty or not.")
 
 func _on_deliberation_phase_finished() -> void:
 	# update phase
